@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表單提交結果</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>表單提交結果</h1>
+  <% for (let i = 0; i < results.length; i++) { %>
+    <table>
+      <tr>
+        <th>language_req</th>
+        <th>NUM</th>
+
+        <!-- 其他欄位依此類推 -->
+      </tr>
+      <tr>
+        <td><%= results[i].language_req %></td>
+        <td><%= results[i].N %></td>
+      
+        <!-- 其他欄位依此類推 -->
+      </tr>
+    </table>
+    <br>
+  <% } %>
+</body>
+</html>

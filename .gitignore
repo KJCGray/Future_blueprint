@@ -1,0 +1,8 @@
+/node_modules
+
+/frontend/Future_blueprint/node_modules
+/frontend/Future_blueprint/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+/backend/node-express/node_modules

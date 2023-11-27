@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表單提交結果</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>表單提交結果</h1>
+  <% for (let i = 0; i < results.length; i++) { %>
+    <table>
+      <tr>
+        <th>Serial Number</th>
+        <th>Company Name</th>
+        <th>Company Type Number</th>
+        <th>Company Type</th>
+        <th>Company URL</th>
+        <th>Job Name</th>
+        <th>Nature of Position</th>
+        <th>Job L Class</th>
+        <th>Job M Class</th>
+        <th>Job S Class</th>
+        <th>Job Number</th>
+        <th>Job Content</th>
+        <th>Update Date</th>
+        <th>Job URL</th>
+        <th>Label</th>
+        <th>Company Address</th>
+        <th>Area</th>
+        <th>Experience</th>
+        <th>Education</th>
+        <th>Job Experience</th>
+        <th>Academic Requirements</th>
+        <th>Major Requirements</th>
+        <th>Language Requirements</th>
+        <th>Tool Expectations</th>
+        <th>Job Skill</th>
+        <th>Other</th>
+        <!-- 其他欄位依此類推 -->
+      </tr>
+      <tr>
+        <td><%= results[i].serial_number %></td>
+        <td><%= results[i].company_name %></td>
+        <td><%= results[i].company_numcompany_typeNum %></td>
+        <td><%= results[i].company_type %></td>
+        <td><%= results[i].company_url %></td>
+        <td><%= results[i].job_name %></td>
+        <td><%= results[i].Nature_of_position %></td>
+        <td><%= results[i].job_L_class %></td>
+        <td><%= results[i].job_M_class %></td>
+        <td><%= results[i].job_S_class %></td>
+        <td><%= results[i].job_num %></td>
+        <td><%= results[i].job_content %></td>
+        <td><%= results[i].update_date %></td>
+        <td><%= results[i].job_url %></td>
+        <td><%= results[i].label %></td>
+        <td><%= results[i].company_address %></td>
+        <td><%= results[i].area %></td>
+        <td><%= results[i].exp %></td>
+        <td><%= results[i].edu %></td>
+        <td><%= results[i].job_exp %></td>
+        <td><%= results[i].Academic_requirements %></td>
+        <td><%= results[i].Major_requirements %></td>
+        <td><%= results[i].language_req %></td>
+        <td><%= results[i].tool_expect %></td>
+        <td><%= results[i].job_skill %></td>
+        <td><%= results[i].other %></td>
+        <!-- 其他欄位依此類推 -->
+      </tr>
+    </table>
+    <br>
+  <% } %>
+</body>
+</html>

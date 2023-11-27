@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>User</title>
+</head>
+
+<body>
+  <h1>User</h1>
+  <table border="1">
+    <tr>
+      <th>tel</th>
+      <th>Name</th>
+    </tr>
+    <% for(let i = 0; i < user.length; i++) { %>
+      <tr>
+        <td><%= user[i].tel %></td>
+        <td><%= user[i].name %></td>
+      </tr>
+    <% }; %>
+  </table>
+</body>
+
+</html>
