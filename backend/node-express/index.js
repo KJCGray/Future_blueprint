@@ -20,7 +20,6 @@ app.get('/', (req, res) => {
 });
 app.get('/getDB', getDataController.getAll);
 app.get('/getDB/:id', getDataController.get);
-app.get('/test', )
 app.post('/getDB', getDataController.post);
 
 app.get('/home',(req, res) => {
