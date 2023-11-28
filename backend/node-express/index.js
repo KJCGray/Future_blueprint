@@ -1,7 +1,6 @@
 const express = require('express');
 let bodyParser = require('body-parser');
 const getDataController = require('./controllers/getDataController');
-const testControllers =  require('./controllers/testController');
 const homeDataController = require('./controllers/homeController');
 const db = require('./db')
 
