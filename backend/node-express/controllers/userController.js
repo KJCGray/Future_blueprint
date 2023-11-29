@@ -84,7 +84,7 @@ const userController = {
         }
         req.session.username = user.username;
         
-        res.render('index');
+        res.render('index', { username: req.session.username });
       });
     })
   },
