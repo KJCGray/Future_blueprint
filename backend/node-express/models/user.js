@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = require('../peidb');
 
 // 建立一個 userModel 物件，裡面放存取資料的方法（function）
 const userModel = {
