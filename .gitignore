@@ -1,7 +1,7 @@
 /node_modules
 
-/frontend/Future_blueprint/node_modules
-# /frontend/Future_blueprint/.pnp
+/frontend/Futureblueprint/node_modules
+/frontend/Futureblueprint/.pnp
 .pnp.js
 .yarn/install-state.gz
 
