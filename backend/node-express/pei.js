@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const yourPassword = "someRandomPasswordHere";
 // 建立一個不易產生衝突的 port 用來測試
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const crypto = require('crypto');
 const secret = crypto.randomBytes(32).toString('hex');
 app.use(express.urlencoded({ extended: false }));
