@@ -24,7 +24,7 @@ app.post('/getDB', getDataController.post);
 app.get('/home',(req, res) => {
     res.render('home')
 });
-app.post('/home', homeDataController.postSkill);
+app.post('/home', homeDataController.post);
 
 
 app.listen(port, () => {
