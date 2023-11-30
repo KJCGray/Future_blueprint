@@ -1,6 +1,7 @@
 import pandas as pd #這個要pip install pandas
 import mysql.connector #這個要pip install mysql.connector
 import sys
+import numpy as np
 
 # 設置輸出編碼為 UTF-8
 sys.stdout.reconfigure(encoding='utf-8')
@@ -14,10 +15,18 @@ mysql_config = {
 
 
 # 讀取 CSV 檔案
-csv_file_path = '20231116.csv'
-df = pd.read_csv(csv_file_path, dtype={'column_19': 'str', 'column_20': 'str', 'column_21': 'str', 'column_22': 'str', 'column_23': 'str', 'column_24': 'str'})
+csv_file_path = '20231128.xlsx'
+df = pd.read_excel(csv_file_path, dtype={'column_19': 'str', 'column_20': 'str', 'column_21': 'str', 'column_22': 'str', 'column_23': 'str', 'column_24': 'str'})
 
-df.fillna('', inplace=True)
+# with open(csv_file_path, 'r', encoding='utf-8', errors=' ') as file:
+#     try:
+#         df = pd.read_csv(file, dtype={'column_19': 'str', 'column_20': 'str', 'column_21': 'str', 'column_22': 'str', 'column_23': 'str', 'column_24': 'str'})
+#     except pd.errors.ParserError as e:
+#         print(f"Error parsing CSV file: {e}")
+#         pass
+
+df.fillna(np.nan, inplace=True)
+# df.fillna('', inplace=True)
 # 連接到 MySQL 資料庫
 conn = mysql.connector.connect(**mysql_config)
 cursor = conn.cursor()
@@ -34,20 +43,25 @@ cursor.execute(create_table_query)
 # 將數據插入到 MySQL 表格中
 cnt = 0
 for index, row in df.iterrows():
+    
     check_query = f"SELECT COUNT(*) FROM work WHERE job_num = '{row[columnsName[10]]}' AND job_url = '{row[columnsName[13]]}';"
     cursor.execute(check_query)
     result = cursor.fetchone()
     cnt+=1
     if result[0] == 0:
         # 如果資料庫中不存在相同的資料，則執行插入
+        row = tuple(None if pd.isna(value) else value for value in row)
         insert_query = f'INSERT INTO work VALUES ({", ".join(["%s" for _ in row])});'
         cursor.execute(insert_query, tuple(row))
+        # insert_query = f'INSERT INTO work VALUES ({", ".join(["%s" for _ in row])});'
+        # cursor.execute(insert_query, tuple(row))
 
     else:
         print(f"Data already exists for row {index + 1}. Skipping insertion.")
-    if cnt == 10000 : break #輸入10000筆結束
-    #不知道為甚麼直接跑完他會一筆都傳不上去，也可能是我沒完整跑完過(我每次跑10000多就ctrl+C)
-    #又或者是資料太多來不及判斷再傳上去
+        # print(check_query)
+    # if cnt == 599 : 
+        # print(check_query)
+        # break 
 
     # if cnt == 10 : break; 
 

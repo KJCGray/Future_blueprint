@@ -20,8 +20,8 @@ const workDataController = {
         })
       },
       postSkill:(req, res) => {
-        var arr = {"job_L_class": req.body.job_L_class, "job_M_class": req.body.job_M_class, "job_S_class": req.body.job_S_class, "area": req.body.area};
-        workDataModel.postSkill(arr, (err, results) => {
+        var arr = {"job_L_class": req.body.job_L_class,"area": req.body.area};
+        workDataModel.language(arr, (err, results) => {
           if (err) console.log(err);
           if(results && results.length >0){
             res.render('SkillResults', {
@@ -33,7 +33,8 @@ const workDataController = {
             // console.log('資料庫沒有回傳資料');
             res.render('NoDb');
           }
-        })
+        });
+        
       },
 }
 
