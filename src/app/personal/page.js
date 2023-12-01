@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div className='w-screen h-screen m-0 bg-white'>
       <SearchBar/>
-      <Userdata/>             
+      <Userdata/>          
     </div>
   )
 }
