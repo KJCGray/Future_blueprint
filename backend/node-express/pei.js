@@ -21,13 +21,21 @@ app.use(session({
 }));
 
 app.use(flash());
-
+app.use((req, res, next) => {
+	//放在 res.locals 裡的資料，所有的 view 都可以存取。
+  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
+  res.locals.errorMessage = req.flash('errorMessage')  // 設定 warning_msg 訊息
+  next()
+})
 //設定view engine
 app.set('view engine','ejs')
 
 // 建立首頁
 app.get('/', (req, res) => {
-  res.render('index')
+  if(req.session.username == null){
+    req.session.username = undefined
+  }
+  res.render('index', {username:req.session.username});
 })
 
 bcrypt.hash(yourPassword, saltRounds, function(err, hash) {
