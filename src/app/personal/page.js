@@ -7,7 +7,12 @@ const page = () => {
   return (
     <div className='w-screen h-screen m-0 bg-white'>
       <SearchBar/>
-      <Userdata/>          
+      <div className='flex items-center justify-center mt-20'>
+        <div className='mr-32'>
+          <Btnbar/>  
+        </div>
+          <Userdata/>
+      </div>
     </div>
   )
 }
