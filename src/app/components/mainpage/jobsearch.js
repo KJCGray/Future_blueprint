@@ -11,6 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Box from "@mui/material/Box";
+import Searchresult from "./searchresult";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,7 +23,49 @@ const MenuProps = {
     },
   },
 };
-
+const Jobdata = [
+{
+  job_num: 1,
+  job_name: "【太陽蕃茄拉麺】外場營運主管(薪45000元起）",
+  serial_name: "綠洲餐飲管理顧問股份有限公司",
+  company_type: "餐館業",
+  area: "台北市中正區",
+  exp: "3年以上",
+  edu: "高中",
+  job_L_class: "經營／人資類",
+  job_M_class: "經營／幕僚類人員",
+  job_S_class: "經營管理主管",
+  job_content: "",
+  update_date: "11/18",
+},
+{
+  job_num: 2,
+  job_name: "大埔鐵板燒-公館店 店長/儲備幹部",
+  serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+  company_type: "餐館業",
+  area: "台北市中正區",
+  exp: "經歷不拘",
+  edu: "學歷不拘",
+  job_L_class: "經營／人資類",
+  job_M_class: "經營／幕僚類人員",
+  job_S_class: "經營管理主管",
+  job_content: "",
+  update_date: "11/18",
+},
+{
+  job_num: 3,
+  job_name: "鍋in 百元風味火鍋 店長/儲備幹部 公館店",
+  serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+  company_type: "餐館業",
+  area: "台北市中正區",
+  exp: "經歷不拘",
+  edu: "學歷不拘",
+  job_L_class: "經營／人資類",
+  job_M_class: "經營／幕僚類人員",
+  job_S_class: "經營管理主管",
+  job_content: "",
+  update_date: "11/18",
+}];
 const names = [
   "台北市",
   "新北市",
@@ -82,9 +125,9 @@ const Jobsearch = () => {
   };
 
   return (
-    <div>
+    <div className="w-auto h-auto">
       <FormControl sx={{ m: 1, width: 400 }}>
-        <TextField label="搜尋職缺" />
+        <TextField label="輸入職缺" />
       </FormControl>
       <div className="flex">
         <FormControl sx={{ m: 1, width: 250 }}>
@@ -154,6 +197,7 @@ const Jobsearch = () => {
           </Fab>
         </Box>
       </div>
+      <Searchresult Jobdata={Jobdata} />
     </div>
   );
 };
