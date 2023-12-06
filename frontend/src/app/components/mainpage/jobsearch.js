@@ -13,6 +13,7 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Box from "@mui/material/Box";
 import Searchresult from "./searchresult";
 import Recommendskills from "./recommendskills";
+import axios from "axios";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -113,7 +114,20 @@ const Jobsearch = () => {
   const [areaName, setAreaName] = React.useState([]);
   const [jobName, setJobName] = React.useState([]);
   const [styleName, setStyleName] = React.useState([]);
-
+  
+async function fetchjobs(){
+    try {
+      const response = await axios.post(`http://localhost:5000/api/searchwork`, {
+        job_L_class: jobName,
+        job_type: styleName,
+        area: areaName,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
   const handleareaChange = (event) => {
     const {
       target: { value },
@@ -209,7 +223,7 @@ const Jobsearch = () => {
           </Select>
         </FormControl>
         <Box sx={{ "& > :not(style)": { m: 1 }, width: "120px", height: "30px" }}>
-          <Fab variant="extended">
+          <Fab variant="extended" onClick={fetchjobs}>
             <NavigationIcon sx={{ fontSize: "1.2rem", mr: 1 }} />
             搜尋
           </Fab>
