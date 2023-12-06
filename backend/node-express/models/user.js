@@ -18,7 +18,7 @@ const userModel = {
   //登入->讀取user功能
   get: (username, cb) => {
     db.query(
-      'SELECT * FROM users WHERE username = ? AND password = ?', [username],[password], (err, results) => {
+      'SELECT * FROM users WHERE username = ?', [username], (err, results) => {
         if (err) return cb(err);
         cb(null, results[0]);
       });
