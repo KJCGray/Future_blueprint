@@ -1,12 +1,11 @@
 const db = require('../db')
 
-var ALLColumnName = ['serial_number', 'company_name', 'company_numcompany_typeNum', 'company_type', 'company_url', 'job_name', 'Nature_of_position', 'job_L_class', 'job_M_class', 'job_S_class', 'job_num', 'job_content', 'update_date', 'job_url', 'label', 'company_address', 'area', 'exp', 'edu', 'job_exp', 'Academic_requirements', 'Major_requirements', 'language_req', 'tool_expect', 'job_skill', 'other']
+var lanName = ["英文", "越文", "日文", "中文", "西班牙文", "泰文", "菲律賓文", "韓文", "其他外文", "不拘" ]
+var label = ["略懂", "中等","精通"]
 
-var search = "";
-
-const workDataModel ={
-    post: (SelectList, cb) => {
-        var SelectStr = "SELECT * FROM work ";
+const languageDataModel = {
+    postlanguage: (SelectList, Languagelabel, cb) => {
+        var SelectStr = "SELECT COUNT(*) AS "+Languagelabel+" FROM work ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
             if(value != "不限" && typeof value !== 'undefined'){
@@ -18,16 +17,21 @@ const workDataModel ={
                 SelectStr = SelectStr + ` ${key} LIKE '%${value}%' `;
             }
         }
-        searchstr = SelectStr;
-        console.log(SelectStr);
+
+        SelectStr = SelectStr + ` AND language_req LIKE '%${Languagelabel}%' `;
+        // console.log(SelectStr);
+        
+        
+        
+        // Sqlstr = Sqlstr + " ORDER BY job_count DESC;"
         db.query(SelectStr, (err, results) => {
             if (err) return cb(err);
             // console.log(results);
             cb(null, results)
         })
     },
-    postlanguage: (SelectList, cb) => {
-        // var SelectStr = "SELECT language_req, COUNT(job_num) AS N FROM work ";
+    postALLlanguage : (SelectList, Languagelabel, cb) => {
+        var SelectStr = "SELECT "+Languagelabel+", COUNT("+Languagelabel+") AS CNT"+" FROM joblaguage ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
             if(value != "不限" && typeof value !== 'undefined'){
@@ -39,21 +43,28 @@ const workDataModel ={
                 SelectStr = SelectStr + ` ${key} LIKE '%${value}%' `;
             }
         }
+
+        SelectStr = SelectStr + "GROUP BY "+Languagelabel+" HAVING "+Languagelabel+" <> '0'"+" ORDER BY CNT DESC;";
         console.log(SelectStr);
-        // SelectStr = SelectStr + "GROUP BY language_req ORDER BY N DESC;"
+        
+        
+        
+        // Sqlstr = Sqlstr + " ORDER BY job_count DESC;"
         db.query(SelectStr, (err, results) => {
             if (err) return cb(err);
-            // console.log(results);
+            console.log("DB");
+            console.log(results);
             cb(null, results)
         })
+        
     }
 }
 
-module.exports = workDataModel
+module.exports = languageDataModel
+
 
 // SELECT DISTINCT
-//     英文聽,COUNT(英文聽) AS CNT
-//  FROM joblaguage, work
-//  WHERE work.job_url = joblaguage.job_url AND work.area LIKE '%台北市%'
-//  GROUP BY 英文聽
-//  ORDER BY CNT DESC;
+//    英文聽,COUNT(英文聽) AS CNT
+// FROM joblaguage
+// GROUP BY 英文聽
+// ORDER BY CNT DESC;
