@@ -44,6 +44,9 @@ app.post('/home', homeDataController.postlanguage);
 app.get('/home/next', homeDataController.postALLlanguage);
 
 
+app.post('/api/searchwork',homeDataController.post);
+
+
 app.listen(port, () => {
     try{
         db.connect()
