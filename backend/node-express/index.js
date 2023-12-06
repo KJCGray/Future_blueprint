@@ -3,6 +3,8 @@ let bodyParser = require('body-parser');
 const getDataController = require('./controllers/getDataController');
 const homeDataController = require('./controllers/homeController');
 const db = require('./db')
+const cors = require('cors');
+
 
 
 const app = express();
@@ -28,6 +30,8 @@ app.use(session({
     username: null,
     isLogin: false
 }));
+
+app.use(cors());
 
 
 app.get('/', (req, res) => {

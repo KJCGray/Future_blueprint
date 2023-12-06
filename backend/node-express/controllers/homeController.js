@@ -6,11 +6,14 @@ const lanName = ["英文", "越文", "日文", "中文", "西班牙文", "泰文
 
 const homeController = {
     post: (req, res) => {
-        var arr = {"job_L_class": req.body.job_L_class, "job_type": req.body.job_type, "job_S_class": req.body.job_S_class, "area": req.body.area};
+        var str = req.body.job_L_class;
+        var tmp = str.split(',')
+        var arr = {"job_L_class": req.body.job_L_class, "job_type": req.body.job_type, "area": req.body.area};
+        console.log(tmp);
         workDataModel.post(arr, (err, results) => {
           if (err) console.log(err);
           if(results && results.length >0){
-            console.log(results);
+            // console.log(results);
             res.json(results);
             // res.render('results', {
             //   // 注意回傳的結果 array，必須取 results[0] 才會是一個 todo
