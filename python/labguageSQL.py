@@ -15,7 +15,7 @@ mysql_config = {
 
 
 # 讀取 CSV 檔案
-csv_file_path = '20231128_language.xlsx'
+csv_file_path = '20231128_language_withOtherInfo.xlsx'
 df = pd.read_excel(csv_file_path, dtype={'column_19': 'str', 'column_20': 'str', 'column_21': 'str', 'column_22': 'str', 'column_23': 'str', 'column_24': 'str'})
 
 # with open(csv_file_path, 'r', encoding='utf-8', errors=' ') as file:
@@ -36,8 +36,8 @@ columns = ', '.join([f'{col} LONGTEXT' for col in df.columns])
 
 columnsName = [col for col in df.columns] #所有欄位名字的陣列
 
-# print(columnsName)
-# k
+print(columnsName)
+
 
 # 建立 MySQL 表格
 create_table_query = f'CREATE TABLE IF NOT EXISTS jobLaguage ({columns});'
