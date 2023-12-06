@@ -8,13 +8,18 @@ const languageDataModel = {
         var SelectStr = "SELECT COUNT(*) AS "+Languagelabel+" FROM work ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
-            if(value != "不限" && typeof value !== 'undefined'){
+            if(value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
-                    SelectStr+="WHERE";
+                    SelectStr+="WHERE (";
                     flag = 1;
                 }
-                else SelectStr+="AND";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value}%' `;
+                else SelectStr+="AND ( ";
+                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                for(var i = 1; i < value.length; i++){
+                    console.log(value[i]);
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                }
+                SelectStr = SelectStr + ") ";
             }
         }
 
@@ -34,13 +39,18 @@ const languageDataModel = {
         var SelectStr = "SELECT "+Languagelabel+", COUNT("+Languagelabel+") AS CNT"+" FROM joblaguage ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
-            if(value != "不限" && typeof value !== 'undefined'){
+            if(value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
-                    SelectStr+="WHERE";
+                    SelectStr+="WHERE (";
                     flag = 1;
                 }
-                else SelectStr+="AND";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value}%' `;
+                else SelectStr+="AND ( ";
+                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                for(var i = 1; i < value.length; i++){
+                    console.log(value[i]);
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                }
+                SelectStr = SelectStr + ") ";
             }
         }
 

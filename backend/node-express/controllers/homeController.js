@@ -6,10 +6,14 @@ const lanName = ["英文", "越文", "日文", "中文", "西班牙文", "泰文
 
 const homeController = {
     post: (req, res) => {
-        var str = req.body.job_L_class;
-        var tmp = str.split(',')
-        var arr = {"job_L_class": req.body.job_L_class, "job_type": req.body.job_type, "area": req.body.area};
-        console.log(tmp);
+        var str = Array.isArray(req.body.job_L_class) ? req.body.job_L_class.join(',') : req.body.job_L_class;
+        var tmpJobClass = str.split(',');
+        str = Array.isArray(req.body.job_type) ? req.body.job_type.join(',') : req.body.job_type;
+        var tmpJobType = str.split(',');
+        str = Array.isArray(req.body.area) ? req.body.area.join(',') : req.body.area;
+        var tmpArea = str.split(',');
+        var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+        // console.log(tmp.length);
         workDataModel.post(arr, (err, results) => {
           if (err) console.log(err);
           if(results && results.length >0){
