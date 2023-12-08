@@ -58,7 +58,7 @@ for index, row in df.iterrows():
 
     else:
         print(f"Data already exists for row {index + 1}. Skipping insertion.")
-        # print(check_query)
+        print(check_query)
     # if cnt == 599 : 
         # print(check_query)
         # break 
