@@ -2,10 +2,19 @@
 var mysql = require('mysql');
 
 // 建立連線
+// var connection = mysql.createConnection({
+//   host: '127.0.0.1',
+//   user: 'root',
+//   password: "",
+//   database: 'test'
+// });
+
+// 
+
 var connection = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: "",
+  host: '140.136.151.140',
+  user: 'test',
+  password: "Futureblueprint1234",
   database: 'test'
 });
 
@@ -16,12 +25,6 @@ var connection = mysql.createConnection({
 //   database: 'test'
 // });
 
-// var connection = mysql.createConnection({
-//   host: '192.168.0.124',
-//   user: 'futureBlueprint',
-//   password: 'draw',
-//   database: 'dyfb'
-// });
 
 
 module.exports = connection;

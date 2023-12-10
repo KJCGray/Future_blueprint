@@ -37,9 +37,10 @@ app.use(cors());
 app.get('/', (req, res) => {
   res.render('indexlogin')
 });
-app.get('/getDB', getDataController.getAll);
-app.get('/getDB/:id', getDataController.get);
-app.post('/getDB', getDataController.post);
+
+// app.get('/getDB', getDataController.getAll);
+// app.get('/getDB/:id', getDataController.get);
+// app.post('/getDB', getDataController.post);
 
 app.get('/home',(req, res) => {
     res.render('home')
@@ -48,7 +49,10 @@ app.post('/home', homeDataController.postlanguage);
 app.get('/home/next', homeDataController.postALLlanguage);
 
 
-app.post('/api/searchwork',homeDataController.post);
+//顯示搜尋結果的api
+app.post('/api/searchwork', homeDataController.post);
+
+
 
 
 app.listen(port, () => {
