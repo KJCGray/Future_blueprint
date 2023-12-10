@@ -49,7 +49,7 @@ const userController = {
       });
     });
   },
-  
+
   //渲染登入畫面
   login: (req, res) => {
     res.render('user/login')
@@ -69,7 +69,7 @@ const userController = {
     
     // 輸入正確就從 userModel 找出 user 資料
     userModel.get(username, (err, user) => {
-      console.log(user);
+      //console.log(user);
       if (err) {
         req.flash('errorMessage', err.toString());
       
