@@ -36,6 +36,8 @@ columns = ', '.join([f'{col} LONGTEXT' for col in df.columns])
 
 columnsName = [col for col in df.columns] #所有欄位名字的陣列
 
+print(columnsName);
+k
 # 建立 MySQL 表格
 create_table_query = f'CREATE TABLE IF NOT EXISTS work ({columns});'
 cursor.execute(create_table_query)
