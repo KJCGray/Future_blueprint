@@ -60,7 +60,7 @@ app.post('/api/searchlanguage/', homeDataController.postlanguage);
 
 //顯示搜尋結果工作中所有需要語言統計結果前三項詳細結果的api
 
-app.post('/api/searchlanguage/', homeDataController.postALLlanguage);
+// app.post('/api/searchlanguage/', homeDataController.postALLlanguage);
 
 //顯示技能統整的api(還沒寫完
 app.post('/api/searchwork', homeDataController.post);
