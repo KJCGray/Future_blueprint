@@ -22,8 +22,13 @@ const languageDataModel = {
                 SelectStr = SelectStr + ") ";
             }
         }
-
-        SelectStr = SelectStr + ` AND language_req LIKE '%${Languagelabel}%' `;
+        if(flag == 0){
+            SelectStr+="WHERE";
+        }
+        else{
+            SelectStr+= " AND "
+        }   
+        SelectStr = SelectStr + ` language_req LIKE '%${Languagelabel}%' `;
         // console.log(SelectStr);
         
         

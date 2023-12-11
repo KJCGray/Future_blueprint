@@ -100,7 +100,7 @@ const homeController = {
               // res.render('language', {
               //   data: results
               // });
-              next();
+              // next();
             } else {
               res.render('NoDb');
             }
