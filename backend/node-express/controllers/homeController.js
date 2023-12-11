@@ -26,12 +26,12 @@ const homeController = {
           if(results && results.length >0){
             console.log(results.length);
             res.json(results); //回傳資料
-            next();
+            // next();
           }
           else{
             // console.log('資料庫沒有回傳資料');
             res.render('NoDb');
-            next();
+            // next();
           }
         })
       },
@@ -100,7 +100,6 @@ const homeController = {
               // res.render('language', {
               //   data: results
               // });
-              // next();
             } else {
               res.render('NoDb');
             }
