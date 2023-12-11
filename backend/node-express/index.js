@@ -63,7 +63,7 @@ app.post('/api/searchlanguage/', homeDataController.postlanguage);
 // app.post('/api/searchlanguage/', homeDataController.postALLlanguage);
 
 //顯示技能統整的api(還沒寫完
-app.post('/api/searchwork', homeDataController.post);
+app.post('/api/searchwork', homeDataController.postskill);
 
 
 

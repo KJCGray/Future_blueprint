@@ -85,7 +85,7 @@ const homeController = {
           results.sort((a, b) => b.job_count - a.job_count);
           var cnt = 3, i = 0, bestarr = [];
           while(cnt--){
-              if(results[i].language == '不拘'){
+              if(results[i].language == '不拘' || results[i].job_count == 0){
                 i++;
               }
               bestarr.push(results[i].language)
