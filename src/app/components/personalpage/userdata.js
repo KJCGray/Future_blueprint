@@ -10,7 +10,7 @@ const userdata = () => {
           <AccountCircleIcon sx={{ fontSize: 40 }} />
         </div>
         <div className='flex items-center justify-center w-20 h-8 mx-5 my-3 bg-orange-200 rounded'>
-          <div className='font-semibold text-red-950'>
+          <div className='font-semibold text-red-950 '>
             證   照
           </div>
         </div>     
