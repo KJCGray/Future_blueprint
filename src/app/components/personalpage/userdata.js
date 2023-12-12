@@ -36,7 +36,7 @@ const Userdata = () => {
               證   照
             </Button>           
           <div className='ml-8'>
-            {isCer ? '未輸入' : (<TextField id="standard-basic" label="Certificate" variant="standard"/>)}
+            {isCer ? (<TextField id="standard-basic" label="Certificate" variant="standard"/>):'未輸入' }
           </div>
         </div>   
         
@@ -46,7 +46,7 @@ const Userdata = () => {
               語   言
             </Button>           
           <div className='ml-8'>
-            {isLanguage ? '未輸入' : (<TextField id="standard-basic" label="Language" variant="standard"/>)}
+            {isLanguage ? (<TextField id="standard-basic" label="Language" variant="standard"/>):'未輸入' }
           </div>
         </div>   
 
@@ -56,7 +56,7 @@ const Userdata = () => {
               學   歷
             </Button>           
           <div className='ml-8'>
-            {isEducational ? '未輸入' : (<TextField id="standard-basic" label="Educational" variant="standard"/>)}
+            {isEducational ? (<TextField id="standard-basic" label="Educational" variant="standard"/>):'未輸入' }
           </div>
         </div>   
         
@@ -66,7 +66,7 @@ const Userdata = () => {
               專業能力
             </Button>           
           <div className='ml-8'>
-            {isMajor ? '未輸入' : (<TextField id="standard-basic" label="Major" variant="standard"/>)}
+            {isMajor ? (<TextField id="standard-basic" label="Major" variant="standard"/>):'未輸入' }
           </div>
         </div>     
       </div>  
