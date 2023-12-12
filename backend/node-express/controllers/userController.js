@@ -28,9 +28,10 @@ const userController = {
   //驗證註冊
   handleRegister: (req, res, next) => {
     //從request body 拿取 user 資料
-    username = req.body.username;
-    password = String(req.body.password);
-    email = req.body.email;
+    // console.log(req.body);
+    username = req.body.username['current'];
+    password = req.body.password['current'];
+    email = req.body.email['current'];
 
     if(!username || !password || !email) {
       //這裡用return 可避免 if-else 寫法增加層數
