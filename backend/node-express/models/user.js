@@ -17,8 +17,9 @@ const userModel = {
   add: (user, cb) => {
     console.log(user);
     db.query(
-      'INSERT INTO user(username, password, email,	certificate,	language,	edu,	exp,	other	) VALUES(?, ?, ?, ?,?, ?, ?, ? )',
-      [user.username, user.password, user.useremail, '', '', '','', ''],(err, results) => {
+      'INSERT INTO user(username, password, email,	certificate,	language,	edu,	exp,	other	) VALUES(?, ?, ?, ?, ?, ?, ?, ? )',
+      [user.username, user.password, '', '', '', '', '', ''],
+      (err, results) => {
       if (err) return cb(err);
       // cb: 第一個參數為是否有錯誤，沒有的話就是 null，第二個才是結果
       cb(null, results.insertId);
