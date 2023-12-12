@@ -11,7 +11,7 @@ const userModel = {
       (err, results) => {
       if (err) return cb(err);
       // cb: 第一個參數為是否有錯誤，沒有的話就是 null，第二個才是結果
-      cb(null);
+      cb(null, results.insertId);
       }
   );
 },

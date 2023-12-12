@@ -11,6 +11,9 @@ const yourPassword = "someRandomPasswordHere";
 const port = process.env.PORT || 3001;
 const crypto = require('crypto');
 const secret = crypto.randomBytes(32).toString('hex');
+const cors = require('cors');
+
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 

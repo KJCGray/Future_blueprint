@@ -14,7 +14,6 @@ const userController = {
     //從request body 拿取 user 資料
     username = req.body.username;
     password = req.body.password;
-    // const {username, password} = req.body;
 
     if(!username || !password) {
       //這裡用return 可避免 if-else 寫法增加層數
@@ -45,6 +44,7 @@ const userController = {
         }
       //註冊成功保持登入狀態，並導回首頁
         req.session.username = username;
+        req.session.userId = user.id;
         res.redirect('/');
       });
     });
@@ -92,13 +92,16 @@ const userController = {
         }
        
         req.session.username = user.username;
-        res.render('index', { username: req.session.username });
+        req.session.userId = user.id;
+        //console.log("User ID in session:", req.session.userId);
+        res.render('index', { username: req.session.username , userId: req.session.userId});
       });
     })
   },
   //登出: 清除session 並導回首頁
   logout: (req, res) => {
     req.session.username = null;
+    req.session.userId = null;
     res.redirect('/');
   }
 }
