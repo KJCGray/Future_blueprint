@@ -8,10 +8,23 @@ const Userdata = () => {
   const handleCerClick = () => {
     setIsCer(!isCer);
   }
+
   const [isLanguage, setIsLanguage] = useState(false);
 
   const handleLanguageClick = () => {
     setIsLanguage(!isLanguage);
+  }
+
+  const [isEducational, setIsEducational] = useState(false);
+
+  const handleEducationalClick = () => {
+    setIsEducational(!isEducational);
+  }
+
+  const [isMajor, setIsMajor] = useState(false);
+
+  const handleMajorClick = () => {
+    setIsMajor(!isMajor);
   }
   return (
     <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'>
@@ -37,13 +50,26 @@ const Userdata = () => {
           </div>
         </div>   
 
-        <div>
-          <Button className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>學   歷</Button>
+        <div className='flex items-center'>
+            <Button onClick={handleEducationalClick} 
+            className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
+              學   歷
+            </Button>           
+          <div className='ml-8'>
+            {isEducational ? '未輸入' : (<TextField id="standard-basic" label="Educational" variant="standard"/>)}
+          </div>
         </div>   
-        <div>
-          <Button className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>專業能力</Button>
-        </div>   
-          </div>  
+        
+        <div className='flex items-center'>
+            <Button onClick={handleMajorClick} 
+            className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
+              專業能力
+            </Button>           
+          <div className='ml-8'>
+            {isMajor ? '未輸入' : (<TextField id="standard-basic" label="Major" variant="standard"/>)}
+          </div>
+        </div>     
+      </div>  
 
       <div className='flex justify-center'>
         <div>
