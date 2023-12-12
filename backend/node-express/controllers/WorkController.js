@@ -2,6 +2,7 @@ const { render } = require("ejs");
 const workDataModel = require("../models/workData")
 const languageDataModel = require("../models/languageData");
 const skillDataModel = require("../models/skillData");
+const MsgDataModel = require("../models/Message");
 
 const workController = {
     postALLlanguage:(req, res) => { //回傳需要的前三個語言的聽說讀寫分別要什麼程度    
@@ -96,11 +97,51 @@ const workController = {
 
     },
     postMessage:(req, res) => {
+      function processProperty(property) {
+        if (Array.isArray(req.body[property])) {
+          return req.body[property].join(',');
+        } else if (typeof req.body[property] === 'string') {
+          return req.body[property];
+        }
+        return '';
+      }
+      
+      var tmpJobClass = processProperty('job_L_class').split(',');
+      var tmpJobType = processProperty('job_type').split(',');
+      var tmpArea = processProperty('area').split(',');
 
+      var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+      
+      MsgDataModel.postMsg(arr, (err, results) =>{
+        if (err) console.log(err);
+        if(results && results.length > 0){
+          res.json(results);
+        }
+      })
     },
     InsertMessage:(req, res) => {
-      
-    },
+      if(req.session.userId != null){
+        console.log(req.session.userId);
+        var WriteMsg = {
+          "id":req.session.userId,
+          "username":req.session.username,
+          "time":new Date().toLocaleString(),
+          "content":"test",
+          "area":"",
+          "job_type":"",
+          "job_L_class": ""
+        };
+        MsgDataModel.Insert(WriteMsg, (err, results) =>{
+          if (err) console.log(err);
+          else{
+            res.send("完成留言");
+          }
+        })
+      }
+      else{
+        console.log('味登入');
+      }
+    }
 }
 
 module.exports = workController

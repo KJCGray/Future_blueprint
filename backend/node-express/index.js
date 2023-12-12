@@ -34,11 +34,20 @@ app.use(session({
 }));
 
 app.use(cors());
-
+app.use(flash());
+app.use((req, res, next) => {
+	//放在 res.locals 裡的資料，所有的 view 都可以存取。
+  res.locals.success_msg = req.flash('success_msg')  // 設定 success_msg 訊息
+  res.locals.errorMessage = req.flash('errorMessage')  // 設定 warning_msg 訊息
+  next()
+})
 
 app.get('/', (req, res) => {
-  res.render('indexlogin')
-});
+    if(req.session.username == null){
+        req.session.username = undefined
+    }
+    res.render('index', {username:req.session.username});
+})
 
 // app.get('/getDB', getDataController.getAll);
 // app.get('/getDB/:id', getDataController.get);
@@ -69,12 +78,23 @@ app.post('/api/searchALLlanguage/', workDataController.postALLlanguage);
 app.post('/api/searchskill', workDataController.postSkill);
 
 
+
+app.get('/login', userController.login)
+app.post('/login', userController.handleLogin)
+app.post('/logout', userController.logout)
+
+//建立註冊路由
+app.get('/register', userController.register)
+app.post('/register', userController.handleRegister)
+
+app.post('/msg',workDataController.InsertMessage )
+app.get('/Selectmsg',workDataController.postMessage )
 //login
-app.post('/api/login', userController.handleLogin);
+// app.post('api/login', userController.handleLogin);
 
-app.post('/api/register', userController.handleRegister);
+// app.post('api/register', userController.handleRegister);
 
-app.post('/logout', userController.logout);
+// app.post('/logout', userController.logout);
 
 app.listen(port, () => {
     try{

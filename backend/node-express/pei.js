@@ -12,6 +12,7 @@ const port = process.env.PORT || 3001;
 const crypto = require('crypto');
 const secret = crypto.randomBytes(32).toString('hex');
 const cors = require('cors');
+const workDataController = require('./controllers/WorkController');
 
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
@@ -54,6 +55,8 @@ app.get('/logout', userController.logout)
 //建立註冊路由
 app.get('/register', userController.register)
 app.post('/register', userController.handleRegister)
+
+app.post('/msg',workDataController.InsertMessage )
 
 // 透過 locals 傳值: session 功能和 errorMessage
 app.use((req, res, next) => {
