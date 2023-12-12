@@ -34,9 +34,12 @@ const userController = {
 
     if(!username || !password || !email) {
       //這裡用return 可避免 if-else 寫法增加層數
-      console.log('缺少必要欄位');
-      req.flash('errorMessage', '缺少必要欄位');
-      res.redirect('/register');
+      // console.log('缺少必要欄位');
+      // req.flash('errorMessage', '缺少必要欄位');
+      // res.redirect('/register');
+      res.json({
+        error:'缺少必要欄位'
+      });
       return next();
     }
     // 利用 bcrypt 套件對密碼進行雜湊處理
@@ -44,15 +47,22 @@ const userController = {
       // 若有 err 就直接顯示錯誤訊息
       if (err) {
         console.log(err);
-        req.flash('errorMessage', err.toString());
-        res.redirect('/register');
+        // req.flash('errorMessage', err.toString());
+        // res.redirect('/register');
+        res.json({
+          error:'登入失敗，請再嘗試一次'
+        });
         return next();
       }
       //資料都沒問題的話，就可透過 userModel 寫入資料
       //傳入一個物件，若有錯誤會回傳 cb
 
       userModel.check({ username, password: hash,email}, (err,Exist)=>{
-        if(err) {console.log(err)};
+        if(err) {
+          res.json({
+            error:'登入失敗，請再嘗試一次'
+          });
+        }
         
         if(Exist[0]['CNT'] < 1){
           userModel.add({
@@ -62,18 +72,28 @@ const userController = {
           }, (err,userId) => {
             // 若有 err 就直接顯示錯誤訊息
             if(err) {
-              console.log(err);
+              res.json({
+                error:'登入失敗，請再嘗試一次'
+              });
             }
           //註冊成功保持登入狀態，並導回首頁
             req.session.username = username;
             req.session.userId = userId;
-            res.redirect('/');
+            // res.redirect('/');
+            res.json({
+              error:null,
+              username:req.session.username,
+              userId:req.session.userId
+            })
           });
         }
         else{
-          console.log('已存在相同用戶名');
-          req.flash('errorMessage', '已存在相同用戶名');
-          res.redirect('/register');
+          res.json({
+            error:'已存在相同用戶名'
+          });
+          // console.log('已存在相同用戶名');
+          // req.flash('errorMessage', '已存在相同用戶名');
+          // res.redirect('/register');
           return next();
         }
         
@@ -92,10 +112,13 @@ const userController = {
     const {username, password} = req.body;
     // 確認是否有填入資料
     if(!username ||!password){
+      res.json({
+        error:'請輸入您的帳密!'
+      });
       
-      console.log('請輸入您的帳密!');
-      req.flash('errorMessage', '請輸入您的帳密!');
-      res.redirect('/login');
+      // console.log('請輸入您的帳密!');
+      // req.flash('errorMessage', '請輸入您的帳密!');
+      // res.redirect('/login');
       // 每當呼叫 next 時，就會將控制權給下一個中間介 redirectBack(導回上一頁)
       return next();
     }
@@ -108,19 +131,26 @@ const userController = {
         return next();
       }
       if (!user) {
-        console.log('使用者不存在');
+        
+        res.json({
+          error:'使用者不存在'
+        });
+        // console.log('使用者不存在');
 
-        req.flash('errorMessage', '使用者不存在');
-        res.redirect('/login');
+        // req.flash('errorMessage', '使用者不存在');
+        // res.redirect('/login');
         return next();
       }
       // 驗證密碼是否正確，三個參數代表: 明碼, 雜湊密碼, 方法
       bcrypt.compare(password, user.password, function (err, isSccess) {
         // 若出現錯誤或比對不成功，就顯示錯誤訊息
         if (err || !isSccess) {
-          console.log(isSccess);
-          req.flash('errorMessage', '密碼錯誤');
-          res.redirect('/login');
+          // console.log(isSccess);
+          res.json({
+            error:'密碼錯誤'
+          });
+          // req.flash('errorMessage', '密碼錯誤');
+          // res.redirect('/login');
           return next();
         }
        
@@ -137,8 +167,14 @@ const userController = {
                 req.session.username = user.username;
                 req.session.userId = user.id;
                 req.session.token = usertoken;
+                res.json({
+                  error:null,
+                  username: req.session.username,
+                  userId:req.session.userId,
+                  token:req.session.token
+                });
                 //console.log("User ID in session:", req.session.userId);
-                res.render('index', { username: req.session.username , userId: req.session.userId});
+                // res.render('index', { username: req.session.username , userId: req.session.userId});
               }
             })
           })

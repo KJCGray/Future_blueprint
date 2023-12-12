@@ -80,21 +80,21 @@ app.post('/api/searchskill', workDataController.postSkill);
 
 
 
-app.get('/login', userController.login)
-app.post('/login', userController.handleLogin)
-app.post('/logout', userController.logout)
+// app.get('/login', userController.login)
+// app.post('/login', userController.handleLogin)
+// app.post('/logout', userController.logout)
 
 //建立註冊路由
-app.get('/register', userController.register)
-app.post('/register', userController.handleRegister)
+// app.get('/register', userController.register)
+// app.post('/register', userController.handleRegister)
 
-app.post('/msg',workDataController.InsertMessage )
-app.get('/Selectmsg',workDataController.postMessage )
-app.get('/Page', PageController.postALL)
+// app.post('/msg',workDataController.InsertMessage )
+// app.get('/Selectmsg',workDataController.postMessage )
+// app.get('/Page', PageController.postALL)
 //login
-// app.post('api/login', userController.handleLogin);
+app.post('api/login', userController.handleLogin);
 
-// app.post('api/register', userController.handleRegister);
+app.post('api/register', userController.handleRegister);
 
 // app.post('/logout', userController.logout);
 
