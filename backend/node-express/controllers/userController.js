@@ -74,11 +74,9 @@ const userController = {
       //console.log(user);
       if (err) {
         req.flash('errorMessage', err.toString());
-      
         return next();
       }
       if (!user) {
-      
         req.flash('errorMessage', '使用者不存在');
         res.redirect('/login');
         return next();
