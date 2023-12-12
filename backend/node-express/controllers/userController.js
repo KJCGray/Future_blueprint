@@ -34,23 +34,35 @@ const userController = {
       }
       //資料都沒問題的話，就可透過 userModel 寫入資料
       //傳入一個物件，若有錯誤會回傳 cb
-      userModel.add({
-        username,
-        password: hash,
-        email
-      }, (err,userId) => {
-        // 若有 err 就直接顯示錯誤訊息
-        if(err) {
+
+      userModel.check({ username, password: hash,email}, (err,Exist)=>{
+        if(err) {console.log(err)};
+        
+        if(Exist[0]['CNT'] < 1){
+          userModel.add({
+            username,
+            password: hash,
+            email
+          }, (err,userId) => {
+            // 若有 err 就直接顯示錯誤訊息
+            if(err) {
+              console.log(err);
+            }
+          //註冊成功保持登入狀態，並導回首頁
+            req.session.username = username;
+            req.session.userId = userId;
+            res.redirect('/');
+          });
+        }
+        else{
           console.log('已存在相同用戶名');
           req.flash('errorMessage', '已存在相同用戶名');
           res.redirect('/register');
           return next();
         }
-      //註冊成功保持登入狀態，並導回首頁
-        req.session.username = username;
-        req.session.userId = userId;
-        res.redirect('/');
-      });
+        
+      })
+      
     });
   },
 
