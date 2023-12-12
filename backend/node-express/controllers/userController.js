@@ -127,6 +127,7 @@ const userController = {
   handleLogin: (req, res, next) => {
     const {username, password} = req.body;
     // 確認是否有填入資料
+    console.log(1);
     if(!username ||!password){
       res.json({
         error:'請輸入您的帳密!'
