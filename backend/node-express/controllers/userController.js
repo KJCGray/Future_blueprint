@@ -37,7 +37,7 @@ const userController = {
       // console.log('缺少必要欄位');
       // req.flash('errorMessage', '缺少必要欄位');
       // res.redirect('/register');
-      res.json({
+      res.status(400).json({
         error:'缺少必要欄位'
       });
       return next();
@@ -50,7 +50,7 @@ const userController = {
         console.log(err);
         // req.flash('errorMessage', err.toString());
         // res.redirect('/register');
-        res.json({
+        res.status(400).json({
           error:'登入失敗，請再嘗試一次'
         });
         return next();
@@ -60,7 +60,7 @@ const userController = {
 
       userModel.check({ username, password: hash,email}, (err,Exist)=>{
         if(err) {
-          res.json({
+          res.status(400).json({
             error:'登入失敗，請再嘗試一次'
           });
         }
@@ -73,7 +73,7 @@ const userController = {
           }, (err,userId) => {
             // 若有 err 就直接顯示錯誤訊息
             if(err) {
-              res.json({
+              res.status(400).json({
                 error:'登入失敗，請再嘗試一次'
               });
             }
@@ -88,7 +88,7 @@ const userController = {
                 req.session.username =  username;
                 req.session.userId = userId;
                 req.session.token = usertoken;
-                res.json({
+                res.status(200).json({
                   error:null,
                   username: req.session.username,
                   userId:req.session.userId,
@@ -105,7 +105,7 @@ const userController = {
           });
         }
         else{
-          res.json({
+          res.status(400).json({
             error:'已存在相同用戶名'
           });
           // console.log('已存在相同用戶名');
