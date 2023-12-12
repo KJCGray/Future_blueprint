@@ -1,10 +1,11 @@
 const { render } = require("ejs");
 const workDataModel = require("../models/workData")
 const languageDataModel = require("../models/languageData");
+const skillDataModel = require("../models/skillData");
 
 const workController = {
     postALLlanguage:(req, res) => { //回傳需要的前三個語言的聽說讀寫分別要什麼程度    
-        var arr = {"job_L_class": req.session.job_L_class,"area": req.session.area};
+        var arr = {"job_L_class": req.session.job_L_class,"area": req.session.area, "job_type": req.session.job_type};
         var bestlist = req.session.languages;
         var bestName = [];
         for(var i = 0; i < bestlist.length; i++){
@@ -14,8 +15,6 @@ const workController = {
             bestName.push(bestlist[i]+"寫");
         }
         var results = [];
-        // req.session.job_L_class = req.body.job_L_class;
-        // req.session.area = req.body.area;
         var flag = false;
         function fetchData(index) {
           return new Promise((resolve, reject) => {
@@ -41,9 +40,10 @@ const workController = {
           if (!flag) {
             if (results && results.length > 0) {
               console.log(results);
-              res.render('language', {
-                data: results
-              });
+              res.json(results)
+              // res.render('language', {
+              //   data: results
+              // });
             } else {
               res.render('NoDb');
             }
@@ -68,9 +68,39 @@ const workController = {
       var tmpArea = processProperty('area').split(',');
 
       var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+      skillDataModel.post(arr, (err, results) =>{
+        if (err) console.log(err);
+        else{
+          var cntMap = {};
+          for (var i = 0; i < results.length; i++) {
+            var tmpstr = results[i]['job_skill'].split(',');
+            for (var j = 0; j < tmpstr.length; j++) {
+              if (cntMap.hasOwnProperty(tmpstr[j])) {
+                cntMap[tmpstr[j]]++;
+              } else {
+                cntMap[tmpstr[j]] = 1;
+              }
+            }
+          }
+          var cntArray = [];
+          for (var skill in cntMap) {
+            cntArray.push({ skill: skill, count: cntMap[skill] });
+          }
+          // 根據技能計數排序陣列
+          cntArray.sort(function (a, b) {
+            return b.count - a.count; // 以降序排序
+          });
+          res.json(cntArray);
+        }
+      })
 
+    },
+    postMessage:(req, res) => {
+
+    },
+    InsertMessage:(req, res) => {
       
-    }
+    },
 }
 
 module.exports = workController

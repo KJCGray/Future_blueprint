@@ -2,6 +2,8 @@ const express = require('express');
 let bodyParser = require('body-parser');
 const getDataController = require('./controllers/getDataController');
 const homeDataController = require('./controllers/homeController');
+const workDataController = require('./controllers/WorkController');
+const userController = require('./controllers/userController');
 const db = require('./db')
 const cors = require('cors');
 
@@ -46,7 +48,6 @@ app.get('/home',(req, res) => {
     res.render('home')
 });
 app.post('/home', homeDataController.postlanguage);
-app.get('/home/next', homeDataController.postALLlanguage);
 
 
 //顯示搜尋結果的api
@@ -57,17 +58,23 @@ app.post('/api/searchwork/', homeDataController.post);
 //顯示搜尋結果工作中所有需要語言統計結果的api
 
 app.post('/api/searchlanguage/', homeDataController.postlanguage);
-app.get('/api/searchlanguage/', homeDataController.postlanguage);
+// app.get('/api/searchlanguage/', homeDataController.postlanguage);
 
 //顯示搜尋結果工作中所有需要語言統計結果前三項詳細結果的api
 
-// app.post('/api/searchlanguage/', homeDataController.postALLlanguage);
+app.post('/api/searchALLlanguage/', workDataController.postALLlanguage);
+// app.get('/api/searchALLlanguage/', workDataController.postALLlanguage);
 
-//顯示技能統整的api(還沒寫完
-// app.post('/api/searchwork', homeDataController.postskill);
+//顯示技能統整的api
+app.post('/api/searchskill', workDataController.postSkill);
 
 
+//login
+app.post('/api/login', userController.handleLogin);
 
+app.post('/api/register', userController.handleRegister);
+
+app.post('/logout', userController.logout);
 
 app.listen(port, () => {
     try{
