@@ -31,41 +31,41 @@ const Userdata = () => {
       <div className='flex flex-col w-3/5 pt-4 ml-16'>
         
         <div className='flex items-center'>
-            <Button onClick={handleCerClick} 
-            className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
-              證   照
-            </Button>           
-          <div className='ml-8'>
-            {isCer ? (<TextField id="standard-basic" label="Certificate" variant="standard"/>):'未輸入' }
-          </div>
+          <Button onClick={handleCerClick} 
+          className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
+            證   照
+          </Button>           
+          <div className='flex-shrink-0 ml-8 overflow-y-auto no-scrollbar' style={{ whiteSpace: 'nowrap', maxWidth: '300px' }}>
+          {isCer ? (<TextField id="standard-basic" label="Certificate" variant="standard"/>):('未輸入') }
+        </div>
         </div>   
         
         <div className='flex items-center'>
-            <Button onClick={handleLanguageClick} 
-            className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
-              語   言
-            </Button>           
-          <div className='ml-8'>
+          <Button onClick={handleLanguageClick} 
+          className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
+            語   言
+          </Button>           
+          <div className='flex-shrink-0 ml-8 overflow-y-auto no-scrollbar' style={{ whiteSpace: 'nowrap', maxWidth: '300px' }}>
             {isLanguage ? (<TextField id="standard-basic" label="Language" variant="standard"/>):'未輸入' }
           </div>
         </div>   
 
         <div className='flex items-center'>
-            <Button onClick={handleEducationalClick} 
-            className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
-              學   歷
-            </Button>           
-          <div className='ml-8'>
+          <Button onClick={handleEducationalClick} 
+          className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
+            學   歷
+          </Button>           
+          <div className='flex-shrink-0 ml-8 overflow-y-auto no-scrollbar' style={{ whiteSpace: 'nowrap', maxWidth: '300px' }}>
             {isEducational ? (<TextField id="standard-basic" label="Educational" variant="standard"/>):'未輸入' }
           </div>
         </div>   
         
         <div className='flex items-center'>
-            <Button onClick={handleMajorClick} 
-            className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
-              專業能力
-            </Button>           
-          <div className='ml-8'>
+          <Button onClick={handleMajorClick} 
+          className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
+            專業能力
+          </Button>           
+          <div className='flex-shrink-0 ml-8 overflow-y-auto no-scrollbar' style={{ whiteSpace: 'nowrap', maxWidth: '300px' }}>
             {isMajor ? (<TextField id="standard-basic" label="Major" variant="standard"/>):'未輸入' }
           </div>
         </div>     
