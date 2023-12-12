@@ -28,9 +28,10 @@ const userController = {
   //驗證註冊
   handleRegister: (req, res, next) => {
     //從request body 拿取 user 資料
-    username = req.body.username;
-    password = String(req.body.password);
-    email = req.body.email;
+    // console.log(req.body);
+    username = req.body.username['current'];
+    password = req.body.password['current'];
+    email = req.body.email['current'];
 
     if(!username || !password || !email) {
       //這裡用return 可避免 if-else 寫法增加層數
@@ -78,30 +79,32 @@ const userController = {
               });
             }
           //註冊成功保持登入狀態，並導回首頁
-          generateRandomToken(32)
-          .then((token) => {
-            usertoken = token;
-            // console.log('Generated Token:', token);
-            userModel.updateToken(userId, usertoken, (err, r) => {
-              if(err) {console.log(err)}
-              else{
-                req.session.username =  username;
-                req.session.userId = userId;
-                req.session.token = usertoken;
-                res.status(200).json({
-                  error:null,
-                  username: req.session.username,
-                  userId:req.session.userId,
-                  token:req.session.token
-                });
-                //console.log("User ID in session:", req.session.userId);
-                // res.render('index', { username: req.session.username , userId: req.session.userId});
-              }
+          else{
+            generateRandomToken(32)
+            .then((token) => {
+              usertoken = token;
+              // console.log('Generated Token:', token);
+              userModel.updateToken(userId, usertoken, (err, r) => {
+                if(err) {console.log(err)}
+                else{
+                  req.session.username =  username;
+                  req.session.userId = userId;
+                  req.session.token = usertoken;
+                  res.status(200).json({
+                    error:null,
+                    username: req.session.username,
+                    userId:req.session.userId,
+                    token:req.session.token
+                  });
+                  //console.log("User ID in session:", req.session.userId);
+                  // res.render('index', { username: req.session.username , userId: req.session.userId});
+                }
+              })
             })
-          })
-          .catch((err) => {
-            console.error('Error generating token:', err);
-          });
+              .catch((err) => {
+                console.error('Error generating token:', err);
+              });
+            }
           });
         }
         else{
@@ -126,7 +129,9 @@ const userController = {
 
   //驗證登入狀態
   handleLogin: (req, res, next) => {
-    const {username, password} = req.body;
+    username = req.body.username['current'];
+    password = req.body.password['current'];
+    // email = req.body.email['current'];p
     // 確認是否有填入資料
     console.log(1);
     if(!username ||!password){
