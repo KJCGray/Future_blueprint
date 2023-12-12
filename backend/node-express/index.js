@@ -4,6 +4,7 @@ const getDataController = require('./controllers/getDataController');
 const homeDataController = require('./controllers/homeController');
 const workDataController = require('./controllers/WorkController');
 const userController = require('./controllers/userController');
+const PageController = require('./controllers/userpageController');
 const db = require('./db')
 const cors = require('cors');
 
@@ -89,6 +90,7 @@ app.post('/register', userController.handleRegister)
 
 app.post('/msg',workDataController.InsertMessage )
 app.get('/Selectmsg',workDataController.postMessage )
+app.get('/Page', PageController.postALL)
 //login
 // app.post('api/login', userController.handleLogin);
 

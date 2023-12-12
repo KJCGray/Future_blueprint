@@ -34,6 +34,22 @@ const userModel = {
         console.log(results);
         cb(null, results[0]);
       });
+  },
+  // getpage:(username, cb) => {
+  //   db.query(
+  //     'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
+  //       if (err) return cb(err);
+  //       console.log(results);
+  //       cb(null, results[0]);
+  //     });
+  // },
+  updateToken:(id, Token, cb) => {
+    var str = "UPDATE user SET token='"+Token+"' WHERE id="+id+";";
+    db.query(str,(err, results) => {
+      if (err) return cb(err);
+        console.log(results);
+        cb(null, results[0]);
+    } )
   }
 }
   

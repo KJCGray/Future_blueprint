@@ -1,6 +1,22 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const crypto = require('crypto');
+
+
+function generateRandomToken(length) {
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(length, (err, buffer) => {
+      if (err) {
+        reject(err);
+      } else {
+        const token = buffer.toString('hex');
+        resolve(token);
+      }
+    });
+  });
+}
+
 // 建立一個 todoController 物件，透過方法來存取 model 的資料
 const userController = {
   // 傳入參數 req, res
@@ -108,10 +124,31 @@ const userController = {
           return next();
         }
        
-        req.session.username = user.username;
-        req.session.userId = user.id;
-        //console.log("User ID in session:", req.session.userId);
-        res.render('index', { username: req.session.username , userId: req.session.userId});
+        var usertoken;
+        
+        // 调用函数生成一个长度为32的随机token
+        generateRandomToken(32)
+          .then((token) => {
+            usertoken = token;
+            // console.log('Generated Token:', token);
+            userModel.updateToken(user.id, usertoken, (err, r) => {
+              if(err) {console.log(err)}
+              else{
+                req.session.username = user.username;
+                req.session.userId = user.id;
+                req.session.token = usertoken;
+                //console.log("User ID in session:", req.session.userId);
+                res.render('index', { username: req.session.username , userId: req.session.userId});
+              }
+            })
+          })
+          .catch((err) => {
+            console.error('Error generating token:', err);
+          });
+      
+       
+
+        
       });
     })
   },
