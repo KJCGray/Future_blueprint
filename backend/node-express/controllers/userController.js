@@ -129,7 +129,9 @@ const userController = {
 
   //驗證登入狀態
   handleLogin: (req, res, next) => {
-    const {username, password} = req.body;
+    username = req.body.username['current'];
+    password = req.body.password['current'];
+    // email = req.body.email['current'];p
     // 確認是否有填入資料
     console.log(1);
     if(!username ||!password){
