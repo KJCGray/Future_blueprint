@@ -24,11 +24,6 @@ const userController = {
       return next();
     }
     // 利用 bcrypt 套件對密碼進行雜湊處理
-<<<<<<< HEAD
-    // console.log(username, password);
-=======
-    //console.log(username, password, email);
->>>>>>> 03f4af379f31c2fc84ca7f215c518c8ef95fdb1c
     bcrypt.hash(password, saltRounds, function (err, hash) {
       // 若有 err 就直接顯示錯誤訊息
       if (err) {
