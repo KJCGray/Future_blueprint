@@ -78,30 +78,32 @@ const userController = {
               });
             }
           //註冊成功保持登入狀態，並導回首頁
-          generateRandomToken(32)
-          .then((token) => {
-            usertoken = token;
-            // console.log('Generated Token:', token);
-            userModel.updateToken(userId, usertoken, (err, r) => {
-              if(err) {console.log(err)}
-              else{
-                req.session.username =  username;
-                req.session.userId = userId;
-                req.session.token = usertoken;
-                res.status(200).json({
-                  error:null,
-                  username: req.session.username,
-                  userId:req.session.userId,
-                  token:req.session.token
-                });
-                //console.log("User ID in session:", req.session.userId);
-                // res.render('index', { username: req.session.username , userId: req.session.userId});
-              }
+          else{
+            generateRandomToken(32)
+            .then((token) => {
+              usertoken = token;
+              // console.log('Generated Token:', token);
+              userModel.updateToken(userId, usertoken, (err, r) => {
+                if(err) {console.log(err)}
+                else{
+                  req.session.username =  username;
+                  req.session.userId = userId;
+                  req.session.token = usertoken;
+                  res.status(200).json({
+                    error:null,
+                    username: req.session.username,
+                    userId:req.session.userId,
+                    token:req.session.token
+                  });
+                  //console.log("User ID in session:", req.session.userId);
+                  // res.render('index', { username: req.session.username , userId: req.session.userId});
+                }
+              })
             })
-          })
-          .catch((err) => {
-            console.error('Error generating token:', err);
-          });
+              .catch((err) => {
+                console.error('Error generating token:', err);
+              });
+            }
           });
         }
         else{
