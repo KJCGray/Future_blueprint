@@ -8,7 +8,7 @@ const languageDataModel = {
         var SelectStr = "SELECT COUNT(*) AS "+Languagelabel+" FROM work ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
-            if(value != "不限" && typeof value !== 'undefined' && value.length>0){
+            if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
                     SelectStr+="WHERE (";
                     flag = 1;
@@ -22,8 +22,13 @@ const languageDataModel = {
                 SelectStr = SelectStr + ") ";
             }
         }
-
-        SelectStr = SelectStr + ` AND language_req LIKE '%${Languagelabel}%' `;
+        if(flag == 0){
+            SelectStr+="WHERE";
+        }
+        else{
+            SelectStr+= " AND "
+        }   
+        SelectStr = SelectStr + ` language_req LIKE '%${Languagelabel}%' `;
         // console.log(SelectStr);
         
         

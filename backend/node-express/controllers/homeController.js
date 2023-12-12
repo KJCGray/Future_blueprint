@@ -20,25 +20,25 @@ const homeController = {
         var tmpArea = processProperty('area').split(',');
 
         var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
-        // console.log(tmp.length);
+        console.log(arr);
         workDataModel.post(arr, (err, results) => {
           if (err) console.log(err);
           if(results && results.length >0){
-            // console.log(results);
-            res.json(results);
-            // res.render('results', {
-            //   // 注意回傳的結果 array，必須取 results[0] 才會是一個 todo
-            //   results: results
-            // })
+            console.log(results.length);
+            res.json(results); //回傳資料
+            // next();
           }
           else{
             // console.log('資料庫沒有回傳資料');
             res.render('NoDb');
+            // next();
           }
         })
       },
       
       postlanguage:(req, res) => {  //回傳需要的語言
+
+          // 將post 的資料
         function processProperty(property) {
           if (Array.isArray(req.body[property])) {
             return req.body[property].join(',');
@@ -85,7 +85,7 @@ const homeController = {
           results.sort((a, b) => b.job_count - a.job_count);
           var cnt = 3, i = 0, bestarr = [];
           while(cnt--){
-              if(results[i].language == '不拘'){
+              if(results[i].language == '不拘' || results[i].job_count == 0){
                 i++;
               }
               bestarr.push(results[i].language)
@@ -96,9 +96,10 @@ const homeController = {
           if (!flag) {
             if (results && results.length > 0) {
               // console.log(results);
-              res.render('language', {
-                data: results
-              });
+              res.json(results)
+              // res.render('language', {
+              //   data: results
+              // });
             } else {
               res.render('NoDb');
             }
@@ -147,9 +148,10 @@ const homeController = {
           if (!flag) {
             if (results && results.length > 0) {
               console.log(results);
-              res.render('language', {
-                data: results
-              });
+              res.json(results);
+              // res.render('language', {
+              //   data: results
+              // });
             } else {
               res.render('NoDb');
             }
