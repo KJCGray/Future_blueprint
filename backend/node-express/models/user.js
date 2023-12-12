@@ -6,8 +6,8 @@ const userModel = {
   //新增user功能
   add: (user, cb) => {
     db.query(
-      'INSERT INTO users(username, password) VALUES(?, ?)',
-      [user.username, user.password],
+      'INSERT INTO users(username, password, email) VALUES(?, ?, ?)',
+      [user.username, user.password, user.email],
       (err, results) => {
       if (err) return cb(err);
       // cb: 第一個參數為是否有錯誤，沒有的話就是 null，第二個才是結果
