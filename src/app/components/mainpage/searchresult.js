@@ -14,7 +14,7 @@ function SearchResult({ Jobdata }) {
           <div className="m-1 text-sm">
             {jobs.serial_name} | {jobs.company_type}
           </div>
-          <div className="m-1 text-sm">
+          <div className="mx-1 my-4 text-sm">
             <span className="w-auto p-1 mx-1 text-sm font-semibold rounded-lg bg-zinc-300">#{jobs.area} </span>
             <span className="w-auto p-1 mx-1 text-sm font-semibold rounded-lg bg-zinc-300">#{jobs.exp}</span>
             <span className="w-auto p-1 mx-1 text-sm font-semibold rounded-lg bg-zinc-300">#{jobs.edu}</span>
