@@ -1,5 +1,9 @@
 <h2>註冊頁面</h2>
 
+<% if(errorMessage) { %>
+    <p style="color: red;"><%= errorMessage %></p>
+<% } %>
+
 <form method="POST" action="/register">
     <div>username: <input type="text" name="username"/></div>
     <div>password: <input type="password" name="password"/></div>
