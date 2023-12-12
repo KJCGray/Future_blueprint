@@ -1,7 +1,7 @@
 <h2>歡迎來到求職平台</h2>
 
-<!-- 以是否有 username 來判斷登入狀況 -->
-<% if(typeof username !== 'undefined'){ %>
+<!-- 以是否有 userid 來判斷登入狀況 -->
+<% if(typeof userId !== 'undefined' || typeof username !== 'undefined'){ %>
     <!-- 使用 <%= %> 會輸出原始碼，相當於做 escape -->
     <div>Hello, <%= username + '!' %></div>
     <a href = "/logout">登出</a>
