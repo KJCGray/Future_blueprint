@@ -2,6 +2,10 @@
 
 const db = require('../db')
 
+
+
+//這裡是我的小抄
+
 const getDataModel = {
   // 這裡要用 callback 來拿取資料
   getAll: (cb) => {

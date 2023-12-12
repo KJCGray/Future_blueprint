@@ -5,43 +5,55 @@ const languageDataModel = require("../models/languageData");
 const lanName = ["英文", "越文", "日文", "中文", "西班牙文", "泰文", "菲律賓文", "韓文", "其他外文", "不拘" ]
 
 const homeController = {
-    post: (req, res) => {
-        var arr = {"job_L_class": req.body.job_L_class, "job_type": req.body.job_type, "job_S_class": req.body.job_S_class, "area": req.body.area};
+    post: (req, res) => { //回傳搜尋後的工作
+        function processProperty(property) {
+          if (Array.isArray(req.body[property])) {
+            return req.body[property].join(',');
+          } else if (typeof req.body[property] === 'string') {
+            return req.body[property];
+          }
+          return '';
+        }
+        
+        var tmpJobClass = processProperty('job_L_class').split(',');
+        var tmpJobType = processProperty('job_type').split(',');
+        var tmpArea = processProperty('area').split(',');
+
+        var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+        console.log(arr);
         workDataModel.post(arr, (err, results) => {
           if (err) console.log(err);
           if(results && results.length >0){
-            console.log(results);
-            res.json(results);
-            // res.render('results', {
-            //   // 注意回傳的結果 array，必須取 results[0] 才會是一個 todo
-            //   results: results
-            // })
+            console.log(results.length);
+            res.json(results); //回傳資料
+            // next();
           }
           else{
             // console.log('資料庫沒有回傳資料');
             res.render('NoDb');
+            // next();
           }
         })
       },
-      postSkill:(req, res) => { //垃圾
-        var arr = {"job_L_class": req.body.job_L_class,"area": req.body.area};
-        workDataModel.language(arr, (err, results) => {
-          if (err) console.log(err);
-          if(results && results.length >0){
-            res.render('SkillResults', {
-              // 注意回傳的結果 array，必須取 results[0] 才會是一個 todo
-              results: results
-            })
+      
+      postlanguage:(req, res) => {  //回傳需要的語言
+
+          // 將post 的資料
+        function processProperty(property) {
+          if (Array.isArray(req.body[property])) {
+            return req.body[property].join(',');
+          } else if (typeof req.body[property] === 'string') {
+            return req.body[property];
           }
-          else{
-            // console.log('資料庫沒有回傳資料');
-            res.render('NoDb');
-          }
-        });
+          return '';
+        }
         
-      },
-      postlanguage:(req, res) => {
-        var arr = {"job_L_class": req.body.job_L_class,"area": req.body.area};
+        var tmpJobClass = processProperty('job_L_class').split(',');
+        var tmpJobType = processProperty('job_type').split(',');
+        var tmpArea = processProperty('area').split(',');
+
+        var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+        // var arr = {"job_L_class": req.body.job_L_class,"area": req.body.area};
 
         var results = [];
         req.session.job_L_class = req.body.job_L_class;
@@ -73,7 +85,7 @@ const homeController = {
           results.sort((a, b) => b.job_count - a.job_count);
           var cnt = 3, i = 0, bestarr = [];
           while(cnt--){
-              if(results[i].language == '不拘'){
+              if(results[i].language == '不拘' || results[i].job_count == 0){
                 i++;
               }
               bestarr.push(results[i].language)
@@ -84,9 +96,10 @@ const homeController = {
           if (!flag) {
             if (results && results.length > 0) {
               // console.log(results);
-              res.render('language', {
-                data: results
-              });
+              res.json(results)
+              // res.render('language', {
+              //   data: results
+              // });
             } else {
               res.render('NoDb');
             }
@@ -96,11 +109,10 @@ const homeController = {
         processResults();
         
       },
-      postALLlanguage:(req, res) => {
+      postALLlanguage:(req, res) => { //回傳需要的前三個語言的聽說讀寫分別要什麼程度
+        
         var arr = {"job_L_class": req.session.job_L_class,"area": req.session.area};
         var bestlist = req.session.languages;
-        // console.log("b");
-        // console.log(bestlist);
         var bestName = [];
         for(var i = 0; i < bestlist.length; i++){
             bestName.push(bestlist[i]+"聽");
@@ -133,24 +145,13 @@ const homeController = {
           for (let i = 0; i < bestName.length; i++) {
             await fetchData(i);
           }
-      
-          // console.log("results", results[0]);
-          // results.sort((a, b) => b.job_count - a.job_count);
-          // var cnt = 3, i = 0, bestarr = [];
-          // while(cnt--){
-          //     if(results[i].language == '不拘'){
-          //       i++;
-          //     }
-          //     bestarr.push(results[i].language)
-          //     i++;
-          // }
-          // console.log(bestarr);
           if (!flag) {
             if (results && results.length > 0) {
               console.log(results);
-              res.render('language', {
-                data: results
-              });
+              res.json(results);
+              // res.render('language', {
+              //   data: results
+              // });
             } else {
               res.render('NoDb');
             }

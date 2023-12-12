@@ -3,6 +3,8 @@ let bodyParser = require('body-parser');
 const getDataController = require('./controllers/getDataController');
 const homeDataController = require('./controllers/homeController');
 const db = require('./db')
+const cors = require('cors');
+
 
 
 const app = express();
@@ -29,13 +31,16 @@ app.use(session({
     isLogin: false
 }));
 
+app.use(cors());
+
 
 app.get('/', (req, res) => {
   res.render('indexlogin')
 });
-app.get('/getDB', getDataController.getAll);
-app.get('/getDB/:id', getDataController.get);
-app.post('/getDB', getDataController.post);
+
+// app.get('/getDB', getDataController.getAll);
+// app.get('/getDB/:id', getDataController.get);
+// app.post('/getDB', getDataController.post);
 
 app.get('/home',(req, res) => {
     res.render('home')
@@ -44,7 +49,24 @@ app.post('/home', homeDataController.postlanguage);
 app.get('/home/next', homeDataController.postALLlanguage);
 
 
-app.post('/api/searchwork',homeDataController.post);
+//顯示搜尋結果的api
+app.post('/api/searchwork/', homeDataController.post);
+// app.get('/api/searchwork/', homeDataController.post);
+
+
+//顯示搜尋結果工作中所有需要語言統計結果的api
+
+app.post('/api/searchlanguage/', homeDataController.postlanguage);
+app.get('/api/searchlanguage/', homeDataController.postlanguage);
+
+//顯示搜尋結果工作中所有需要語言統計結果前三項詳細結果的api
+
+// app.post('/api/searchlanguage/', homeDataController.postALLlanguage);
+
+//顯示技能統整的api(還沒寫完
+// app.post('/api/searchwork', homeDataController.postskill);
+
+
 
 
 app.listen(port, () => {

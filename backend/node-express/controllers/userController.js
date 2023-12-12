@@ -14,16 +14,16 @@ const userController = {
     //從request body 拿取 user 資料
     username = req.body.username;
     password = req.body.password;
-    // const {username, password} = req.body;
+    email = req.body.email;
 
-    if(!username || !password) {
+    if(!username || !password || !email) {
       //這裡用return 可避免 if-else 寫法增加層數
       req.flash('errorMessage', '缺少必要欄位');
       res.redirect('/register');
       return next();
     }
     // 利用 bcrypt 套件對密碼進行雜湊處理
-    console.log(username, password);
+    //console.log(username, password, email);
     bcrypt.hash(password, saltRounds, function (err, hash) {
       // 若有 err 就直接顯示錯誤訊息
       if (err) {
@@ -35,8 +35,9 @@ const userController = {
       //傳入一個物件，若有錯誤會回傳 cb
       userModel.add({
         username,
-        password: hash
-      }, (err) => {
+        password: hash,
+        email
+      }, (err,userId) => {
         // 若有 err 就直接顯示錯誤訊息
         if(err) {
           req.flash('errorMessage', '已存在相同用戶名');
@@ -45,11 +46,12 @@ const userController = {
         }
       //註冊成功保持登入狀態，並導回首頁
         req.session.username = username;
+        req.session.userId = userId;
         res.redirect('/');
       });
     });
   },
-  
+
   //渲染登入畫面
   login: (req, res) => {
     res.render('user/login')
@@ -69,14 +71,12 @@ const userController = {
     
     // 輸入正確就從 userModel 找出 user 資料
     userModel.get(username, (err, user) => {
-      console.log(user);
+      //console.log(user);
       if (err) {
         req.flash('errorMessage', err.toString());
-      
         return next();
       }
       if (!user) {
-      
         req.flash('errorMessage', '使用者不存在');
         res.redirect('/login');
         return next();
@@ -92,13 +92,16 @@ const userController = {
         }
        
         req.session.username = user.username;
-        res.render('index', { username: req.session.username });
+        req.session.userId = user.id;
+        //console.log("User ID in session:", req.session.userId);
+        res.render('index', { username: req.session.username , userId: req.session.userId});
       });
     })
   },
   //登出: 清除session 並導回首頁
   logout: (req, res) => {
     req.session.username = null;
+    req.session.userId = null;
     res.redirect('/');
   }
 }

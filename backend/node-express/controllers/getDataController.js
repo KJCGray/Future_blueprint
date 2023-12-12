@@ -1,6 +1,7 @@
 const { render } = require("ejs");
 const getDataModel = require("../models/getData")
 
+//這裡是我的小抄
 
 const getDataController = {
   getAll: (req, res) => {

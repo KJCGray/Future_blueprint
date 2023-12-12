@@ -1,5 +1,10 @@
 <h1>登入頁面</h1>
 
+
+<% if(errorMessage) { %>
+  <p style="color: red;"><%= errorMessage %></p>
+<% } %>
+
 <form method="POST" action="/login">
   <div>username: <input type="text" name="username" /></div>
   <div>password: <input type="password" name="password" /></div>

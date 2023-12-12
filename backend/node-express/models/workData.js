@@ -9,38 +9,22 @@ const workDataModel ={
         var SelectStr = "SELECT * FROM work ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
-            if(value != "不限" && typeof value !== 'undefined'){
+            if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
-                    SelectStr+="WHERE";
+                    SelectStr+="WHERE (";
                     flag = 1;
                 }
-                else SelectStr+="AND";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value}%' `;
+                else SelectStr+="AND ( ";
+                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                for(var i = 1; i < value.length; i++){
+                    console.log(value[i]);
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                }
+                SelectStr = SelectStr + ") ";
             }
         }
         searchstr = SelectStr;
         console.log(SelectStr);
-        db.query(SelectStr, (err, results) => {
-            if (err) return cb(err);
-            // console.log(results);
-            cb(null, results)
-        })
-    },
-    postlanguage: (SelectList, cb) => {
-        // var SelectStr = "SELECT language_req, COUNT(job_num) AS N FROM work ";
-        var flag = 0;
-        for (const [key, value] of Object.entries(SelectList)) {
-            if(value != "不限" && typeof value !== 'undefined'){
-                if(!flag){
-                    SelectStr+="WHERE";
-                    flag = 1;
-                }
-                else SelectStr+="AND";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value}%' `;
-            }
-        }
-        console.log(SelectStr);
-        // SelectStr = SelectStr + "GROUP BY language_req ORDER BY N DESC;"
         db.query(SelectStr, (err, results) => {
             if (err) return cb(err);
             // console.log(results);
