@@ -88,8 +88,8 @@ app.post('/api/searchskill', workDataController.postSkill);
 // app.get('/register', userController.register)
 // app.post('/register', userController.handleRegister)
 
-// app.post('/msg',workDataController.InsertMessage )
-// app.get('/Selectmsg',workDataController.postMessage )
+app.post('api/msg',workDataController.InsertMessage )
+app.get('api/Selectmsg',workDataController.postMessage )
 // app.get('/Page', PageController.postALL)
 //login
 app.post('api/login', userController.handleLogin);

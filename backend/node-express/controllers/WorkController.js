@@ -139,7 +139,8 @@ const workController = {
         })
       }
       else{
-        console.log('味登入');
+        res.send("未登入")
+        // console.log('');
       }
     }
 }
