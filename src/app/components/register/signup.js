@@ -3,8 +3,23 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useRef } from "react";
+import Swal from "sweetalert2";
 
-const signup = () => {
+function Signup() {
+  const signupNameRef = useRef("");
+  const signupEmailRef = useRef("");
+  const signupPswdRef = useRef("");
+  const handleNameChange = (e) => {
+    signupNameRef.current = e.target.value;
+  };
+  const handleEmailChange = (e) => {
+    signupEmailRef.current = e.target.value;
+  };
+  const handlePswdChange = (e) => {
+    signupPswdRef.current = e.target.value;
+  };
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
   const theme = createTheme({
@@ -21,22 +36,52 @@ const signup = () => {
     e.preventDefault();
     router.push("/searchpage");
   }
+  async function signup(e) {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:5000/api/register`, {
+        username: signupNameRef,
+        email: signupEmailRef,
+        password: signupPswdRef,
+      });
+      console.log(response);
+      Swal.fire("註冊成功", "歡迎使用Future Blueprint", "success");
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div className="">
-      <form method="post" onSubmit={signHandler}>
+      <form method="post" onSubmit={signup}>
         <div className="flex items-center justify-center mt-4">
           <label htmlFor="user" className="flex items-center h-10 bg-white w-60 rounded-2xl">
-            <input className="pl-4 outline-none" placeholder="使用者名稱" />
+            <input
+              className="pl-4 outline-none"
+              placeholder="使用者名稱"
+              ref={signupNameRef}
+              onChange={handleNameChange}
+            />
           </label>
         </div>
         <div className="flex items-center justify-center mt-6">
           <label htmlFor="email" className="flex items-center h-10 bg-white w-60 rounded-2xl">
-            <input className="pl-4 outline-none " placeholder="電子信箱" />
+            <input
+              className="pl-4 outline-none "
+              placeholder="電子信箱"
+              ref={signupEmailRef}
+              onChange={handleEmailChange}
+            />
           </label>
         </div>
         <div className="flex items-center justify-center mt-6">
           <label htmlFor="password" className="flex items-center h-10 bg-white w-60 rounded-2xl">
-            <input className="pl-4 outline-none" type="password" placeholder="密碼" />
+            <input
+              className="pl-4 outline-none"
+              type="password"
+              placeholder="密碼"
+              ref={signupPswdRef}
+              onChange={handlePswdChange}
+            />
           </label>
         </div>
         <div className="flex justify-center mt-4">
@@ -49,6 +94,6 @@ const signup = () => {
       </form>
     </div>
   );
-};
+}
 
-export default signup;
+export default Signup;

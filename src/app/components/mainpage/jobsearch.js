@@ -86,7 +86,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 5,
     job_name: "5",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -99,7 +100,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 6,
     job_name: "6",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -112,7 +114,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 7,
     job_name: "7",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -125,7 +128,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 8,
     job_name: "8",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -138,7 +142,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 9,
     job_name: "9",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -151,7 +156,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 10,
     job_name: "10",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -164,7 +170,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 11,
     job_name: "11",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -177,7 +184,8 @@ const Jobdata = [
     job_S_class: "經營管理主管",
     job_content: "",
     update_date: "11/18",
-  },{
+  },
+  {
     job_num: 12,
     job_name: "12",
     serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
@@ -253,7 +261,7 @@ const Jobsearch = () => {
         job_type: styleName,
         area: areaName,
       });
-      console.log(response);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }

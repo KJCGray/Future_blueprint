@@ -3,6 +3,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
+import { useRef } from "react";
 
 const signin = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -20,6 +21,10 @@ const signin = () => {
   async function loginHandler(e) {
     e.preventDefault();
     router.push("/searchpage");
+  }
+  async function login(e){
+    e.preventDefault();
+    
   }
   return (
     <div className="">
