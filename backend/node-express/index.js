@@ -84,7 +84,7 @@ app.post('/api/searchskill', workDataController.postSkill);
 // app.post('/login', userController.handleLogin)
 // app.post('/logout', userController.logout)
 
-//建立註冊路由
+// // 建立註冊路由
 // app.get('/register', userController.register)
 // app.post('/register', userController.handleRegister)
 
@@ -96,7 +96,7 @@ app.post('api/login', userController.handleLogin);
 
 app.post('api/register', userController.handleRegister);
 
-// app.post('/logout', userController.logout);
+app.get('/logout', userController.logout);
 
 app.listen(port, () => {
     try{
