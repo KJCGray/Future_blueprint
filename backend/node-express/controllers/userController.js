@@ -80,10 +80,8 @@ const userController = {
         return next();
       }
       if (!user) {
-<<<<<<< HEAD
         console.log('使用者不存在');
-=======
->>>>>>> 03f4af379f31c2fc84ca7f215c518c8ef95fdb1c
+
         req.flash('errorMessage', '使用者不存在');
         res.redirect('/login');
         return next();
