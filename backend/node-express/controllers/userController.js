@@ -29,7 +29,7 @@ const userController = {
   handleRegister: (req, res, next) => {
     //從request body 拿取 user 資料
     username = req.body.username;
-    password = req.body.password;
+    password = String(req.body.password);
     email = req.body.email;
 
     if(!username || !password || !email) {
@@ -43,6 +43,7 @@ const userController = {
       return next();
     }
     // 利用 bcrypt 套件對密碼進行雜湊處理
+
     bcrypt.hash(password, saltRounds, function (err, hash) {
       // 若有 err 就直接顯示錯誤訊息
       if (err) {

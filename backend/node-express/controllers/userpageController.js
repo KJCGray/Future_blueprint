@@ -14,17 +14,20 @@ const PageController = {
         }
         else{
             res.json({
-                "id":user.id,
-                "username":user.username,
-                "email":user.email,
-                "certificate":user.certificate,
-                "language":user.language,
-                "edu":user.edu,
-                "exp":user.exp,
-                "other":user.other
+                id:user.id,
+                username:user.username,
+                email:user.email,
+                certificate:user.certificate,
+                language:user.language,
+                edu:user.edu,
+                exp:user.exp,
+                other:user.other
             })
         }
        })
+    },
+    update:(req, res) =>{
+        
     }
 }
 module.exports = PageController;
