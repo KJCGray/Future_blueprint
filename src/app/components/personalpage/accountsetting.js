@@ -37,7 +37,7 @@ const Accountsetting = () => {
                 姓   名
                 </Button>           
                 <div className='ml-8'>
-                    {isName ? '未輸入' : (<TextField id="standard-basic" label="Name" variant="standard"/>)}
+                    {isName ?  (<TextField id="standard-basic" label="Name" variant="standard"/>):'未輸入'}
                 </div>
             </div> 
             <div className='flex items-center'>
@@ -46,7 +46,7 @@ const Accountsetting = () => {
                 信   箱
                 </Button>           
                 <div className='ml-8'>
-                    {isMail ? '未輸入' : (<TextField id="standard-basic" label="Mail" variant="standard"/>)}
+                    {isMail ? (<TextField id="standard-basic" label="Mail" variant="standard"/>):'未輸入'}
                 </div>
             </div> 
             <div className='flex items-center'>
@@ -55,7 +55,7 @@ const Accountsetting = () => {
                 學   歷
                 </Button>           
                 <div className='ml-8'>
-                    {isEducational ? '未輸入' : (<TextField id="standard-basic" label="Educational" variant="standard"/>)}
+                    {isEducational ?(<TextField id="standard-basic" label="Educational" variant="standard"/>):'未輸入'}
                 </div>
             </div> 
             <div className='flex items-center'>
@@ -64,7 +64,7 @@ const Accountsetting = () => {
                 密   碼
                 </Button>           
                 <div className='ml-8'>
-                    {isPassword ? '未輸入' : (<TextField id="standard-basic" label="Password" variant="standard"/>)}
+                    {isPassword ? (<TextField id="standard-basic" label="Password" variant="standard"/>):'未輸入'}
                 </div>
             </div> 
 
