@@ -6,7 +6,16 @@ const db = require('../db');
 const userModel = {
   // 用 callback 來拿取資料
   //新增user功能
+  check:(user, cb) => {
+    var str = 'SELECT COUNT(*) AS CNT FROM user WHERE username = "'+ user.username+ '" ';
+    db.query(str ,(err, result) =>{
+      if (err) return cb(err);
+      console.log(result);
+      cb(null, result);
+    })
+  },
   add: (user, cb) => {
+    console.log(user);
     db.query(
       'INSERT INTO user(username, password, email,	certificate,	language,	edu,	exp,	other	) VALUES(?, ?, ?, ?, ?, ?, ?, ? )',
       [user.username, user.password, '', '', '', '', '', ''],
@@ -22,6 +31,7 @@ const userModel = {
     db.query(
       'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) return cb(err);
+        console.log(results);
         cb(null, results[0]);
       });
   }
