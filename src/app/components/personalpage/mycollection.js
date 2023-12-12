@@ -1,6 +1,6 @@
 import React from 'react'
 
-const mycollection = () => {
+const Mycollection = () => {
   return (
     <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'>
       <div className='flex flex-col items-center w-[200px] pt-4'>
@@ -10,4 +10,4 @@ const mycollection = () => {
   )
 }
 
-export default mycollection
+export default Mycollection;
