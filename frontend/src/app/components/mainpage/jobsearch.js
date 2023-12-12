@@ -13,6 +13,11 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Box from "@mui/material/Box";
 import Searchresult from "./searchresult";
 import Recommendskills from "./recommendskills";
+import Reclanguage from "./reclanguage";
+import Reccertificate from "./reccertificate";
+import { Engineering } from "@mui/icons-material";
+import LanguageIcon from "@mui/icons-material/Language";
+import BadgeIcon from "@mui/icons-material/Badge";
 import axios from "axios";
 
 const ITEM_HEIGHT = 48;
@@ -68,6 +73,124 @@ const Jobdata = [
     job_content: "",
     update_date: "11/18",
   },
+  {
+    job_num: 4,
+    job_name: "4",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 5,
+    job_name: "5",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 6,
+    job_name: "6",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 7,
+    job_name: "7",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 8,
+    job_name: "8",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 9,
+    job_name: "9",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 10,
+    job_name: "10",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 11,
+    job_name: "11",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },{
+    job_num: 12,
+    job_name: "12",
+    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
+    company_type: "餐館業",
+    area: "台北市中正區",
+    exp: "經歷不拘",
+    edu: "學歷不拘",
+    job_L_class: "經營／人資類",
+    job_M_class: "經營／幕僚類人員",
+    job_S_class: "經營管理主管",
+    job_content: "",
+    update_date: "11/18",
+  },
 ];
 const names = [
   "台北市",
@@ -83,23 +206,23 @@ const names = [
 ];
 const jobs = [
   "經營／人資類",
-"行政／總務／法務類",
-"財會／金融專業類",
-"行銷／企劃／專案管理類",
-"客服／門市／業務／貿易類",
-"餐飲／旅遊 ／美容美髮類",
-"資訊軟體系統類",
-"研發相關類",
-"生產製造／品管／環衛類",
-"資材／物流／運輸類",
-"營建／製圖類",
-"傳播藝術／設計類",
-"醫療／保健服務類",
-"學術／教育／輔導類",
-"軍警消／保全類",
-"其他職類",
-"操作／技術／維修類",
-"文字／傳媒工作類",
+  "行政／總務／法務類",
+  "財會／金融專業類",
+  "行銷／企劃／專案管理類",
+  "客服／門市／業務／貿易類",
+  "餐飲／旅遊 ／美容美髮類",
+  "資訊軟體系統類",
+  "研發相關類",
+  "生產製造／品管／環衛類",
+  "資材／物流／運輸類",
+  "營建／製圖類",
+  "傳播藝術／設計類",
+  "醫療／保健服務類",
+  "學術／教育／輔導類",
+  "軍警消／保全類",
+  "其他職類",
+  "操作／技術／維修類",
+  "文字／傳媒工作類",
 ];
 const skills = [
   "丙級電腦軟體設計術士",
@@ -108,14 +231,22 @@ const skills = [
   "乙級電腦軟體設計技術士-C++ | Level B technician for computer software application - C++",
   "OCP Java Dev.",
 ];
+const language = [
+  "中文",
+  "英文",
+  "日文",
+  "馬達加斯加島的獅子王部族旗下的企鵝們使用的企鵝語",
+  "泰文",
+];
+const certificates = ["TOEIC初級", "托福", "中文一級", "TOEIC中級", "TOEIC高級"];
 const styles = ["短期", "長期", "兼職人員", "假日", "暑期", "寒假", "遠端工作", "周休二日"];
 
 const Jobsearch = () => {
   const [areaName, setAreaName] = React.useState([]);
   const [jobName, setJobName] = React.useState([]);
   const [styleName, setStyleName] = React.useState([]);
-  
-async function fetchjobs(){
+
+  async function fetchjobs() {
     try {
       const response = await axios.post(`http://localhost:5000/api/searchwork`, {
         job_L_class: jobName,
@@ -127,7 +258,7 @@ async function fetchjobs(){
       console.log(error);
     }
   }
-  
+
   const handleareaChange = (event) => {
     const {
       target: { value },
@@ -229,9 +360,25 @@ async function fetchjobs(){
           </Fab>
         </Box>
       </div>
-      <div className="grid w-auto h-auto justify-items-end">
+      <div className="flex justify-center mt-4">
         <Searchresult Jobdata={Jobdata} />
-        <Recommendskills skills={skills} className="" />
+        <div className="w-1/4 h-[600px]">
+          <div className="flex items-center mb-2">
+            <Engineering />
+            <span className="ml-2 font-semibold">技能推薦</span>
+          </div>
+          <Recommendskills Skills={skills} />
+          <div className="flex items-center my-2">
+            <LanguageIcon />
+            <span className="ml-2 font-semibold">語言推薦</span>
+          </div>
+          <Reclanguage Language={language} />
+          <div className="flex items-center my-2">
+            <BadgeIcon />
+            <span className="ml-2 font-semibold">證照推薦</span>
+          </div>
+          <Reccertificate Certificates={certificates} />
+        </div>
       </div>
     </div>
   );

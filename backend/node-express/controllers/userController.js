@@ -18,15 +18,16 @@ const userController = {
 
     if(!username || !password || !email) {
       //這裡用return 可避免 if-else 寫法增加層數
+      console.log('缺少必要欄位');
       req.flash('errorMessage', '缺少必要欄位');
       res.redirect('/register');
       return next();
     }
     // 利用 bcrypt 套件對密碼進行雜湊處理
-    //console.log(username, password, email);
     bcrypt.hash(password, saltRounds, function (err, hash) {
       // 若有 err 就直接顯示錯誤訊息
       if (err) {
+        console.log(err);
         req.flash('errorMessage', err.toString());
         res.redirect('/register');
         return next();
@@ -40,6 +41,7 @@ const userController = {
       }, (err,userId) => {
         // 若有 err 就直接顯示錯誤訊息
         if(err) {
+          console.log('已存在相同用戶名');
           req.flash('errorMessage', '已存在相同用戶名');
           res.redirect('/register');
           return next();
@@ -63,6 +65,7 @@ const userController = {
     // 確認是否有填入資料
     if(!username ||!password){
       
+      console.log('請輸入您的帳密!');
       req.flash('errorMessage', '請輸入您的帳密!');
       res.redirect('/login');
       // 每當呼叫 next 時，就會將控制權給下一個中間介 redirectBack(導回上一頁)
@@ -77,6 +80,8 @@ const userController = {
         return next();
       }
       if (!user) {
+        console.log('使用者不存在');
+
         req.flash('errorMessage', '使用者不存在');
         res.redirect('/login');
         return next();

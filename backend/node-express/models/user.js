@@ -1,13 +1,20 @@
-const db = require('../peidb');
+const db = require('../db');
 
 // 建立一個 userModel 物件，裡面放存取資料的方法（function）
+
+// {email	certificate	language	edu	exp	other	}
 const userModel = {
   // 用 callback 來拿取資料
   //新增user功能
   add: (user, cb) => {
     db.query(
+<<<<<<< HEAD
+      'INSERT INTO user(username, password, email,	certificate,	language,	edu,	exp,	other	) VALUES(?, ?, ?, ?,?, ?, ?, ? )',
+      [user.username, user.password, '', '', '', '','', ''],
+=======
       'INSERT INTO users(username, password, email) VALUES(?, ?, ?)',
       [user.username, user.password, user.email],
+>>>>>>> 03f4af379f31c2fc84ca7f215c518c8ef95fdb1c
       (err, results) => {
       if (err) return cb(err);
       // cb: 第一個參數為是否有錯誤，沒有的話就是 null，第二個才是結果
@@ -18,7 +25,7 @@ const userModel = {
   //登入->讀取user功能
   get: (username, cb) => {
     db.query(
-      'SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+      'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) return cb(err);
         cb(null, results[0]);
       });

@@ -41,10 +41,10 @@ const languageDataModel = {
         })
     },
     postALLlanguage : (SelectList, Languagelabel, cb) => {
-        var SelectStr = "SELECT "+Languagelabel+", COUNT("+Languagelabel+") AS CNT"+" FROM joblaguage ";
+        var SelectStr = "SELECT "+Languagelabel+", COUNT("+Languagelabel+") AS CNT"+" FROM language ";
         var flag = 0;
         for (const [key, value] of Object.entries(SelectList)) {
-            if(value != "不限" && typeof value !== 'undefined' && value.length>0){
+            if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
                     SelectStr+="WHERE (";
                     flag = 1;
