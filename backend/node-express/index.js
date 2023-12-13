@@ -84,7 +84,7 @@ app.post('/api/Selectmsg',workDataController.postMessage );
 
 // app.get('/login', userController.login)
 // app.post('/login', userController.handleLogin)
-// app.post('/logout', userController.logout)
+app.post('/api/logout', userController.logout)
 
 // // 建立註冊路由
 // app.get('/register', userController.register)
