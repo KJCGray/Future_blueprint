@@ -215,6 +215,7 @@ const userController = {
   logout: (req, res) => {
     req.session.username = null;
     req.session.userId = null;
+    req.session.token = null;
     res.redirect('/');
   }
 }

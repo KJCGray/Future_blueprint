@@ -76,7 +76,7 @@ app.post('/api/searchALLlanguage/', workDataController.postALLlanguage);
 // app.get('/api/searchALLlanguage/', workDataController.postALLlanguage);
 
 //顯示技能統整的api
-app.get('/api/searchskill/', workDataController.postSkill);
+app.post('/api/searchskill/', workDataController.postSkill);
 
 app.post('/api/msg',workDataController.InsertMessage );
 app.post('/api/Selectmsg',workDataController.postMessage );
@@ -98,7 +98,7 @@ app.post('/api/login', userController.handleLogin);
 
 app.post('/api/register', userController.handleRegister);
 
-app.get('/logout', userController.logout);
+// app.get('/logout', userController.logout);
 
 app.listen(port, () => {
     try{
