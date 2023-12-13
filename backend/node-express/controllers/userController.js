@@ -133,7 +133,7 @@ const userController = {
     password = req.body.password['current'];
     // email = req.body.email['current'];p
     // 確認是否有填入資料
-    console.log(1);
+    // console.log(1);
     if(!username ||!password){
       res.json({
         error:'請輸入您的帳密!'
