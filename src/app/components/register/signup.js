@@ -3,8 +3,9 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import { useRef } from "react";
+import { setCookie } from "nookies";
+import axios from "axios";
 import Swal from "sweetalert2";
 
 function Signup() {
@@ -32,10 +33,6 @@ function Signup() {
       },
     },
   });
-  async function signHandler(e) {
-    e.preventDefault();
-    router.push("/searchpage");
-  }
   async function signup(e) {
     e.preventDefault();
     try {
@@ -44,8 +41,14 @@ function Signup() {
         email: signupEmailRef,
         password: signupPswdRef,
       });
-      console.log(response);
-      Swal.fire("註冊成功", "歡迎使用Future Blueprint", "success");
+      const token = response.data.token;
+      const userid = response.data.userId;
+      setCookie(null, "token", String(token));
+      setCookie(null, "userid", userid);
+      console.log(token, userid);
+      Swal.fire("註冊成功", "歡迎使用Future Blueprint", "success").then(() => {
+        router.push("/searchpage");
+      });
     } catch (error) {
       console.log(error);
     }
