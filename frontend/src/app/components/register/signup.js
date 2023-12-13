@@ -51,6 +51,12 @@ function Signup() {
       });
     } catch (error) {
       console.log(error);
+      Swal.fire({
+        title: 'Error!',
+        text: error,
+        icon: 'error',
+        confirmButtonText: 'confirm'
+      })
     }
   }
   return (

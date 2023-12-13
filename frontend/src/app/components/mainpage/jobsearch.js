@@ -297,9 +297,6 @@ const Jobsearch = () => {
 
   return (
     <div className="w-auto h-auto">
-      <FormControl sx={{ m: 1, width: 400 }}>
-        <TextField label="輸入職缺" />
-      </FormControl>
       <div className="flex">
         <FormControl sx={{ m: 1, width: 250 }}>
           <InputLabel id="demo-multiple-checkbox-label">地區</InputLabel>

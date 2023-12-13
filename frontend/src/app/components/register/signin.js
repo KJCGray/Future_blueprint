@@ -11,9 +11,9 @@ import axios from "axios";
 const Signin = () => {
   const { token } = parseCookies();
   const { userid } = parseCookies();
-  useEffect(()=>{
-    console.log(token,userid);
-  },[])
+  useEffect(() => {
+    console.log(token, userid);
+  }, []);
   const router = useRouter();
   const signinNameRef = useRef("");
   const signinPswdRef = useRef("");
@@ -49,11 +49,10 @@ const Signin = () => {
       });
       const token = response.data.token;
       const userid = response.data.userId;
-      setCookie(null, 'token', String(token));
-      setCookie(null, 'userid', userid);
-      console.log(token,userid);
+      setCookie(null, "token", String(token));
+      setCookie(null, "userid", userid);
+      console.log(token, userid);
       router.push("/searchpage");
-      
     } catch (error) {
       console.log(error);
     }
@@ -86,12 +85,6 @@ const Signin = () => {
               ref={signinPswdRef}
               onChange={handlePswdChange}
             />
-          </label>
-        </div>
-        <div className="flex justify-center mt-4">
-          <input type="checkbox" id="stay" name="stay" />
-          <label className="text-[#a38d80] p-2" for="stay">
-            保持登入狀態
           </label>
         </div>
         <div className="flex justify-center mt-4">
