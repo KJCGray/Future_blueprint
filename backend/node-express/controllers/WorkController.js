@@ -73,8 +73,12 @@ const workController = {
         if (err) console.log(err);
         else{
           var cntMap = {};
+          var toolMap = {};
           for (var i = 0; i < results.length; i++) {
+            if(results[i]['job_skill'] == null) results[i]['job_skill'] = '不拘';
+            if(results[i]['tool_expect'] == null) results[i]['tool_expect'] = '不拘';
             var tmpstr = results[i]['job_skill'].split(',');
+            var tmpstr1 = results[i]['tool_expect'].split(',');
             for (var j = 0; j < tmpstr.length; j++) {
               if (cntMap.hasOwnProperty(tmpstr[j])) {
                 cntMap[tmpstr[j]]++;
@@ -82,10 +86,20 @@ const workController = {
                 cntMap[tmpstr[j]] = 1;
               }
             }
+            for (var j = 0; j < tmpstr1.length; j++) {
+              if (toolMap.hasOwnProperty(tmpstr1[j]) && tmpstr1[j] != "不拘") {
+                toolMap[tmpstr1[j]]++;
+              } else if(tmpstr1[j] != "不拘"){
+                toolMap[tmpstr1[j]] = 1;
+              }
+            }
           }
           var cntArray = [];
           for (var skill in cntMap) {
             cntArray.push({ skill: skill, count: cntMap[skill] });
+          }
+          for (var tool in toolMap) {
+            cntArray.push({ tool: tool, count: toolMap[tool] });
           }
           // 根據技能計數排序陣列
           cntArray.sort(function (a, b) {
@@ -120,26 +134,28 @@ const workController = {
       })
     },
     InsertMessage:(req, res) => {
+      const content = req.body.content;
+      const job_L_class = req.body.job_L_class;
       if(req.session.userId != null){
-        console.log(req.session.userId);
+        // console.log(req.session.userId);
         var WriteMsg = {
           "id":req.session.userId,
           "username":req.session.username,
           "time":new Date().toLocaleString(),
-          "content":"test",
+          "content":content,
           "area":"",
           "job_type":"",
-          "job_L_class": ""
+          "job_L_class": job_L_class
         };
         MsgDataModel.Insert(WriteMsg, (err, results) =>{
           if (err) console.log(err);
           else{
-            res.send("完成留言");
+            res.state(200).send("完成留言");
           }
         })
       }
       else{
-        res.send("未登入")
+        res.json({error:"請先登入"});
         // console.log('');
       }
     }
