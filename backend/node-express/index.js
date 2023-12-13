@@ -78,10 +78,12 @@ app.post('/api/searchALLlanguage/', workDataController.postALLlanguage);
 //顯示技能統整的api
 app.post('/api/searchskill/', workDataController.postSkill);
 
+//留言區
 app.post('/api/msg',workDataController.InsertMessage );
 app.post('/api/Selectmsg',workDataController.postMessage );
 
-
+//個人葉面
+app.post()
 // app.get('/login', userController.login)
 // app.post('/login', userController.handleLogin)
 app.post('/api/logout', userController.logout)

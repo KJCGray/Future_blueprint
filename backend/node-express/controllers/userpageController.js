@@ -25,6 +25,7 @@ const PageController = {
             })
         }
        })
+       
     },
     update:(req, res) =>{
         
