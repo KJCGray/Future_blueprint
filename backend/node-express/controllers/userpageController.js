@@ -7,10 +7,10 @@ const PageController = {
        userModel.get(req.session.username, (err, user) =>{
         if(err) {
             console.log(err)
-            res.send("請登入");
+            res.json({error:"請登入"});
         }
         if(user.token != req.session.token){
-            res.send("登入驗證錯誤，請再次驗證");
+            res.json({erroe:"登入驗證錯誤，請再次登入"});
         }
         else{
             res.json({
