@@ -28,7 +28,10 @@ const userController = {
   //驗證註冊
   handleRegister: (req, res, next) => {
     //從request body 拿取 user 資料
-    // console.log(req.body);
+    console.log(req.body);
+    // username = req.body.username;
+    // password = req.body.password;
+    // email = req.body.email;
     username = req.body.username['current'];
     password = req.body.password['current'];
     email = req.body.email['current'];
@@ -129,9 +132,11 @@ const userController = {
 
   //驗證登入狀態
   handleLogin: (req, res, next) => {
+    // username = req.body.username;
+    // password = req.body.password;
     username = req.body.username['current'];
     password = req.body.password['current'];
-    // email = req.body.email['current'];p
+
     // 確認是否有填入資料
     // console.log(1);
     if(!username ||!password){
@@ -168,7 +173,6 @@ const userController = {
       bcrypt.compare(password, user.password, function (err, isSccess) {
         // 若出現錯誤或比對不成功，就顯示錯誤訊息
         if (err || !isSccess) {
-          // console.log(isSccess);
           res.json({
             error:'密碼錯誤'
           });

@@ -83,13 +83,15 @@ app.post('/api/msg',workDataController.InsertMessage );
 app.post('/api/Selectmsg',workDataController.postMessage );
 
 //個人葉面
-app.post()
-// app.get('/login', userController.login)
+app.post('/api/userpage', PageController.postALL);
+app.post('/api/updatapage', PageController.update);
+
+app.get('/login', userController.login)
 // app.post('/login', userController.handleLogin)
 app.post('/api/logout', userController.logout)
 
 // // 建立註冊路由
-// app.get('/register', userController.register)
+app.get('/register', userController.register)
 // // app.post('/register', userController.handleRegister)
 
 // app.post('/api/msg',workDataController.InsertMessage )
@@ -100,7 +102,7 @@ app.post('/api/login', userController.handleLogin);
 
 app.post('/api/register', userController.handleRegister);
 
-// app.get('/logout', userController.logout);
+app.get('/logout', userController.logout);
 
 app.listen(port, () => {
     try{
