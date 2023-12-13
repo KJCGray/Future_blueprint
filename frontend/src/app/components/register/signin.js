@@ -49,6 +49,7 @@ const Signin = () => {
       });
       const token = response.data.token;
       const userid = response.data.userId;
+      console.log(response);
       setCookie(null, "token", String(token));
       setCookie(null, "userid", userid);
       console.log(token, userid);
