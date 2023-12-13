@@ -33,7 +33,7 @@ const userModel = {
     db.query(
       'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) return cb(err);
-        console.log(results);
+        console.log('12',results);
         cb(null, results[0]);
       });
   },
@@ -48,6 +48,14 @@ const userModel = {
   updateToken:(id, Token, cb) => {
     var str = "UPDATE user SET token='"+Token+"' WHERE id="+id+";";
     db.query(str,(err, results) => {
+      if (err) return cb(err);
+        // console.log("12",results);
+        cb(null, results);
+    } )
+  },
+  updataUserData:(user, cb) =>{
+    var str = "UPDATE user SET username = ?, email = ?,	certificate = ?,	language = ?,	edu = ?,	exp = ?,	other = ? WHERE  id = ?";
+    db.query(str,[user.username, user.email, user.certificate, user.language, user.edu, user.exp, user.other, user.id],(err, results) => {
       if (err) return cb(err);
         console.log(results);
         cb(null, results[0]);
