@@ -87,9 +87,11 @@ const homeController = {
             await fetchData(i);
           }
       
-          // console.log("results", results[0]);
+          console.log("results", results);
           results.sort((a, b) => b.job_count - a.job_count);
           var cnt = 3, i = 0, bestarr = [];
+          if(results.length < 3);
+          cnt = results.length;
           while(cnt--){
               if(results[i].language == '不拘' || results[i].job_count == 0){
                 i++;
