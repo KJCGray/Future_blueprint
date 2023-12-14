@@ -25,19 +25,18 @@ const homeController = {
           if (err) console.log(err);
           if(results && results.length >0){
             console.log(results.length);
-            res.json(results); //回傳資料
+            res.status(200).json(results); //回傳資料
             // next();
           }
           else{
             // console.log('資料庫沒有回傳資料');
-            res.json({error:"目前沒有該項職缺"});
+            res.status(404).json({message:"目前沒有該項職缺"});
             // next();
           }
         })
       },
       
       postlanguage:(req, res) => {  //回傳需要的語言
-
           // 將post 的資料
         function processProperty(property) {
           if (Array.isArray(req.body[property])) {

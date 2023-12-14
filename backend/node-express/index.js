@@ -85,7 +85,7 @@ app.get('/api/searchskill/', workDataController.postSkill);
 
 //證照
 app.post('/api/searchCertificate/', workDataController.postCertificate);
-// app.get('/api/searchCertificate/', workDataController.postCertificate);
+app.get('/api/searchCertificate/', workDataController.postCertificate);
 
 //留言區
 app.post('/api/msg',workDataController.InsertMessage );

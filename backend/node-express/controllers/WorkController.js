@@ -27,7 +27,7 @@ const workController = {
               }
               if (tmpresults && tmpresults.length > 0) {
                 results.push({ "language":bestName[index] ,"Label":tmpresults[0][bestName[index]],"job_count":tmpresults[0]['CNT'] });
-                console.log("results", results );
+                // console.log("results", results );
               }
               resolve();
             });
@@ -41,7 +41,7 @@ const workController = {
           }
           if (!flag) {
             if (results && results.length > 0) {
-              console.log(results);
+              // console.log(results);
               res.status(200).json(results)
               // res.render('language', {
               //   data: results
@@ -102,7 +102,7 @@ const workController = {
             }
           }
           for (var tool in toolMap) {
-            if(cntMap[skill] >= 5){
+            if(toolMap[tool] >= 5){
               cntArray.push({ tool: tool, count: toolMap[tool] });
             }
           }
@@ -156,6 +156,7 @@ const workController = {
           cntArray.sort(function (a, b) {
             return b.count - a.count; // 以降序排序
           });
+          console.log(cntArray);
           res.status(200).json(cntArray);
         }
       })
