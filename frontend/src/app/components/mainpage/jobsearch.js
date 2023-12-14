@@ -65,24 +65,6 @@ const jobs = [
   "操作／技術／維修類",
   "文字／傳媒工作類",
 ];
-const skills = [
-  "丙級電腦軟體設計術士",
-  "CPE大學程式能力檢定",
-  "SSE C程式語言國際認證",
-  "乙級電腦軟體設計技術士-C++ | Level B technician for computer software application - C++",
-  "OCP Java Dev.",
-];
-const certificates = [
-  "TOEIC初級",
-  "托福",
-  "中文一級",
-  "TOEIC中級",
-  "TOEIC高級",
-  "托福",
-  "中文一級",
-  "TOEIC中級",
-  "TOEIC高級",
-];
 const styles = ["工讀", "全職", "兼職", "長期工讀", "假日工讀", "外場", "高階"];
 const itemsPerPage = 20;
 const Jobsearch = () => {
@@ -92,6 +74,7 @@ const Jobsearch = () => {
   const [jobdata, setjobdata] = useState([]);
   const [language, setLanguage] = useState([]);
   const [skills, setSkill] = useState([]);
+  const [certificate, setCertificate] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totaljob, settotaljob] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -141,11 +124,25 @@ const Jobsearch = () => {
       console.log(error);
     }
   }
+  async function fetchCertificate() {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/searchCertificate`, {
+        job_L_class: jobName,
+        job_type: styleName,
+        area: areaName,
+      });
+      setCertificate(response.data);
+      console.log(certificate);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleSearch = () => {
     fetchjobs();
     fetchlanguage();
     fetchskill();
+    fetchCertificate();
     setCurrentPage(1);
   };
 
@@ -254,7 +251,7 @@ const Jobsearch = () => {
         </Box>
       </div>
       <div className="w-full h-auto mt-4">
-        {loading && <p>Loading...</p>}
+        {loading && <RotateLeftIcon className="mt-24 animate-spin" />}
         {jobdata.length > 0 ? ( // 如果有 jobdata
           <div className="h-auto">
             <div className="flex">
@@ -274,7 +271,7 @@ const Jobsearch = () => {
                   <BadgeIcon />
                   <span className="ml-2 font-semibold">證照推薦</span>
                 </div>
-                <Reccertificate Certificates={certificates} />
+                <Reccertificate Certificates={certificate} />
               </div>
             </div>
             <Pagination
@@ -288,7 +285,8 @@ const Jobsearch = () => {
           </div>
         ) : (
           <div className="flex items-center justify-center w-full h-auto mt-24">
-            <Image src="/DUCKgif.gif" alt="alpaca" height={150} width={150} />
+            <Image src="/rabbitgif.gif" alt="alpaca" height={150} width={150} />
+            <p className="font-semibold">快搜尋適合你的職缺吧！</p>
           </div>
         )}
       </div>
