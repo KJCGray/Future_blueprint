@@ -76,8 +76,8 @@ const workController = {
           var cntMap = {};
           var toolMap = {};
           for (var i = 0; i < results.length; i++) {
-            if(results[i]['job_skill'] == null) results[i]['job_skill'] = '不拘';
-            if(results[i]['tool_expect'] == null) results[i]['tool_expect'] = '不拘';
+            if(results[i]['job_skill'] == null || results[i]['job_skill'] == '') results[i]['job_skill'] = '不拘';
+            if(results[i]['tool_expect'] == null || results[i]['tool_expect'] == '') results[i]['tool_expect'] = '不拘';
             var tmpstr = results[i]['job_skill'].split(',');
             var tmpstr1 = results[i]['tool_expect'].split(',');
             for (var j = 0; j < tmpstr.length; j++) {
@@ -120,7 +120,7 @@ const workController = {
         }
         return '';
       }
-      
+      //將post資料用,分割成陣列
       var tmpJobClass = processProperty('job_L_class').split(',');
       var tmpJobType = processProperty('job_type').split(',');
       var tmpArea = processProperty('area').split(',');
