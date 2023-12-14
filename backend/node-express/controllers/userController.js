@@ -93,6 +93,7 @@ const userController = {
                   req.session.username =  username;
                   req.session.userId = userId;
                   req.session.token = usertoken;
+                  
                   res.status(200).json({
                     error:null,
                     username: req.session.username,
@@ -194,6 +195,9 @@ const userController = {
                 req.session.username = user.username;
                 req.session.userId = user.id;
                 req.session.token = usertoken;
+
+                console.log(req.session.username,req.session.token);
+                
                 res.json({
                   error:null,
                   username: req.session.username,

@@ -33,18 +33,18 @@ const userModel = {
     db.query(
       'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) return cb(err);
-        console.log('12',results);
+        // console.log('12',results);
         cb(null, results[0]);
       });
   },
-  // getpage:(username, cb) => {
-  //   db.query(
-  //     'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
-  //       if (err) return cb(err);
-  //       console.log(results);
-  //       cb(null, results[0]);
-  //     });
-  // },
+  getpage:(username, cb) => {
+    db.query(
+      'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
+        if (err) return cb(err);
+        console.log("getpage",results);
+        cb(null, results);
+      });
+  },
   updateToken:(id, Token, cb) => {
     var str = "UPDATE user SET token='"+Token+"' WHERE id="+id+";";
     db.query(str,(err, results) => {

@@ -43,13 +43,17 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/', (req, res) => {
-    if(req.session.username == null){
-        req.session.username = undefined
-    }
-    res.render('index', {username:req.session.username});
-})
 
+// app.get('/', (req, res) => {
+//     if(req.session.username == null){
+//         req.session.username = undefined
+//     }
+//     res.render('index', {username:req.session.username});
+// })
+
+// app.get('/test',(req, res) =>{
+//     res.render('hello');
+// })
 // app.get('/getDB', getDataController.getAll);
 // app.get('/getDB/:id', getDataController.get);
 // app.post('/getDB', getDataController.post);
@@ -84,14 +88,14 @@ app.post('/api/Selectmsg',workDataController.postMessage );
 
 //個人葉面
 app.post('/api/userpage', PageController.postALL);
-app.post('/api/updatapage', PageController.update);
+app.post('/api/updatepage', PageController.update);
 
-app.get('/login', userController.login)
+// app.get('/login', userController.login)
 // app.post('/login', userController.handleLogin)
 app.post('/api/logout', userController.logout)
 
 // // 建立註冊路由
-app.get('/register', userController.register)
+// app.get('/register', userController.register)
 // // app.post('/register', userController.handleRegister)
 
 // app.post('/api/msg',workDataController.InsertMessage )
