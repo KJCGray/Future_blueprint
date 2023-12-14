@@ -52,10 +52,10 @@ const Accountsetting = () => {
             <div className='flex items-center mt-10'>
                 <Button onClick={handleEducationalClick} 
                 className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
-                學   歷
+                密   碼
                 </Button>           
                 <div className='ml-8'>
-                    {isEducational ?  (<TextField id="standard-basic" label="Educational" variant="standard"/>): '未輸入'}
+                    {isEducational ?  (<TextField id="standard-basic" label="Password" variant="standard"/>): '未輸入'}
                 </div>
             </div> 
         </div>
