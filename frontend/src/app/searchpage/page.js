@@ -6,9 +6,9 @@ import Searchbar from "../components/mainpage/searchbar";
 
 export default function ButtonUsage() {
   return (
-    <div className="w-auto h-auto m-0 bg-white">
+    <div className="w-auto min-h-screen m-0 bg-white">
       <Searchbar />
-      <div className="flex items-center justify-center mx-8 my-8">
+      <div className="flex items-center justify-center h-auto mx-8 my-8">
         <Jobsearch />
       </div>
     </div>
