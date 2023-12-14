@@ -106,6 +106,7 @@ const workController = {
           cntArray.sort(function (a, b) {
             return b.count - a.count; // 以降序排序
           });
+          console.log(cntArray)
           res.json(cntArray);
         }
       })
@@ -131,7 +132,7 @@ const workController = {
         else{
           var cntMap = {};
           for (var i = 0; i < results.length; i++) {
-            if(results[i]['certificates'] == null) results[i]['certificates'] = '不拘';
+            if(results[i]['certificates'] == null || results[i]['certificates'] == '') results[i]['certificates'] = '不拘';
             var tmpstr = results[i]['certificates'].split(',');
             for (var j = 0; j < tmpstr.length; j++) {
               if (cntMap.hasOwnProperty(tmpstr[j]) && tmpstr[j] != "不拘") {
@@ -143,7 +144,7 @@ const workController = {
           }
           var cntArray = [];
           for (var skill in cntMap) {
-            cntArray.push({ skill: skill, count: cntMap[skill] });
+            cntArray.push({ certificates: skill, count: cntMap[skill] });
           }
           // 根據技能計數排序陣列
           cntArray.sort(function (a, b) {
