@@ -1,6 +1,5 @@
 const express = require('express');
-// 引入 db 資料庫: mys
-// ql 模組 & 連線資料
+// 引入 db 資料庫: mysql 模組 & 連線資料
 const db = require('./db')
 const session = require('express-session');
 const flash = require("connect-flash");

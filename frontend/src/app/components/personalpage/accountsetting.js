@@ -37,7 +37,7 @@ const Accountsetting = () => {
                 姓   名
                 </Button>           
                 <div className='ml-8'>
-                    {isName ? '未輸入' : (<TextField id="standard-basic" label="Name" variant="standard"/>)}
+                    {isName ? (<TextField id="standard-basic" label="Name" variant="standard"/>): '未輸入'}
                 </div>
             </div> 
             <div className='flex items-center mt-10'>
@@ -46,16 +46,16 @@ const Accountsetting = () => {
                 信   箱
                 </Button>           
                 <div className='ml-8'>
-                    {isMail ? '未輸入' : (<TextField id="standard-basic" label="Mail" variant="standard"/>)}
+                    {isMail ? (<TextField id="standard-basic" label="Mail" variant="standard"/>): '未輸入'}
                 </div>
             </div> 
             <div className='flex items-center mt-10'>
                 <Button onClick={handleEducationalClick} 
                 className='flex items-center justify-center w-20 h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded'>
-                學   歷
+                密   碼
                 </Button>           
                 <div className='ml-8'>
-                    {isEducational ? '未輸入' : (<TextField id="standard-basic" label="Educational" variant="standard"/>)}
+                    {isEducational ?  (<TextField id="standard-basic" label="Password" variant="standard"/>): '未輸入'}
                 </div>
             </div> 
         </div>
