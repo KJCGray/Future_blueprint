@@ -2,10 +2,10 @@ import React from "react";
 
 function SearchResult({ Jobdata }) {
   return (
-    <div className="w-3/4 h-auto">
+    <div className="w-3/4 h-auto p-2 mx-12">
       {Jobdata.map((jobs) => (
         <div
-          className="w-auto h-48 p-2 mx-12 border border-solid border-zinc-300"
+          className="w-full h-48 p-2 border border-solid border-zinc-300"
           key={jobs.job_num}
         >
           <div className="w-auto m-1 text-lg font-semibold">

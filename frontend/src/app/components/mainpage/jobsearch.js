@@ -19,6 +19,9 @@ import { Engineering } from "@mui/icons-material";
 import LanguageIcon from "@mui/icons-material/Language";
 import BadgeIcon from "@mui/icons-material/Badge";
 import axios from "axios";
+import Pagination from "@mui/material/Pagination";
+import RotateLeftIcon from "@mui/icons-material/RotateLeft";
+import Image from "next/image";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -69,29 +72,48 @@ const skills = [
   "乙級電腦軟體設計技術士-C++ | Level B technician for computer software application - C++",
   "OCP Java Dev.",
 ];
-const certificates = ["TOEIC初級", "托福", "中文一級", "TOEIC中級", "TOEIC高級"];
-const styles = ["短期", "長期", "兼職人員", "假日", "暑期", "寒假", "遠端工作", "周休二日"];
-
+const certificates = [
+  "TOEIC初級",
+  "托福",
+  "中文一級",
+  "TOEIC中級",
+  "TOEIC高級",
+  "托福",
+  "中文一級",
+  "TOEIC中級",
+  "TOEIC高級",
+];
+const styles = ["工讀", "全職", "兼職", "長期工讀", "假日工讀", "外場", "高階"];
+const itemsPerPage = 20;
 const Jobsearch = () => {
-  const [areaName, setAreaName] = React.useState([]);
-  const [jobName, setJobName] = React.useState([]);
-  const [styleName, setStyleName] = React.useState([]);
+  const [areaName, setAreaName] = useState([]);
+  const [jobName, setJobName] = useState([]);
+  const [styleName, setStyleName] = useState([]);
   const [jobdata, setjobdata] = useState([]);
   const [language, setLanguage] = useState([]);
   const [skills, setSkill] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totaljob, settotaljob] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function fetchjobs() {
+    setLoading(true);
     try {
       const response = await axios.post(`http://localhost:5000/api/searchwork`, {
         job_L_class: jobName,
         job_type: styleName,
         area: areaName,
       });
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const paginatedData = response.data.slice(startIndex, endIndex);
       console.log(response.data);
-      setjobdata( response.data);
+      settotaljob(response.data);
+      setjobdata(paginatedData);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   }
   async function fetchlanguage() {
     try {
@@ -124,6 +146,7 @@ const Jobsearch = () => {
     fetchjobs();
     fetchlanguage();
     fetchskill();
+    setCurrentPage(1);
   };
 
   const handleareaChange = (event) => {
@@ -152,6 +175,12 @@ const Jobsearch = () => {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+  };
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    fetchjobs();
   };
 
   return (
@@ -224,25 +253,44 @@ const Jobsearch = () => {
           </Fab>
         </Box>
       </div>
-      <div className="flex justify-center mt-4">
-        <Searchresult Jobdata={jobdata} />
-        <div className="w-1/4 h-[600px]">
-          <div className="flex items-center mb-2">
-            <Engineering />
-            <span className="ml-2 font-semibold">技能推薦</span>
+      <div className="w-full h-auto mt-4">
+        {loading && <p>Loading...</p>}
+        {jobdata.length > 0 ? ( // 如果有 jobdata
+          <div className="h-auto">
+            <div className="flex">
+              <Searchresult Jobdata={jobdata} className="flex-1 w-3/4 h-auto" />
+              <div className="w-1/4 h-[600px]">
+                <div className="flex items-center mb-2">
+                  <Engineering />
+                  <span className="ml-2 font-semibold">技能推薦</span>
+                </div>
+                <Recommendskills Skills={skills} className="" />
+                <div className="flex items-center my-2">
+                  <LanguageIcon />
+                  <span className="ml-2 font-semibold">語言推薦</span>
+                </div>
+                <Reclanguage Language={language} />
+                <div className="flex items-center my-2">
+                  <BadgeIcon />
+                  <span className="ml-2 font-semibold">證照推薦</span>
+                </div>
+                <Reccertificate Certificates={certificates} />
+              </div>
+            </div>
+            <Pagination
+              count={Math.ceil(totaljob.length / itemsPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              color="primary"
+              className="mt-4 ml-12"
+            />
           </div>
-          <Recommendskills Skills={skills} />
-          <div className="flex items-center my-2">
-            <LanguageIcon />
-            <span className="ml-2 font-semibold">語言推薦</span>
+        ) : (
+          <div className="flex items-center justify-center w-full h-auto mt-24">
+            <Image src="/DUCKgif.gif" alt="alpaca" height={150} width={150} />
           </div>
-          <Reclanguage Language={language} />
-          <div className="flex items-center my-2">
-            <BadgeIcon />
-            <span className="ml-2 font-semibold">證照推薦</span>
-          </div>
-          <Reccertificate Certificates={certificates} />
-        </div>
+        )}
       </div>
     </div>
   );

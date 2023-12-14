@@ -30,7 +30,7 @@ const homeController = {
           }
           else{
             // console.log('資料庫沒有回傳資料');
-            res.render('NoDb');
+            res.json({error:"目前沒有該項職缺"});
             // next();
           }
         })
@@ -103,7 +103,7 @@ const homeController = {
           req.session.languages = bestarr;
           if (!flag) {
             if (results && results.length > 0) {
-              // console.log(results);
+              console.log(req.session.languages);
               res.json(results)
               // res.render('language', {
               //   data: results
