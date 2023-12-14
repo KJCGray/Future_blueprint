@@ -30,7 +30,7 @@ const homeController = {
           }
           else{
             // console.log('資料庫沒有回傳資料');
-            res.render('NoDb');
+            res.json({error:"目前沒有該項職缺"});
             // next();
           }
         })
@@ -87,9 +87,11 @@ const homeController = {
             await fetchData(i);
           }
       
-          // console.log("results", results[0]);
+          console.log("results", results);
           results.sort((a, b) => b.job_count - a.job_count);
           var cnt = 3, i = 0, bestarr = [];
+          if(results.length < 3);
+          cnt = results.length;
           while(cnt--){
               if(results[i].language == '不拘' || results[i].job_count == 0){
                 i++;
@@ -101,7 +103,7 @@ const homeController = {
           req.session.languages = bestarr;
           if (!flag) {
             if (results && results.length > 0) {
-              // console.log(results);
+              console.log(req.session.languages);
               res.json(results)
               // res.render('language', {
               //   data: results

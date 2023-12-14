@@ -7,6 +7,7 @@ const MsgDataModel = require("../models/Message");
 const workController = {
     postALLlanguage:(req, res) => { //回傳需要的前三個語言的聽說讀寫分別要什麼程度    
         var arr = {"job_L_class": req.session.job_L_class,"area": req.session.area, "job_type": req.session.job_type};
+        console.log (req.session.languages);
         var bestlist = req.session.languages;
         var bestName = [];
         for(var i = 0; i < bestlist.length; i++){
@@ -80,9 +81,9 @@ const workController = {
             var tmpstr = results[i]['job_skill'].split(',');
             var tmpstr1 = results[i]['tool_expect'].split(',');
             for (var j = 0; j < tmpstr.length; j++) {
-              if (cntMap.hasOwnProperty(tmpstr[j])) {
+              if (cntMap.hasOwnProperty(tmpstr[j]) && tmpstr[j] != "不拘") {
                 cntMap[tmpstr[j]]++;
-              } else {
+              } else if(tmpstr[j] != "不拘"){
                 cntMap[tmpstr[j]] = 1;
               }
             }
@@ -110,6 +111,50 @@ const workController = {
       })
 
     },
+    postCertificate:(req, res) => {
+      function processProperty(property) {
+        if (Array.isArray(req.body[property])) {
+          return req.body[property].join(',');
+        } else if (typeof req.body[property] === 'string') {
+          return req.body[property];
+        }
+        return '';
+      }
+      
+      var tmpJobClass = processProperty('job_L_class').split(',');
+      var tmpJobType = processProperty('job_type').split(',');
+      var tmpArea = processProperty('area').split(',');
+
+      var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+      skillDataModel.certificateData(arr, (err, results) =>{
+        if (err) console.log(err);
+        else{
+          var cntMap = {};
+          for (var i = 0; i < results.length; i++) {
+            if(results[i]['certificates'] == null) results[i]['certificates'] = '不拘';
+            var tmpstr = results[i]['certificates'].split(',');
+            for (var j = 0; j < tmpstr.length; j++) {
+              if (cntMap.hasOwnProperty(tmpstr[j]) && tmpstr[j] != "不拘") {
+                cntMap[tmpstr[j]]++;
+              } else if(tmpstr[j] != "不拘"){
+                cntMap[tmpstr[j]] = 1;
+              }
+            }
+          }
+          var cntArray = [];
+          for (var skill in cntMap) {
+            cntArray.push({ skill: skill, count: cntMap[skill] });
+          }
+          // 根據技能計數排序陣列
+          cntArray.sort(function (a, b) {
+            return b.count - a.count; // 以降序排序
+          });
+          res.json(cntArray);
+        }
+      })
+
+    },
+    
     postMessage:(req, res) => {
       function processProperty(property) {
         if (Array.isArray(req.body[property])) {

@@ -77,10 +77,14 @@ app.post('/api/searchlanguage/', homeDataController.postlanguage);
 //顯示搜尋結果工作中所有需要語言統計結果前三項詳細結果的api
 
 app.post('/api/searchALLlanguage/', workDataController.postALLlanguage);
-// app.get('/api/searchALLlanguage/', workDataController.postALLlanguage);
+app.get('/api/searchALLlanguage/', workDataController.postALLlanguage);
 
 //顯示技能統整的api
 app.post('/api/searchskill/', workDataController.postSkill);
+
+//證照
+app.post('/api/searchCertificate/', workDataController.postCertificate);
+// app.get('/api/searchCertificate/', workDataController.postCertificate);
 
 //留言區
 app.post('/api/msg',workDataController.InsertMessage );
@@ -89,6 +93,7 @@ app.post('/api/Selectmsg',workDataController.postMessage );
 //個人葉面
 app.post('/api/userpage', PageController.postALL);
 app.post('/api/updatepage', PageController.update);
+
 
 // app.get('/login', userController.login)
 // app.post('/login', userController.handleLogin)
