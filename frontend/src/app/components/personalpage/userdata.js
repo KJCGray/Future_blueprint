@@ -95,7 +95,7 @@ const Userdata = () => {
             你尚未登入
           </div>
           <div className="flex mt-4">
-              <Button className={`w-auto mr-2 p-2 font-semibold text-yellow-900 bg-orange-200 mr-2` }
+              <Button className={`w-auto p-2 font-semibold text-yellow-900 bg-orange-200 mr-2`}
               onClick={() => router.push("/")}>馬上登入!</Button>
               <Button className={`w-auto mr-2 p-2 font-semibold text-yellow-900 bg-orange-200 ml-2` }
               onClick={() => router.push("/searchpage")}>回首頁</Button>
