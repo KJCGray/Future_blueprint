@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { TextField } from "@mui/material";
+import { useState } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,176 +30,6 @@ const MenuProps = {
     },
   },
 };
-const Jobdata = [
-  {
-    job_num: 1,
-    job_name: "【太陽蕃茄拉麺】外場營運主管(薪45000元起）",
-    serial_name: "綠洲餐飲管理顧問股份有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "3年以上",
-    edu: "高中",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 2,
-    job_name: "大埔鐵板燒-公館店 店長/儲備幹部",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 3,
-    job_name: "鍋in 百元風味火鍋 店長/儲備幹部 公館店",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 4,
-    job_name: "4",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 5,
-    job_name: "5",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 6,
-    job_name: "6",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 7,
-    job_name: "7",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 8,
-    job_name: "8",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 9,
-    job_name: "9",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 10,
-    job_name: "10",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 11,
-    job_name: "11",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-  {
-    job_num: 12,
-    job_name: "12",
-    serial_name: "鍋in/大埔鐵板燒_鍋癮有限公司",
-    company_type: "餐館業",
-    area: "台北市中正區",
-    exp: "經歷不拘",
-    edu: "學歷不拘",
-    job_L_class: "經營／人資類",
-    job_M_class: "經營／幕僚類人員",
-    job_S_class: "經營管理主管",
-    job_content: "",
-    update_date: "11/18",
-  },
-];
 const names = [
   "台北市",
   "新北市",
@@ -239,13 +69,6 @@ const skills = [
   "乙級電腦軟體設計技術士-C++ | Level B technician for computer software application - C++",
   "OCP Java Dev.",
 ];
-const language = [
-  "中文",
-  "英文",
-  "日文",
-  "馬達加斯加島的獅子王部族旗下的企鵝們使用的企鵝語",
-  "泰文",
-];
 const certificates = ["TOEIC初級", "托福", "中文一級", "TOEIC中級", "TOEIC高級"];
 const styles = ["短期", "長期", "兼職人員", "假日", "暑期", "寒假", "遠端工作", "周休二日"];
 
@@ -253,6 +76,9 @@ const Jobsearch = () => {
   const [areaName, setAreaName] = React.useState([]);
   const [jobName, setJobName] = React.useState([]);
   const [styleName, setStyleName] = React.useState([]);
+  const [jobdata, setjobdata] = useState([]);
+  const [language, setLanguage] = useState([]);
+  const [skills, setSkill] = useState([]);
 
   async function fetchjobs() {
     try {
@@ -262,10 +88,43 @@ const Jobsearch = () => {
         area: areaName,
       });
       console.log(response.data);
+      setjobdata( response.data);
     } catch (error) {
       console.log(error);
     }
   }
+  async function fetchlanguage() {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/searchlanguage`, {
+        job_L_class: jobName,
+        job_type: styleName,
+        area: areaName,
+      });
+      setLanguage(response.data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function fetchskill() {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/searchskill`, {
+        job_L_class: jobName,
+        job_type: styleName,
+        area: areaName,
+      });
+      setSkill(response.data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleSearch = () => {
+    fetchjobs();
+    fetchlanguage();
+    fetchskill();
+  };
 
   const handleareaChange = (event) => {
     const {
@@ -359,14 +218,14 @@ const Jobsearch = () => {
           </Select>
         </FormControl>
         <Box sx={{ "& > :not(style)": { m: 1 }, width: "120px", height: "30px" }}>
-          <Fab variant="extended" onClick={fetchjobs}>
+          <Fab variant="extended" onClick={handleSearch}>
             <NavigationIcon sx={{ fontSize: "1.2rem", mr: 1 }} />
             搜尋
           </Fab>
         </Box>
       </div>
       <div className="flex justify-center mt-4">
-        <Searchresult Jobdata={Jobdata} />
+        <Searchresult Jobdata={jobdata} />
         <div className="w-1/4 h-[600px]">
           <div className="flex items-center mb-2">
             <Engineering />

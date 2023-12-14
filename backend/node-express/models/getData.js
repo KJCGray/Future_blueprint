@@ -32,6 +32,10 @@ const getDataModel = {
         cb(null, results)
       });
   }
+  // test: (cb) =>{
+    
+  //   "SELECT area FROM `work` GROUP BY area;"
+  // }
 }
 
 module.exports = getDataModel

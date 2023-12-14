@@ -4,43 +4,58 @@ const saltRounds = 10;
 
 const PageController = {
     postALL:(req, res) =>{
-       userModel.get(req.session.username, (err, user) =>{
-        if(err) {
-            console.log(err)
-            res.json({error:"請登入"});
+        username = req.body.username;
+        token = req.body.token;
+
+        if(username == null || token == null){
+            res.json({error:"請登入"});   
         }
-        console.log(user);
-        if(user.token != req.session.token){
-            res.json({erroe:"登入驗證錯誤，請再次登入"});
+        else {
+            userModel.getpage(username, (err, user) =>{
+                if(err || !user) {
+                    console.log(err);
+                    res.json({error:"請登入"});
+                }
+                
+                if(user[0].token != token){
+                    console.log(user[0].token, token);
+                    res.json({erroe:"登入驗證錯誤，請再次登入"});
+                }
+                else{
+                    res.json({
+                        id:user[0].id,
+                        username:user[0].username,
+                        email:user[0].email,
+                        certificate:user[0].certificate,
+                        language:user[0].language,
+                        edu:user[0].edu,
+                        exp:user[0].exp,
+                        other:user[0].other
+                    });
+                }
+               })
         }
-        else{
-            res.json({
-                id:user.id,
-                username:user.username,
-                email:user.email,
-                certificate:user.certificate,
-                language:user.language,
-                edu:user.edu,
-                exp:user.exp,
-                other:user.other
-            })
-        }
-       })
+       
        
     },
     update:(req, res) =>{
-        userModel.get(req.session.username, (err, user) =>{
+        id = req.body.id
+        username = req.body.username;
+        token = req.body.token;
+        
+
+        userModel.get(username, (err, user) =>{
             if(err) {
                 console.log(err)
                 res.json({error:"請登入"});
             }
-            if(user.token != req.session.token){
+            if(user.token != token){
                 res.json({erroe:"登入驗證錯誤，請再次登入"});
             }
             else{
                 var UpDateuser = {
-                    id:req.session.id,
-                    username:req.session.username,
+                    id:id,
+                    username:username,
                     email:req.body.email,
                     certificate:req.body.certificate,
                     language:req.body.language,
@@ -54,7 +69,7 @@ const PageController = {
                         res.json({error:"更新失敗"});
                     }
                     else{
-                        console.log(result)
+                       res.status(200);
                     }
                 } )
             }
