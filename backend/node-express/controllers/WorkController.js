@@ -97,10 +97,14 @@ const workController = {
           }
           var cntArray = [];
           for (var skill in cntMap) {
-            cntArray.push({ skill: skill, count: cntMap[skill] });
+            if(cntMap[skill] >= 5){
+              cntArray.push({ skill: skill, count: cntMap[skill] });
+            }
           }
           for (var tool in toolMap) {
-            cntArray.push({ tool: tool, count: toolMap[tool] });
+            if(cntMap[skill] >= 5){
+              cntArray.push({ tool: tool, count: toolMap[tool] });
+            }
           }
           // 根據技能計數排序陣列
           cntArray.sort(function (a, b) {
@@ -144,7 +148,9 @@ const workController = {
           }
           var cntArray = [];
           for (var skill in cntMap) {
-            cntArray.push({ certificates: skill, count: cntMap[skill] });
+            if(cntMap[skill] >= 5){
+              cntArray.push({ certificates: skill, count: cntMap[skill] });
+            }
           }
           // 根據技能計數排序陣列
           cntArray.sort(function (a, b) {
