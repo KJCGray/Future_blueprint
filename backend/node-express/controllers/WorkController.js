@@ -42,7 +42,7 @@ const workController = {
           if (!flag) {
             if (results && results.length > 0) {
               console.log(results);
-              res.json(results)
+              res.status(200).json(results)
               // res.render('language', {
               //   data: results
               // });
@@ -111,7 +111,7 @@ const workController = {
             return b.count - a.count; // 以降序排序
           });
           console.log(cntArray)
-          res.json(cntArray);
+          resres.status(200).json(cntArray);
         }
       })
 
@@ -156,7 +156,7 @@ const workController = {
           cntArray.sort(function (a, b) {
             return b.count - a.count; // 以降序排序
           });
-          res.json(cntArray);
+          resres.status(200).json(cntArray);
         }
       })
 
@@ -181,7 +181,7 @@ const workController = {
       MsgDataModel.postMsg(arr, (err, results) =>{
         if (err) console.log(err);
         if(results && results.length > 0){
-          res.json(results);
+          resres.status(200).json(results);
         }
       })
     },
@@ -207,7 +207,7 @@ const workController = {
         })
       }
       else{
-        res.json({error:"請先登入"});
+        res.status(403).json({message:"請先登入"});
         // console.log('');
       }
     }

@@ -17,6 +17,7 @@ function generateRandomToken(length) {
   });
 }
 
+
 // 建立一個 todoController 物件，透過方法來存取 model 的資料
 const userController = {
   // 傳入參數 req, res
@@ -28,7 +29,6 @@ const userController = {
   //驗證註冊
   handleRegister: (req, res, next) => {
     //從request body 拿取 user 資料
-    console.log(req.body);
     // username = req.body.username;
     // password = req.body.password;
     // email = req.body.email;
@@ -38,11 +38,10 @@ const userController = {
 
     if(!username || !password || !email) {
       //這裡用return 可避免 if-else 寫法增加層數
-      // console.log('缺少必要欄位');
       // req.flash('errorMessage', '缺少必要欄位');
       // res.redirect('/register');
       res.status(400).json({
-        error:'缺少必要欄位'
+        message:'缺少必要欄位'
       });
       return next();
     }
@@ -55,65 +54,97 @@ const userController = {
         // req.flash('errorMessage', err.toString());
         // res.redirect('/register');
         res.status(400).json({
-          error:'登入失敗，請再嘗試一次'
+          message:'請按照正確格式輸入密碼'
         });
         return next();
       }
       //資料都沒問題的話，就可透過 userModel 寫入資料
       //傳入一個物件，若有錯誤會回傳 cb
 
-      userModel.check({ username, password: hash,email}, (err,Exist)=>{
+      userModel.check({ username, password: hash,email}, (err,isSignup)=>{
         if(err) {
-          res.status(400).json({
-            error:'登入失敗，請再嘗試一次'
+          console.log(err);
+          res.status(404).json({
+            message:'請求錯誤，請在試一次'
           });
+          return next();
         }
-        
-        if(Exist[0]['CNT'] < 1){
-          userModel.add({
-            username,
-            password: hash,
-            email
-          }, (err,userId) => {
-            // 若有 err 就直接顯示錯誤訊息
-            if(err) {
-              res.status(400).json({
-                error:'登入失敗，請再嘗試一次'
+        if(isSignup[0]['CNT'] < 1){
+          userModel.checkemail({ username, password: hash,email},(err, Exist) => {
+            if(err){
+              console.log(err);
+              res.status(404).json({
+                message:'請求錯誤，請在試一次'
               });
+              return next();
             }
-          //註冊成功保持登入狀態，並導回首頁
-          else{
-            generateRandomToken(32)
-            .then((token) => {
-              usertoken = token;
-              // console.log('Generated Token:', token);
-              userModel.updateToken(userId, usertoken, (err, r) => {
-                if(err) {console.log(err)}
-                else{
-                  req.session.username =  username;
-                  req.session.userId = userId;
-                  req.session.token = usertoken;
-                  
-                  res.status(200).json({
-                    error:null,
-                    username: req.session.username,
-                    userId:req.session.userId,
-                    token:req.session.token
-                  });
-                  //console.log("User ID in session:", req.session.userId);
-                  // res.render('index', { username: req.session.username , userId: req.session.userId});
-                }
-              })
-            })
-              .catch((err) => {
-                console.error('Error generating token:', err);
+            if(Exist[0]['CNT'] > 0){
+              res.status(403).json({
+                message: "此 Email 已經註冊過"
               });
+              return next();
+            }
+            else{
+              userModel.add({
+                username,
+                password: hash,
+                email
+              }, (err,userId) => {
+                // 若有 err 就直接顯示錯誤訊息
+                if(err) {
+                  console.log(err);
+                  res.status(404).json({
+                    message:'請求錯誤，請在試一次'
+                  });
+                  return next();
+                }
+              //註冊成功保持登入狀態，並導回首頁
+              else{
+                generateRandomToken(32)
+                .then((token) => {
+                  usertoken = token;
+                  // console.log('Generated Token:', token);
+                  userModel.updateToken(userId, usertoken, (err, r) => {
+                    if(err) {
+                      console.log(err);
+                      res.status(404).json({
+                        message:'請求錯誤，請在試一次'
+                      });
+                    }
+                    else{
+                      req.session.username =  username;
+                      req.session.userId = userId;
+                      req.session.token = usertoken;
+                      
+                      res.status(200).json({
+                        message:"註冊成功",
+                        username: req.session.username,
+                        userId:req.session.userId,
+                        token:req.session.token
+                      });
+                      return next();
+                      //console.log("User ID in session:", req.session.userId);
+                      // res.render('index', { username: req.session.username , userId: req.session.userId});
+                    }
+                  })
+                })
+                  .catch((err) => {
+                    console.log('Error generating token:', err);
+                    res.status(404).json({
+                      message:'請求錯誤，請在試一次'
+                    });
+                  });
+                }
+              });
+
             }
           });
+
+          
         }
         else{
-          res.status(400).json({
-            error:'已存在相同用戶名'
+          res.status(403).json({
+            message:'已註冊過帳號'
           });
           // console.log('已存在相同用戶名');
           // req.flash('errorMessage', '已存在相同用戶名');
@@ -141,8 +172,8 @@ const userController = {
     // 確認是否有填入資料
     // console.log(1);
     if(!username ||!password){
-      res.json({
-        error:'請輸入您的帳密!'
+      res.status(400).json({
+        message:'請輸入您的帳密!'
       });
       
       // console.log('請輸入您的帳密!');
@@ -156,16 +187,16 @@ const userController = {
     userModel.get(username, (err, user) => {
       //console.log(user);
       if (err) {
-        req.flash('errorMessage', err.toString());
+        res.status(404).json({
+          message:'請求錯誤，請在試一次'
+        });
+        // req.flash('errorMessage', err.toString());
         return next();
       }
       if (!user) {
-        
-        res.json({
-          error:'使用者不存在'
+        res.status(403).json({
+          message:'請先註冊帳號'
         });
-        // console.log('使用者不存在');
-
         // req.flash('errorMessage', '使用者不存在');
         // res.redirect('/login');
         return next();
@@ -174,8 +205,8 @@ const userController = {
       bcrypt.compare(password, user.password, function (err, isSccess) {
         // 若出現錯誤或比對不成功，就顯示錯誤訊息
         if (err || !isSccess) {
-          res.json({
-            error:'密碼錯誤'
+          res.status(403).json({
+            message:'密碼錯誤'
           });
           // req.flash('errorMessage', '密碼錯誤');
           // res.redirect('/login');
@@ -196,26 +227,23 @@ const userController = {
                 req.session.userId = user.id;
                 req.session.token = usertoken;
 
-                console.log(req.session.username,req.session.token);
                 
-                res.json({
-                  error:null,
+                res.status(200).json({
+                  message:"登入成功",
                   username: req.session.username,
                   userId:req.session.userId,
                   token:req.session.token
                 });
-                //console.log("User ID in session:", req.session.userId);
                 // res.render('index', { username: req.session.username , userId: req.session.userId});
               }
             })
           })
           .catch((err) => {
+            res.status(404).json({
+              message:'請求錯誤，請在試一次'
+            });
             console.error('Error generating token:', err);
-          });
-      
-       
-
-        
+          });  
       });
     })
   },
@@ -224,7 +252,10 @@ const userController = {
     req.session.username = null;
     req.session.userId = null;
     req.session.token = null;
-    res.redirect('/');
+    res.status(200).json({
+      message:"登出成功"
+    });
+    // res.redirect('/');
   }
 }
 

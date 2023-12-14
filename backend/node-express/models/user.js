@@ -7,10 +7,18 @@ const userModel = {
   // 用 callback 來拿取資料
   //新增user功能
   check:(user, cb) => {
-    var str = 'SELECT COUNT(*) AS CNT FROM user WHERE username = "'+ user.username+ '" ';
-    db.query(str ,(err, result) =>{
+    var str = 'SELECT COUNT(*) AS CNT FROM user WHERE username =  ?';
+    db.query(str,[user.username] ,(err, result) =>{
       if (err) return cb(err);
-      console.log(result);
+      console.log("check",result);
+      cb(null, result);
+    })
+  },
+  checkemail:(user, cb) => {
+    var str = 'SELECT COUNT(*) AS CNT  FROM user WHERE email =  ?';
+    db.query(str, [user.email] ,(err, result) =>{
+      if (err) return cb(err);
+      console.log("checkemail",result);
       cb(null, result);
     })
   },
@@ -18,7 +26,7 @@ const userModel = {
     console.log(user);
     db.query(
       'INSERT INTO user(username, password, email,	certificate,	language,	edu,	exp,	other	) VALUES(?, ?, ?, ?, ?, ?, ?, ? )',
-      [user.username, user.password, '', '', '', '', '', ''],
+      [user.username, user.password, user.email, '', '', '', '', ''],
       (err, results) => {
       if (err) return cb(err);
       // cb: 第一個參數為是否有錯誤，沒有的話就是 null，第二個才是結果
@@ -37,17 +45,17 @@ const userModel = {
         cb(null, results[0]);
       });
   },
-  getpage:(username, cb) => {
+  getpage:(token, cb) => {
     db.query(
-      'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
+      'SELECT * FROM user WHERE token = ?', [token], (err, results) => {
         if (err) return cb(err);
         console.log("getpage",results);
         cb(null, results);
       });
   },
   updateToken:(id, Token, cb) => {
-    var str = "UPDATE user SET token='"+Token+"' WHERE id="+id+";";
-    db.query(str,(err, results) => {
+    var str = "UPDATE user SET token= ? WHERE id= ?";
+    db.query(str,[Token, id],(err, results) => {
       if (err) return cb(err);
         // console.log("12",results);
         cb(null, results);
