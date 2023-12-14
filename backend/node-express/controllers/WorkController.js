@@ -111,7 +111,7 @@ const workController = {
             return b.count - a.count; // 以降序排序
           });
           // console.log(cntArray)
-          resres.status(200).json(cntArray);
+          res.status(200).json(cntArray);
         }
       })
 
@@ -181,7 +181,7 @@ const workController = {
       MsgDataModel.postMsg(arr, (err, results) =>{
         if (err) console.log(err);
         if(results && results.length > 0){
-          resres.status(200).json(results);
+          res.status(200).json(results);
         }
       })
     },
