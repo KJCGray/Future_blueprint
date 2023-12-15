@@ -20,6 +20,7 @@ const Userdata = () => {
 
   async function userdata() {
     //e.preventDefault();
+    console.log(username,token);
     try {
       const response = await axios.post(`http://localhost:5000/api/userpage`, {
         username: username,

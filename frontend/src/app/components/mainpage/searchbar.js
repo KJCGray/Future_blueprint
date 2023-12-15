@@ -19,7 +19,6 @@ export default function SearchBar() {
   const router = useRouter();
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const { token } = parseCookies();
   const { userid } = parseCookies();
 
   async function mainpageHandler(e) {

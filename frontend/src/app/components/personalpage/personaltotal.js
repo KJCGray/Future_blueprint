@@ -23,6 +23,7 @@ const Personaltotal = () => {
   const handleLogout = () => {
     destroyCookie(null, "token");
     destroyCookie(null, "userid");
+    destroyCookie(null, "username");
     console.log("destroy");
     router.push("/");
   };
