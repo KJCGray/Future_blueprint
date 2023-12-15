@@ -35,7 +35,7 @@ app.use(session({
 }));
 
 
-const allowedOrigins = ['http://localhost:3000'];
+const allowedOrigins = ['http://localhost:3000', 'https://7e38-140-136-43-126.ngrok-free.app/'];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -67,9 +67,9 @@ app.use((req, res, next) => {
 //     res.render('index', {username:req.session.username});
 // })
 
-// app.get('/test',(req, res) =>{
-//     res.render('hello');
-// })
+app.get('/test',(req, res) =>{
+    res.render('hello');
+})
 // app.get('/getDB', getDataController.getAll);
 // app.get('/getDB/:id', getDataController.get);
 // app.post('/getDB', getDataController.post);
@@ -111,6 +111,8 @@ app.post('/api/Selectmsg',workDataController.postMessage );
 app.post('/api/userpage', PageController.postALL);
 // app.get('/api/userpage', PageController.postALL);
 app.post('/api/updatepage', PageController.update);
+
+app.post('/api/joblist',PageController.joblist);
 
 
 // app.get('/login', userController.login)
