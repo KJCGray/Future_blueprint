@@ -174,10 +174,10 @@ const workController = {
       }
       
       var tmpJobClass = processProperty('job_L_class').split(',');
-      var tmpJobType = processProperty('job_type').split(',');
-      var tmpArea = processProperty('area').split(',');
+      // var tmpJobType = processProperty('job_type').split(',');
+      // var tmpArea = processProperty('area').split(',');
 
-      var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+      var arr = {"job_L_class": tmpJobClass};
       
       MsgDataModel.postMsg(arr, (err, results) =>{
         if (err) console.log(err);
