@@ -46,11 +46,11 @@ const PageController = {
     },
     update:(req, res) =>{
 
-        username = req.body.username;
-        token = req.body.token;
+        // username = req.body.username;
+        // token = req.body.token;
         
-        // username = req.session.username;
-        // token = req.session.token;
+        username = req.session.username;
+        token = req.session.token;
 
         userModel.get(token, (err, user) =>{
             if(err) {
@@ -58,6 +58,7 @@ const PageController = {
                 res.status(403).json({message:"請登入"});
             }
             if(user.username != username){
+                console.log(user.username, username, user.token, token);
                 res.status(403).json({message:"登入驗證錯誤，請再次登入"});
             }
             else{
