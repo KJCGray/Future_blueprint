@@ -69,9 +69,9 @@ app.use((req, res, next) => {
 //     res.render('index', {username:req.session.username});
 // })
 
-app.get('/test',(req, res) =>{
-    res.render('hello');
-})
+// app.get('/test',(req, res) =>{
+//     res.render('hello');
+// })
 // app.get('/getDB', getDataController.getAll);
 // app.get('/getDB/:id', getDataController.get);
 // app.post('/getDB', getDataController.post);
