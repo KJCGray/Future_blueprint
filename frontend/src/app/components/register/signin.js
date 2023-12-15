@@ -42,9 +42,11 @@ const Signin = () => {
       });
       const token = response.data.token;
       const userid = response.data.userId;
+      const username=response.data.username;
       console.log(response);
       setCookie(null, "token", String(token));
       setCookie(null, "userid", userid);
+      setCookie(null,"username",username);
       console.log(token, userid);
       router.push("/searchpage");
       setLoading(false);

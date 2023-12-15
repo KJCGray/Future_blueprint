@@ -1,8 +1,6 @@
 import React from 'react';
-import Userdata from "../../components/personalpage/userdata";
 import SearchBar from '../../components/mainpage/searchbar';
-import Accountsetting from '../../components/personalpage/accountsetting'
-import Personaltotal from "../../components/personalpage/personaltotal"
+import Personaltotal from "../../components/personalpage/personaltotal";
 const page = () => {
   return (
     <div className='w-screen h-screen m-0 bg-white'>
