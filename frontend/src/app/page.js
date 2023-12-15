@@ -1,5 +1,5 @@
+"use client";
 import * as React from "react";
-import Button from "@mui/material/Button";
 import Total from "./components/register/total";
 
 export default function Login() {
@@ -9,4 +9,3 @@ export default function Login() {
     </div>
   );
 }
-  

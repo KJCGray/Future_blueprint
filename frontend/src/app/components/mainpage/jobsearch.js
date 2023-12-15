@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -10,6 +10,8 @@ import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import Fab from "@mui/material/Fab";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import Searchresult from "./searchresult";
 import Recommendskills from "./recommendskills";
@@ -20,7 +22,6 @@ import LanguageIcon from "@mui/icons-material/Language";
 import BadgeIcon from "@mui/icons-material/Badge";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
-import RotateLeftIcon from "@mui/icons-material/RotateLeft";
 import Image from "next/image";
 
 const ITEM_HEIGHT = 48;
@@ -65,6 +66,10 @@ const jobs = [
   "操作／技術／維修類",
   "文字／傳媒工作類",
 ];
+const forumId = jobs.map((job, index) => ({
+  id: index + 1,
+  name: job,
+}));
 const styles = ["工讀", "全職", "兼職", "長期工讀", "假日工讀", "外場", "高階"];
 const itemsPerPage = 20;
 const Jobsearch = () => {
@@ -90,7 +95,7 @@ const Jobsearch = () => {
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const paginatedData = response.data.slice(startIndex, endIndex);
-      console.log(response.data);
+      console.log(response);
       settotaljob(response.data);
       setjobdata(paginatedData);
     } catch (error) {
@@ -106,6 +111,7 @@ const Jobsearch = () => {
         area: areaName,
       });
       setLanguage(response.data);
+      console.log("Language");
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -176,8 +182,8 @@ const Jobsearch = () => {
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
-    window.scrollTo({ top: 0, behavior: "smooth" });
     fetchjobs();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -251,12 +257,20 @@ const Jobsearch = () => {
         </Box>
       </div>
       <div className="w-full h-auto mt-4">
-        {loading && <RotateLeftIcon className="mt-24 animate-spin" />}
         {jobdata.length > 0 ? ( // 如果有 jobdata
           <div className="h-auto">
+            {loading && <Image src="/giphy.gif" alt="loggingif" height={150} width={150} />}
             <div className="flex">
               <Searchresult Jobdata={jobdata} className="flex-1 w-3/4 h-auto" />
               <div className="w-1/4 h-[600px]">
+                <div className="flex flex-col items-center mb-4">
+                  <p className="mb-2 font-semibold">討論區</p>
+                  <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
+                    {jobName.map((name) => (
+                      <Button key={name}>{name}</Button>
+                    ))}
+                  </ButtonGroup>
+                </div>
                 <div className="flex items-center mb-2">
                   <Engineering />
                   <span className="ml-2 font-semibold">技能推薦</span>
@@ -285,8 +299,14 @@ const Jobsearch = () => {
           </div>
         ) : (
           <div className="flex items-center justify-center w-full h-auto mt-24">
-            <Image src="/rabbitgif.gif" alt="alpaca" height={150} width={150} />
-            <p className="font-semibold">快搜尋適合你的職缺吧！</p>
+            {loading ? (
+              <Image src="/giphy.gif" alt="loggingif" height={150} width={150} />
+            ) : (
+              <>
+                <Image src="/rabbitgif.gif" alt="rabbit" height={150} width={150} />
+                <p className="font-semibold">快搜尋適合你的職缺吧！</p>
+              </>
+            )}
           </div>
         )}
       </div>
