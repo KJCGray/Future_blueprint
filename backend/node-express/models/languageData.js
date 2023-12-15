@@ -16,7 +16,7 @@ const languageDataModel = {
                 else SelectStr+="AND ( ";
                 SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
                 for(var i = 1; i < value.length; i++){
-                    console.log(value[i]);
+                    // console.log(value[i]);
                     SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
                 }
                 SelectStr = SelectStr + ") ";
@@ -52,7 +52,7 @@ const languageDataModel = {
                 else SelectStr+="AND ( ";
                 SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
                 for(var i = 1; i < value.length; i++){
-                    console.log(value[i]);
+                    // console.log(value[i]);
                     SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
                 }
                 SelectStr = SelectStr + ") ";

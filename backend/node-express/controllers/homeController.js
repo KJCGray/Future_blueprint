@@ -86,7 +86,7 @@ const homeController = {
             await fetchData(i);
           }
       
-          console.log("results", results);
+          // console.log("results", results);
           results.sort((a, b) => b.job_count - a.job_count);
           var cnt = 3, i = 0, bestarr = [];
           if(results.length < 3);
@@ -102,7 +102,7 @@ const homeController = {
           req.session.languages = bestarr;
           if (!flag) {
             if (results && results.length > 0) {
-              console.log(req.session.languages);
+              // console.log(req.session.languages);
               res.json(results)
               // res.render('language', {
               //   data: results

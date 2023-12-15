@@ -156,7 +156,7 @@ const workController = {
           cntArray.sort(function (a, b) {
             return b.count - a.count; // 以降序排序
           });
-          console.log(cntArray);
+          // console.log(cntArray);
           res.status(200).json(cntArray);
         }
       })

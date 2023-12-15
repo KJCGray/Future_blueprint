@@ -34,7 +34,23 @@ app.use(session({
     isLogin: false
 }));
 
-app.use(cors());
+
+const allowedOrigins = ['http://localhost:3000'];
+
+app.use(cors({
+    origin: function (origin, callback) {
+      // 檢查 origin 是否在允許的清單中，或者如果是本地開發，允許所有
+      if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.startsWith('http://localhost:')) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true, // 允許包括 cookie 在內的跨域請求
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    optionsSuccessStatus: 204,
+  }));
+
 app.use(flash());
 app.use((req, res, next) => {
 	//放在 res.locals 裡的資料，所有的 view 都可以存取。
