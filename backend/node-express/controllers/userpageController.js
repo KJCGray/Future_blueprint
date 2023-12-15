@@ -46,11 +46,11 @@ const PageController = {
     },
     update:(req, res) =>{
 
-        username = req.body.username;
-        token = req.body.token;
+        // username = req.body.username;
+        // token = req.body.token;
         
-        // username = req.session.username;
-        // token = req.session.token;
+        username = req.session.username;
+        token = req.session.token;
 
         userModel.get(token, (err, user) =>{
             if(err) {
