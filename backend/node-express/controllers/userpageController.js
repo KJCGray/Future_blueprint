@@ -5,11 +5,11 @@ const saltRounds = 10;
 
 const PageController = {
     postALL:(req, res) =>{
-        username = req.body.username;
-        token = req.body.token;
+        // username = req.body.username;
+        // token = req.body.token;
 
-        // username = req.session.username;
-        // token = req.session.token;
+        username = req.session.username;
+        token = req.session.token;
 
         if(username == null || token == null){
             res.status(403).json({message:"請登入"});   
@@ -86,13 +86,11 @@ const PageController = {
     },
     joblist: (req, res) => {
         console.log(req.body);
-        var searchValues = [];
         function processProperty(property) {
-            if (Array.isArray(req.body[property])) {
-                searchValues = searchValues.concat(req.body[property].join(','));
-                return req.body[property].join(',');
-            } else if (typeof req.body[property] === 'string') {
-                return req.body[property];
+            if (Array.isArray(req.body[property]) && req.body[property].length > 0) {
+              return req.body[property].join(',');
+            } else if (typeof req.body[property] === 'string' && req.body[property] !== '') {
+              return req.body[property];
             }
             return '';
           }
@@ -103,17 +101,29 @@ const PageController = {
           var tmpskill = processProperty('job_skill').split(',');
           var tmptool = tmpskill;
 
-          searchValues = searchValues.concat(tmpcertificates);
-          searchValues = searchValues.concat(tmpskill);
+          var searchValues = {
+            certificates:tmpcertificates,
+            language_req:tmplanguage,
+            edu:tmpedu,
+            job_skill:tmpskill,
+            tool_expect:tmpskill
+          }
           console.log(searchValues);
   
           var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool};
 
           console.log(arr);
-
+          
           WorkModel.post(arr, (err, result) =>{
             if(err) console.log(err);
             else if(result.length > 0){
+                var cntMap = {};
+                for(var i = 0; i < result.length; i++){
+                    for (const [key, value] of Object.entries(searchValues)) {
+                        
+                    }   
+                }
+
                 res.status(200).json(result);
             }
             else{
