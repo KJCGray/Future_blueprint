@@ -5,11 +5,11 @@ const saltRounds = 10;
 
 const PageController = {
     postALL:(req, res) =>{
-        // username = req.body.username;
-        // token = req.body.token;
+        username = req.body.username;
+        token = req.body.token;
 
-        username = req.session.username;
-        token = req.session.token;
+        // username = req.session.username;
+        // token = req.session.token;
         console.log(username,token);
         if(username == null || token == null){
             res.status(403).json({message:"請登入"});   
@@ -47,11 +47,11 @@ const PageController = {
     },
     update:(req, res) =>{
 
-        // username = req.body.username;
-        // token = req.body.token;
+        username = req.body.username;
+        token = req.body.token;
         
-        username = req.session.username;
-        token = req.session.token;
+        // username = req.session.username;
+        // token = req.session.token;
         console.log(username,token);
         userModel.get(token, (err, user) =>{
             if(err) {
