@@ -1,6 +1,7 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcrypt');
 const WorkModel = require('../models/joblist');
+const { minify } = require('next/dist/build/swc');
 const saltRounds = 10;
 
 const PageController = {
@@ -46,7 +47,6 @@ const PageController = {
        
     },
     update:(req, res) =>{
-
         username = req.body.username;
         token = req.body.token;
         
@@ -119,14 +119,37 @@ const PageController = {
           WorkModel.post(arr, (err, result) =>{
             if(err) console.log(err);
             else if(result.length > 0){
-                var cntMap = {};
-                for(var i = 0; i < result.length; i++){
+                const cntMap = new Map();
+
+                for (let i = 0; i < result.length; i++) {
                     for (const [key, value] of Object.entries(searchValues)) {
-                        result[0][key]
-                    }   
+                        for(var j = 0; j < value.length; j++){
+                            if(result[i][key].indexOf(value[j]) >=0){
+                                cntMap.set(result[i]['job_url'], (cntMap.get(result[i]['job_url']) || 0) + 1);   
+                            }
+                        }
+                    }
                 }
 
-                res.status(200).json(result);
+                    // 将 Map 转为数组，并按计数降序排序
+                const cntArray = Array.from(cntMap, ([job_url, count]) => ({ job_url, count }));
+                cntArray.sort((a, b) => b.count - a.count);
+
+                // 获取前 20 项
+                const S = Math.min(20, cntArray.length);
+                const resultarr = cntArray.slice(0, S).map((item) => item.job_url);
+                // console.log(cntMap);
+
+                console.log(cntArray.length);
+                // console.log(resultarr);
+                WorkModel.searchjob(resultarr,(err, r)=>{
+                    if(err){console.log(err)}
+                    else{
+                        
+                        res.status(200).json(r);
+                    }
+                })
+                
             }
             else{
                 res.status(404).json({message:"目前沒有推薦工作"})

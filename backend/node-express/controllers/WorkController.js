@@ -186,31 +186,42 @@ const workController = {
         }
       })
     },
+
     InsertMessage:(req, res) => {
       const content = req.body.content;
       const job_L_class = req.body.job_L_class;
-      if(req.session.userId != null){
-        // console.log(req.session.userId);
-        var WriteMsg = {
-          "id":req.session.userId,
-          "username":req.session.username,
-          "time":new Date().toLocaleString(),
-          "content":content,
-          "area":"",
-          "job_type":"",
-          "job_L_class": job_L_class
-        };
-        MsgDataModel.Insert(WriteMsg, (err, results) =>{
-          if (err) console.log(err);
-          else{
-            res.state(200).send("完成留言");
-          }
-        })
-      }
-      else{
-        res.status(403).json({message:"請先登入"});
-        // console.log('');
-      }
+      const userId = req.body.userId;
+      const username = req.body.username;
+      const token = req.body.token;
+      
+      userModel.get(token, (err, user) =>{
+        if(err) {
+            console.log(err)
+            res.status(403).json({message:"請登入"});
+        }
+        else if(user.username != username){
+            console.log(user.username, username, user.token, token);
+            res.status(403).json({message:"登入驗證錯誤，請再次登入"});
+        }
+        else{
+          var WriteMsg = {
+            "id":userId,
+            "username":username,
+            "time":new Date().toLocaleString(),
+            "content":content,
+            "area":"",
+            "job_type":"",
+            "job_L_class": job_L_class
+          };
+          MsgDataModel.Insert(WriteMsg, (err, results) =>{
+            if (err) console.log(err);
+            else{
+              res.state(200).send("完成留言");
+            }
+          })
+        }
+      })
+
     }
 }
 

@@ -37,7 +37,50 @@ const homeController = {
           }
         })
       },
-      
+      postPage: (req, res) => { //回傳搜尋後的工作
+        function processProperty(property) {
+          if (Array.isArray(req.body[property])) {
+            return req.body[property].join(',');
+          } else if (typeof req.body[property] === 'string') {
+            return req.body[property];
+          }
+          return '';
+        }
+        
+        var tmpJobClass = processProperty('job_L_class').split(',');
+        var tmpJobType = processProperty('job_type').split(',');
+        var tmpArea = processProperty('area').split(',');
+
+        var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
+        console.log(arr);
+        const startTime = new Date().getTime();
+        workDataModel.post(arr, (err, results) => {
+          if (err) console.log(err);
+          if(results && results.length >0){
+            console.log('Time taken:', new Date().getTime() - startTime, 'ms');
+            console.log(results.length);
+            const page = parseInt(req.body.page) || 1;
+            const itemsPerPage = parseInt(req.body.itemsPerPage) || 10;
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedResults = results.slice(startIndex, endIndex);
+
+            // res.status(200).json(results); //回傳資料
+            // next();
+            res.status(200).json({ 
+              total: results.length, // 總項目數
+              results: paginatedResults // 分頁後的結果
+            });
+          }
+          else{
+            // console.log('資料庫沒有回傳資料');
+            res.status(404).json({message:"目前沒有該項職缺"});
+            // next();
+          }
+        })
+      },
+
+
       postlanguage:(req, res) => {  //回傳需要的語言
           // 將post 的資料
         function processProperty(property) {

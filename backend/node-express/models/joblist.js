@@ -30,6 +30,20 @@ const WorkModel = {
             // console.log(results);
             cb(null, results)
         })
+    },
+    searchjob:(SelectList, cb)=>{
+        var SelectStr = "SELECT * FROM work WHERE job_url = ?";
+        for(var i = 1; i < SelectList.length; i++){
+            SelectStr = SelectStr+" OR job_url = ? "
+        }
+        
+        // console.log(SelectList);
+        // SelectStr = SelectStr+")";
+        db.query(SelectStr,SelectList, (err, results) => {
+            if (err) return cb(err);
+            // console.log(results);
+            cb(null, results)
+        })
     }
 };
 
