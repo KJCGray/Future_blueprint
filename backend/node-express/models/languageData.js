@@ -7,6 +7,8 @@ const languageDataModel = {
     postlanguage: (SelectList, Languagelabel, cb) => {
         var SelectStr = "SELECT COUNT(*) AS "+Languagelabel+" FROM work ";
         var flag = 0;
+
+        var values = [];
         for (const [key, value] of Object.entries(SelectList)) {
             if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
@@ -14,27 +16,34 @@ const languageDataModel = {
                     flag = 1;
                 }
                 else SelectStr+="AND ( ";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                SelectStr = SelectStr + ` ${key} LIKE ?`;
+                values.push(`%${value[0]}%`);
                 for(var i = 1; i < value.length; i++){
                     // console.log(value[i]);
-                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                    SelectStr = SelectStr + ` OR ${key} LIKE ? `;
+                    values.push(`%${value[i]}%`);
+                }
+                if(key == 'job_type'){
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
                 }
                 SelectStr = SelectStr + ") ";
             }
         }
+
         if(flag == 0){
             SelectStr+="WHERE";
         }
         else{
             SelectStr+= " AND "
         }   
-        SelectStr = SelectStr + ` language_req LIKE '%${Languagelabel}%' `;
+        SelectStr = SelectStr + ` language_req LIKE ? `;
+        values.push(`%${Languagelabel}%`);
         // console.log(SelectStr);
         
         
         
         // Sqlstr = Sqlstr + " ORDER BY job_count DESC;"
-        db.query(SelectStr, (err, results) => {
+        db.query(SelectStr,values, (err, results) => {
             if (err) return cb(err);
             // console.log(results);
             cb(null, results)
@@ -43,6 +52,7 @@ const languageDataModel = {
     postALLlanguage : (SelectList, Languagelabel, cb) => {
         var SelectStr = "SELECT "+Languagelabel+", COUNT("+Languagelabel+") AS CNT"+" FROM language ";
         var flag = 0;
+        var values = [];
         for (const [key, value] of Object.entries(SelectList)) {
             if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
@@ -50,22 +60,30 @@ const languageDataModel = {
                     flag = 1;
                 }
                 else SelectStr+="AND ( ";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                SelectStr = SelectStr + ` ${key} LIKE ?`;
+                values.push(`%${value[0]}%`);
                 for(var i = 1; i < value.length; i++){
                     // console.log(value[i]);
-                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                    SelectStr = SelectStr + ` OR ${key} LIKE ? `;
+                    values.push(`%${value[i]}%`);
+                }
+                if(key == 'job_type'){
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
                 }
                 SelectStr = SelectStr + ") ";
             }
         }
 
-        SelectStr = SelectStr + "GROUP BY "+Languagelabel+" HAVING "+Languagelabel+" <> '0'"+" ORDER BY CNT DESC;";
+        SelectStr = SelectStr + "GROUP BY ? HAVING ? <> '0'"+" ORDER BY CNT DESC;";
+        values.push(Languagelabel);
+        values.push(Languagelabel);
+
         console.log(SelectStr);
         
         
         
         // Sqlstr = Sqlstr + " ORDER BY job_count DESC;"
-        db.query(SelectStr, (err, results) => {
+        db.query(SelectStr,values, (err, results) => {
             if (err) return cb(err);
             console.log("DB");
             console.log(results);

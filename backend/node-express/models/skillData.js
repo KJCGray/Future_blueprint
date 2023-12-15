@@ -5,6 +5,7 @@ const skillDataModel = {
 
         var SelectStr = "SELECT job_skill, tool_expect FROM work ";
         var flag = 0;
+        var values = [];
         for (const [key, value] of Object.entries(SelectList)) {
             if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
@@ -12,10 +13,12 @@ const skillDataModel = {
                     flag = 1;
                 }
                 else SelectStr+="AND ( ";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                SelectStr = SelectStr + ` ${key} LIKE ?`;
+                values.push(`%${value[0]}%`);
                 for(var i = 1; i < value.length; i++){
                     // console.log(value[i]);
-                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                    SelectStr = SelectStr + ` OR ${key} LIKE ? `;
+                    values.push(`%${value[i]}%`);
                 }
                 if(key == 'job_type'){
                     SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
@@ -26,7 +29,7 @@ const skillDataModel = {
         searchstr = SelectStr;
         console.log(SelectStr);
 
-        db.query(SelectStr, (err, results) => {
+        db.query(SelectStr,values, (err, results) => {
             if (err) return cb(err);
             // console.log(results);
             cb(null, results)
@@ -36,6 +39,8 @@ const skillDataModel = {
     certificateData:(SelectList, cb) => {
         var SelectStr = "SELECT certificates FROM work ";
         var flag = 0;
+        var values = [];
+
         for (const [key, value] of Object.entries(SelectList)) {
             if(value != '' && value != "不限" && typeof value !== 'undefined' && value.length>0){
                 if(!flag){
@@ -43,10 +48,12 @@ const skillDataModel = {
                     flag = 1;
                 }
                 else SelectStr+="AND ( ";
-                SelectStr = SelectStr + ` ${key} LIKE '%${value[0]}%'`;
+                SelectStr = SelectStr + ` ${key} LIKE ?`;
+                values.push(`%${value[0]}%`);
                 for(var i = 1; i < value.length; i++){
                     // console.log(value[i]);
-                    SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                    SelectStr = SelectStr + ` OR ${key} LIKE ? `;
+                    values.push(`%${value[i]}%`);
                 }
                 if(key == 'job_type'){
                     SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
@@ -54,10 +61,11 @@ const skillDataModel = {
                 SelectStr = SelectStr + ") ";
             }
         }
+        
         searchstr = SelectStr;
         console.log(SelectStr);
 
-        db.query(SelectStr, (err, results) => {
+        db.query(SelectStr,values, (err, results) => {
             if (err) return cb(err);
             // console.log(results);
             cb(null, results)

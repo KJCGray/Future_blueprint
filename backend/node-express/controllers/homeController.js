@@ -21,9 +21,11 @@ const homeController = {
 
         var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
         console.log(arr);
+        const startTime = new Date().getTime();
         workDataModel.post(arr, (err, results) => {
           if (err) console.log(err);
           if(results && results.length >0){
+            console.log('Time taken:', new Date().getTime() - startTime, 'ms');
             console.log(results.length);
             res.status(200).json(results); //回傳資料
             // next();
