@@ -86,11 +86,13 @@ const PageController = {
     },
     joblist: (req, res) => {
         console.log(req.body);
+        var searchValues = [];
         function processProperty(property) {
             if (Array.isArray(req.body[property])) {
-              return req.body[property].join(',');
+                searchValues = searchValues.concat(req.body[property].join(','));
+                return req.body[property].join(',');
             } else if (typeof req.body[property] === 'string') {
-              return req.body[property];
+                return req.body[property];
             }
             return '';
           }
@@ -100,6 +102,10 @@ const PageController = {
           var tmpedu = processProperty('edu').split(',');
           var tmpskill = processProperty('job_skill').split(',');
           var tmptool = tmpskill;
+
+          searchValues = searchValues.concat(tmpcertificates);
+          searchValues = searchValues.concat(tmpskill);
+          console.log(searchValues);
   
           var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool};
 
