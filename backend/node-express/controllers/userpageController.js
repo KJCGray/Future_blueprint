@@ -1,5 +1,6 @@
 const userModel = require('../models/user');
 const bcrypt = require('bcrypt');
+const WorkModel = require('../models/joblist');
 const saltRounds = 10;
 
 const PageController = {
@@ -82,6 +83,37 @@ const PageController = {
                 } )
             }
            })
+    },
+    joblist: (req, res) => {
+        console.log(req.body);
+        function processProperty(property) {
+            if (Array.isArray(req.body[property])) {
+              return req.body[property].join(',');
+            } else if (typeof req.body[property] === 'string') {
+              return req.body[property];
+            }
+            return '';
+          }
+          
+          var tmpcertificates = processProperty('certificates').split(',');
+          var tmplanguage = processProperty('language_req').split(',');
+          var tmpedu = processProperty('edu').split(',');
+          var tmpskill = processProperty('job_skill').split(',');
+          var tmptool = tmpskill;
+  
+          var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool};
+
+          console.log(arr);
+
+          WorkModel.post(arr, (err, result) =>{
+            if(err) console.log(err);
+            else if(result.length > 0){
+                res.status(200).json(result);
+            }
+            else{
+                res.status(404).json({message:"目前沒有推薦工作"})
+            }
+          })
     }
 }
 module.exports = PageController;
