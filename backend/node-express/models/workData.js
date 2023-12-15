@@ -20,6 +20,9 @@ const workDataModel ={
                     console.log(value[i]);
                     SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
                 }
+                if(key == 'job_type'){
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
+                }
                 SelectStr = SelectStr + ") ";
             }
         }

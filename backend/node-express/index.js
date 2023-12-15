@@ -66,7 +66,7 @@ app.post('/home', homeDataController.postlanguage);
 
 //顯示搜尋結果的api
 app.post('/api/searchwork/', homeDataController.post);
-// app.get('/api/searchwork/', homeDataController.post);
+app.get('/api/searchwork/', homeDataController.post);
 
 
 //顯示搜尋結果工作中所有需要語言統計結果的api

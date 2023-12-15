@@ -17,6 +17,9 @@ const skillDataModel = {
                     // console.log(value[i]);
                     SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
                 }
+                if(key == 'job_type'){
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
+                }
                 SelectStr = SelectStr + ") ";
             }
         }
@@ -44,6 +47,9 @@ const skillDataModel = {
                 for(var i = 1; i < value.length; i++){
                     // console.log(value[i]);
                     SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                }
+                if(key == 'job_type'){
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
                 }
                 SelectStr = SelectStr + ") ";
             }
@@ -73,6 +79,9 @@ const skillDataModel = {
                 for(var i = 1; i < value.length; i++){
                     // console.log(value[i]);
                     SelectStr = SelectStr + ` OR ${key} LIKE '%${value[i]}%' `;
+                }
+                if(key == 'job_type'){
+                    SelectStr = SelectStr + ` OR ${key} LIKE '%不限%' `;   
                 }
                 SelectStr = SelectStr + ") ";
             }
