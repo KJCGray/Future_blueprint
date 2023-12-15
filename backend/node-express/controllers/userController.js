@@ -168,7 +168,7 @@ const userController = {
     // password = req.body.password;
     username = req.body.username['current'];
     password = req.body.password['current'];
-
+    console.log(req.body);
     // 確認是否有填入資料
     // console.log(1);
     if(!username ||!password){

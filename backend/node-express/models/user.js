@@ -41,7 +41,7 @@ const userModel = {
     db.query(
       'SELECT * FROM user WHERE username = ?', [username], (err, results) => {
         if (err) return cb(err);
-        // console.log('12',results);
+        console.log('12',results);
         cb(null, results[0]);
       });
   },

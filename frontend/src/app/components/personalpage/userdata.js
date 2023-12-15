@@ -4,17 +4,33 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Userdata = () => {
   const [isCer, setIsCer] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router=useRouter();
+  const { token, userid,username } = parseCookies();
   useEffect(() => {
-    const { token, userid } = parseCookies();
     if (!token || !userid) {
       setIsLoggedIn(false);
     }
+    userdata();
   }, []);
+
+  async function userdata() {
+    //e.preventDefault();
+    console.log(username,token);
+    try {
+      const response = await axios.post(`http://localhost:5000/api/userpage`, {
+        username: username,
+        token: token,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleCerClick = () => {
     setIsCer(!isCer);
@@ -37,7 +53,7 @@ const Userdata = () => {
   const handleMajorClick = () => {
     setIsMajor(!isMajor);
   }
-
+ 
   if (!isLoggedIn) {
     return (
       <div>
