@@ -10,7 +10,7 @@ const PageController = {
 
         username = req.session.username;
         token = req.session.token;
-
+        console.log(username,token);
         if(username == null || token == null){
             res.status(403).json({message:"請登入"});   
         }
@@ -23,6 +23,7 @@ const PageController = {
                 
                 if(user[0].username != username){
                     // console.log(user[0].token, token);
+                    console.log(user.username, username, user.token, token);
                     res.status(403).json({message:"登入驗證錯誤，請再次登入"});
                 }
                 else{
@@ -51,7 +52,7 @@ const PageController = {
         
         username = req.session.username;
         token = req.session.token;
-
+        console.log(username,token);
         userModel.get(token, (err, user) =>{
             if(err) {
                 console.log(err)
@@ -121,7 +122,7 @@ const PageController = {
                 var cntMap = {};
                 for(var i = 0; i < result.length; i++){
                     for (const [key, value] of Object.entries(searchValues)) {
-                        
+                        result[0][key]
                     }   
                 }
 
