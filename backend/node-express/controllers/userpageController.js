@@ -69,7 +69,7 @@ const PageController = {
                     certificate:req.body.certificate,
                     language:req.body.language,
                     edu:req.body.edu,
-                    othe:req.body.skill
+                    other:req.body.skill
                 }
                 userModel.updataUserData(UpDateuser,(err, result) =>{
                     if(err) {
@@ -156,7 +156,50 @@ const PageController = {
           })
     },
     updatepass:(req, res)=>{
-        
+        const id = req.body.id;
+        const token = req.body.token;
+        const password = req.body.password;
+        userModel.get(token, (err, user) =>{
+            if(err) {
+                console.log(err)
+                res.status(403).json({message:"請登入"});
+            }
+            if(user.id != id){
+                console.log(user.username, username, user.token, token);
+                res.status(403).json({message:"登入驗證錯誤，請再次登入"});
+            }
+            else{
+                bcrypt.hash(password, saltRounds, function (err, hash) {
+                    // 若有 err 就直接顯示錯誤訊息
+                    if (err) {
+                        console.log(err);
+                        // req.flash('errorMessage', err.toString());
+                        // res.redirect('/register');
+                        res.status(400).json({
+                            message:'請按照正確格式輸入密碼'
+                        });
+                        return next();
+                    }
+
+                    var user = {
+                        id :id,
+                        password: hash
+                    }
+                    userModel.updatepass(user, (err, result) =>{
+                        if(err) {
+                            console.log(err)
+                            res.status(404).json({message:"更新失敗，請在試一次"});
+                        }
+                        else{
+                            res.status(200).json({
+                                message:"更新成功"
+                            });
+                        }
+                    } )
+                })
+            }
+        })
+
     }
 }
 module.exports = PageController;

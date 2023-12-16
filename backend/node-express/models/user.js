@@ -63,11 +63,20 @@ const userModel = {
   },
   updataUserData:(user, cb) =>{
     var str = "UPDATE user SET certificate = ?,	language = ?,	edu = ?,	other = ? WHERE  id = ?";
-    db.query(str,[user.username, user.email, user.certificate, user.language, user.edu,  user.other, user.id],(err, results) => {
+    db.query(str,[user.certificate, user.language, user.edu,  user.other, user.id],(err, results) => {
       if (err) return cb(err);
         console.log(results);
         cb(null, results[0]);
     } )
+  },
+  updatepass:(user, cb) =>{
+    var str = "UPDATE user SET password = ? WHERE  id = ?";
+    db.query(str,[user.password, user.id],(err, results) => {
+      if (err) return cb(err);
+        console.log(results);
+        cb(null, results[0]);
+    })
+    
   }
 }
   
