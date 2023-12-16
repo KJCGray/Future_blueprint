@@ -5,20 +5,15 @@ import TextField from '@mui/material/TextField';
 import {parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-
+import OpenInNew from '@mui/icons-material/OpenInNew';
+import Link from "next/link";
 const Userdata = () => {
   const [isCer, setIsCer] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router=useRouter();
   const { token, userid,username } = parseCookies();
-  useEffect(() => {
-    if (!token || !userid) {
-      setIsLoggedIn(false);
-    }
-    userdata();
-  }, []);
 
-  async function userdata() {
+  async function userpage() {
     //e.preventDefault();
     console.log(username,token);
     try {
@@ -31,6 +26,25 @@ const Userdata = () => {
       console.log(error);
     }
   }
+
+  async function updatepage() {
+    //e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:5000/api/updatepage`, {
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if (!token || !userid) {
+      setIsLoggedIn(false);
+    }
+    userpage();
+  }, []);
+
 
   const handleCerClick = () => {
     setIsCer(!isCer);
@@ -168,7 +182,9 @@ const Userdata = () => {
 
       <div className='flex justify-center'>
         <div>
-          <Button className='mt-4 w-[480px] font-semibold text-yellow-900 bg-orange-200 '>個人化工作推薦</Button>
+          <Button className='flex items-center justify-center h-8 my-6 font-semibold text-yellow-900 bg-orange-200 rounded w-[200px]'
+          component="a" href="\personalwork">
+            個人化工作推薦</Button>
         </div>  
       </div>
 

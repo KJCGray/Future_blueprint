@@ -26,7 +26,7 @@ const Accountsetting = () => {
     }
 
     const [email,setemail]=useState(null);
-    async function accountsetting() {
+    async function userpage() {
       //e.preventDefault();
       try {
         const response = await axios.post(`http://localhost:5000/api/userpage`, {
@@ -35,14 +35,13 @@ const Accountsetting = () => {
       });
         console.log(response);
         setemail(response.data.email);
-        console.log(email);
       } catch (error) {
         console.log(error);
       }
     }
     
     useEffect(() => {
-      accountsetting();
+      userpage();
     }, []);    
   return (
     <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'>
@@ -71,7 +70,7 @@ const Accountsetting = () => {
                 密   碼
                 </Button>           
                 <div className='ml-8'>
-                    {isEducational ?  (<TextField id="standard-basic" label="Password" variant="standard"/>): '未輸入'}
+                    {isEducational ?  (<TextField id="standard-basic" label="Password" variant="standard"/>): '♪♪♪♪♪♪♪♪♪♪'}
                 </div>
             </div> 
         </div>
