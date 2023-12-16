@@ -68,7 +68,7 @@ const PageController = {
         // username = req.session.username;
         // token = req.session.token;
         console.log(username,token);
-        userModel.get(token, (err, user) =>{
+        userModel.getpage(token, (err, user) =>{
             if(err) {
                 console.log(err)
                 res.status(403).json({message:"請登入"});
