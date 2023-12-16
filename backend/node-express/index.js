@@ -81,6 +81,7 @@ app.get('/test',(req, res) =>{
 
 //顯示搜尋結果的api
 app.post("/api/searchwork/", homeDataController.post);
+app.post("/api/workpage/", homeDataController.postPage);
 app.get("/api/searchwork/", homeDataController.post);
 
 //顯示搜尋結果工作中所有需要語言統計結果的api
@@ -100,6 +101,9 @@ app.get("/api/searchskill/", workDataController.postSkill);
 //證照
 app.post("/api/searchCertificate/", workDataController.postCertificate);
 // app.get('/api/searchCertificate/', workDataController.postCertificate);
+
+//推薦工作
+app.post("/api/joblist/", PageController.joblist);
 
 //留言區
 app.post("/api/msg", workDataController.InsertMessage);

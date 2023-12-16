@@ -47,6 +47,7 @@ const PageController = {
        
     },
     update:(req, res) =>{
+        userID = req.body.userID
         username = req.body.username;
         token = req.body.token;
         
@@ -64,13 +65,11 @@ const PageController = {
             }
             else{
                 var UpDateuser = {
-                    username:username,
-                    email:req.body.email,
+                    id:userID,
                     certificate:req.body.certificate,
                     language:req.body.language,
                     edu:req.body.edu,
-                    exp:req.body.exp,
-                    other:req.body.other
+                    othe:req.body.skill
                 }
                 userModel.updataUserData(UpDateuser,(err, result) =>{
                     if(err) {
