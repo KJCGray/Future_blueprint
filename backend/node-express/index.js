@@ -118,6 +118,7 @@ app.get('/api/userpage', PageController.postALL);
 app.post("/api/updatepage", PageController.update);
 
 app.post("/api/joblist", PageController.joblist);
+app.post("/api/updatepass", PageController.updatepass);
 
 app.get('/login', userController.login)
 // app.post('/login', userController.handleLogin)
