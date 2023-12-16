@@ -183,6 +183,7 @@ const workController = {
       MsgDataModel.postMsg(arr, (err, results) =>{
         if (err) console.log(err);
         if(results && results.length > 0){
+          console.log(results);
           res.status(200).json(results);
         }
       })
