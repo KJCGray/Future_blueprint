@@ -17,6 +17,9 @@ const saltRounds = 10;
 const yourPassword = "someRandomPasswordHere";
 // 建立一個不易產生衝突的 port 用來測試
 const crypto = require("crypto");
+
+
+
 const secret = crypto.randomBytes(32).toString("hex");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

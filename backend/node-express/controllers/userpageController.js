@@ -3,6 +3,20 @@ const bcrypt = require('bcrypt');
 const WorkModel = require('../models/joblist');
 const { minify } = require('next/dist/build/swc');
 const saltRounds = 10;
+const lunr = require('lunr');
+
+function initializeLunrIndex() {
+    const idx = lunr(function () {
+      this.field('tool_expect');
+      this.field('job_skill');
+      this.field('edu');
+      this.field('language_req');
+      this.field('certificates');
+      this.ref('job_url');
+    });
+  
+    return idx;
+}
 
 const PageController = {
     postALL:(req, res) =>{
@@ -110,14 +124,57 @@ const PageController = {
             tool_expect:tmpskill
           }
           console.log(searchValues);
-  
+
+          var tmpstr = req.body.certificates+ req.body.language_req+req.body.edu+req.body.job_skill;
+          tmpstr = tmpstr.replace(',', ' ');
+
+          console.log(tmpstr);
+
           var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool};
 
           console.log(arr);
+
+          const idx = initializeLunrIndex();
+          console.log(idx);
+
+          function performAsyncOperations(result) {
+            return new Promise((resolve, reject) => {
+              if (result.length > 0) {
+                const promises = result.map((doc) => {
+                  return new Promise((innerResolve, innerReject) => {
+                    // 可能的異步操作
+                    someAsyncOperation(() => {
+                      idx.add(doc);
+                      innerResolve();  // 異步操作完成後 resolve 內部的 Promise
+                    });
+                  });
+                });
           
+                // 等待所有內部 Promise 都完成後再 resolve 外部的 Promise
+                Promise.all(promises).then(() => {
+                  resolve();
+                });
+              } else {
+                resolve();
+              }
+            });
+          }
+
           WorkModel.post(arr, (err, result) =>{
             if(err) console.log(err);
             else if(result.length > 0){
+                
+                // performAsyncOperations(result).then(() => {
+                //     // 所有異步操作完成後，這裡執行 add 方法後的後續邏輯
+                //   });
+                // result.forEach(function (doc) {
+                //     console.log(doc);
+                //     idx.add(doc);
+                // });
+
+                // var results = idx.search(tmpstr);
+
+                console.log(result);
                 const cntMap = new Map();
 
                 for (let i = 0; i < result.length; i++) {
@@ -140,7 +197,7 @@ const PageController = {
                 // console.log(cntMap);
 
                 console.log(cntArray.length);
-                // console.log(resultarr);
+                console.log(resultarr);
                 WorkModel.searchjob(resultarr,(err, r)=>{
                     if(err){console.log(err)}
                     else{
