@@ -73,8 +73,8 @@ const PageController = {
                 console.log(err)
                 res.status(403).json({message:"請登入"});
             }
-            if(user.username != username){
-                console.log(user.username, username, user.token, token);
+            if(user[0].username != username){
+                console.log(user[0].username, username, user[0].token, token);
                 res.status(403).json({message:"登入驗證錯誤，請再次登入"});
             }
             else{
@@ -221,8 +221,8 @@ const PageController = {
                 console.log(err)
                 res.status(403).json({message:"請登入"});
             }
-            if(user.id != id){
-                console.log(user.username, username, user.token, token);
+            if(user[0].id != id){
+                // console.log(user.username, username, user.token, token);
                 res.status(403).json({message:"登入驗證錯誤，請再次登入"});
             }
             else{
