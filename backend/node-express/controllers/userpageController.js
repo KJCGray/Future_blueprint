@@ -69,7 +69,7 @@ const PageController = {
                     certificate:req.body.certificate,
                     language:req.body.language,
                     edu:req.body.edu,
-                    othe:req.body.other
+                    othe:req.body.skill
                 }
                 userModel.updataUserData(UpDateuser,(err, result) =>{
                     if(err) {
