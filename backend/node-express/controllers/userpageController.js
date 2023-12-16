@@ -216,7 +216,7 @@ const PageController = {
         const id = req.body.id;
         const token = req.body.token;
         const password = req.body.password;
-        userModel.get(token, (err, user) =>{
+        userModel.getpage(token, (err, user) =>{
             if(err) {
                 console.log(err)
                 res.status(403).json({message:"請登入"});
