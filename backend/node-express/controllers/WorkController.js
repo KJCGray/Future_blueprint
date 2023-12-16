@@ -195,7 +195,8 @@ const workController = {
       const username = req.body.username;
       const token = req.body.token;
       
-      userModel.get(token, (err, user) =>{
+      console.log(req.body);
+      userModel.getpage(token, (err, user) =>{
         if(err) {
             console.log(err)
             res.status(403).json({message:"請登入"});
