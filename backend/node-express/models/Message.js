@@ -2,8 +2,9 @@ const db = require('../db')
 
 const MessageModel = {
     Insert: (data, cb) =>{
+        // console.log(data);
         var str = "INSERT INTO  message(userID, username, time, content, area,	job_type, job_L_class) VALUES(?, ?, ?, ?,?, ?, ?) ";
-        db.query(str,[data.id, data.username, data.time,  data.content, data.area,data.job_type, data.job_L_clas],(err, results)=>{
+        db.query(str,[data.id, data.username, data.time,  data.content, data.area,data.job_type, data.job_L_class],(err, results)=>{
             if (err) return cb(err);
             cb(null, results);
         })  
