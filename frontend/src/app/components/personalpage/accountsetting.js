@@ -43,6 +43,7 @@ const Accountsetting = () => {
     useEffect(() => {
       userpage();
     }, []);    
+    
   return (
     <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'>
         <div className='flex flex-col w-3/5 pt-4 ml-16'>
@@ -70,7 +71,7 @@ const Accountsetting = () => {
                 密   碼
                 </Button>           
                 <div className='ml-8'>
-                    {isEducational ?  (<TextField id="standard-basic" label="Password" variant="standard"/>): '♪♪♪♪♪♪♪♪♪♪'}
+                    {isEducational ?  (<TextField type="password" id="standard-basic" label="Password" variant="standard"/>): '♪♪♪♪♪♪♪♪♪♪'}
                 </div>
             </div> 
         </div>
