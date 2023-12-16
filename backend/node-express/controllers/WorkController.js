@@ -3,6 +3,7 @@ const workDataModel = require("../models/workData")
 const languageDataModel = require("../models/languageData");
 const skillDataModel = require("../models/skillData");
 const MsgDataModel = require("../models/Message");
+const userModel = require('../models/user');
 
 const workController = {
     postALLlanguage:(req, res) => { //回傳需要的前三個語言的聽說讀寫分別要什麼程度    
