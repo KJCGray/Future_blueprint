@@ -6,7 +6,7 @@ var search = "";
 
 const workDataModel ={
     post: (SelectList, cb) => {
-        var SelectStr = "SELECT job_name, serial_name, area,exp,edu,job_content,job_url  FROM work ";
+        var SelectStr = "SELECT job_name, serial_name, area,exp,edu,job_content,job_url, company_type  FROM work ";
         var flag = 0;
         var values = [];
         for (const [key, value] of Object.entries(SelectList)) {
