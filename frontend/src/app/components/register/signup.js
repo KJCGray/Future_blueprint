@@ -43,6 +43,8 @@ function Signup() {
       });
       const token = response.data.token;
       const userid = response.data.userId;
+      const email = response.data.email;
+      setCookie(null, "email", email);
       setCookie(null, "token", String(token));
       setCookie(null, "userid", userid);
       console.log(token, userid);
@@ -52,11 +54,11 @@ function Signup() {
     } catch (error) {
       console.log(error);
       Swal.fire({
-        title: 'Error!',
+        title: "Error!",
         text: error,
-        icon: 'error',
-        confirmButtonText: 'confirm'
-      })
+        icon: "error",
+        confirmButtonText: "confirm",
+      });
     }
   }
   return (

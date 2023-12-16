@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -85,6 +85,7 @@ const Jobsearch = () => {
   const [totaljob, settotaljob] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const params = useParams();
 
   async function fetchjobs() {
     setLoading(true);
@@ -188,7 +189,9 @@ const Jobsearch = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  async function forumnHandler(forumid) {
+  async function forumnHandler(name) {
+    const forumid = encodeURIComponent(name);
+    console.log(forumid);
     router.push(`/forum/${forumid}`);
   }
   return (
@@ -272,7 +275,7 @@ const Jobsearch = () => {
                   <p className="mb-2 font-semibold">討論區</p>
                   <ButtonGroup orientation="vertical" aria-label="vertical outlined button group">
                     {jobName.map((name, index) => (
-                      <Button key={name} onClick={() => forumnHandler(index)}>
+                      <Button key={name} onClick={() => forumnHandler(name)}>
                         {name}
                       </Button>
                     ))}
