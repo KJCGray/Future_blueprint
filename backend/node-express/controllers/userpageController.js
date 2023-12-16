@@ -154,6 +154,9 @@ const PageController = {
                 res.status(404).json({message:"目前沒有推薦工作"})
             }
           })
+    },
+    updatepass:(req, res)=>{
+        
     }
 }
 module.exports = PageController;
