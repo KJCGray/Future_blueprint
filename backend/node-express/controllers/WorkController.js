@@ -196,13 +196,14 @@ const workController = {
       const token = req.body.token;
       
       console.log(req.body);
-      userModel.get(token, (err, user) =>{
+      userModel.getpage(token, (err, user) =>{
         if(err) {
             console.log(err)
             res.status(403).json({message:"請登入"});
         }
-        else if(user.username != username){
-            console.log(user.username, username, user.token, token);
+        else if(user[0].username != username){
+            console.log(user[0]);
+            console.log(user[0].username, username, user[0].token, token);
             res.status(403).json({message:"登入驗證錯誤，請再次登入"});
         }
         else{
@@ -218,7 +219,7 @@ const workController = {
           MsgDataModel.Insert(WriteMsg, (err, results) =>{
             if (err) console.log(err);
             else{
-              res.state(200).send("完成留言");
+              res.status(200).send("完成留言");
             }
           })
         }
