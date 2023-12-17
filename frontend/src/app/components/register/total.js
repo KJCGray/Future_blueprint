@@ -12,19 +12,23 @@ const total = () => {
     setShowSignUp(true);
   }
   return (
-    <div className="w-1/4 rounded bg-[#fdf8f0] h-2/3 drop-shadow-2xl">
+    <div className="w-1/4 rounded bg-[#fdf8f0] h-2/3 drop-shadow-2xl p-8">
       <div className="flex justify-center text-[#a38d80] mt-4 text-2xl">
-        <a>FutureBlueprint</a>
+        <a>Welcome!</a>
       </div>
       <div className="flex justify-center h-12 mt-8">
         <button
-          className="text-[#a38d80] hover:border-b-2 border-[#f4b894] m-2"
+          className={` text-[#a38d80] m-2 hover:border-[#f4b894] ${
+            !showSignUp ? "border-b-2 border-[#f4b894] " : ""
+          }`}
           onClick={signInTrigger}
         >
           Sign In
         </button>
         <button
-          className="ml-10 text-[#a38d80] hover:border-b-2 border-[#f4b894] m-2"
+          className={`ml-10 text-[#a38d80] m-2 hover:border-[#f4b894] ${
+            showSignUp ? "border-b-2 border-[#f4b894] " : ""
+          }`}
           onClick={signUpTrigger}
         >
           Sign Up
