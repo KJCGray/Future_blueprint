@@ -10,8 +10,6 @@ import Image from "next/image";
 import axios from "axios";
 
 const Signin = () => {
-  const { token } = parseCookies();
-  const { userid } = parseCookies();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const signinNameRef = useRef("");
@@ -63,7 +61,7 @@ const Signin = () => {
       ) : (
         <>
           <form method="post" onSubmit={signin}>
-            <div className="flex items-center justify-center mt-8">
+            <div className="flex items-center justify-center mt-12">
               <label
                 htmlFor="user"
                 className="flex items-center h-10 text-gray-500 bg-white w-60 rounded-2xl"
@@ -76,7 +74,7 @@ const Signin = () => {
                 />
               </label>
             </div>
-            <div className="flex items-center justify-center mt-6">
+            <div className="flex items-center justify-center mt-8">
               <label
                 htmlFor="password"
                 className="flex items-center h-10 text-gray-500 bg-white w-60 rounded-2xl"
@@ -90,7 +88,7 @@ const Signin = () => {
                 />
               </label>
             </div>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-8">
               <ThemeProvider theme={theme}>
                 <Button variant="contained" color="ochre" type="submmit">
                   會員登入
