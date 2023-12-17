@@ -71,7 +71,7 @@ const Accountsetting = () => {
                 密   碼
                 </Button>           
                 <div className='ml-8'>
-                    {isEducational ?  (<TextField type="password" id="standard-basic" label="Password" variant="standard"/>): '♪♪♪♪♪♪♪♪♪♪'}
+                    {isEducational ?  (<TextField type="password" id="standard-basic" label="Password" variant="standard"/>): '🐇🐇🐇🐇🐇🐇'}
                 </div>
             </div> 
         </div>
