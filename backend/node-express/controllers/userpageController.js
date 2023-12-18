@@ -56,6 +56,9 @@ const PageController = {
         username = req.body.username;
         token = req.body.token;
         
+        if(username == null || token == null || token == undefined || username == undefined){
+            res.status(403).json({message:"請登入"});   
+        }
         // username = req.session.username;
         // token = req.session.token;
         console.log(username,token);
