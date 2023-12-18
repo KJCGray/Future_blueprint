@@ -1,8 +1,5 @@
 "use client";
-import { AccessAlarm, ThreeDRotation } from "@mui/icons-material";
-import HomeIcon from "@mui/icons-material/Home";
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const searchbar = () => {

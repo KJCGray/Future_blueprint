@@ -9,6 +9,8 @@ import { setCookie } from "nookies";
 import Image from "next/image";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Signin = () => {
   const [loading, setLoading] = useState(false);
@@ -64,8 +66,13 @@ const Signin = () => {
   return (
     <div className="h-auto">
       {loading ? (
-        <div className="flex items-center justify-center h-auto">
-          <Image src="/giphy.gif" alt="logingif" height={150} width={150}></Image>
+        <div className="h-60">
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </div>
       ) : (
         <>
