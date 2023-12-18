@@ -63,6 +63,7 @@ const userModel = {
   },
   updataUserData:(user, cb) =>{
     var str = "UPDATE user SET certificate = ?,	language = ?,	edu = ?,	other = ? WHERE  id = ?";
+    console.log("UPDATE user SET certificate = "+user.certificate+",	language = "+user.language+",	edu = "+user.edu+",	other = "+user.other+" WHERE  id = "+user.id)
     db.query(str,[user.certificate, user.language, user.edu,  user.other, user.id],(err, results) => {
       if (err) return cb(err);
         console.log(results);

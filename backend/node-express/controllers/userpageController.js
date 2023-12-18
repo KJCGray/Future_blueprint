@@ -52,7 +52,7 @@ const PageController = {
        
     },
     update:(req, res) =>{
-        userID = req.body.userID
+        userID = req.body.userid
         username = req.body.username;
         token = req.body.token;
         
@@ -62,6 +62,7 @@ const PageController = {
         // username = req.session.username;
         // token = req.session.token;
         console.log(username,token);
+        console.log(req.body);
 
         userModel.getpage(token, (err, user) =>{
             if(err) {
@@ -80,6 +81,7 @@ const PageController = {
                     edu:req.body.edu,
                     other:req.body.skill
                 }
+
                 userModel.updataUserData(UpDateuser,(err, result) =>{
                     if(err) {
                         console.log(err)
