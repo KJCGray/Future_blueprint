@@ -85,7 +85,6 @@ const Jobsearch = () => {
   const [totaljob, settotaljob] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const params = useParams();
 
   async function fetchjobs() {
     setLoading(true);

@@ -3,7 +3,7 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { setCookie } from "nookies";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 function Signup() {
   const signupNameRef = useRef("");
   const signupEmailRef = useRef("");
-  const signupPswdRef = useRef("");
+  const signupPswdRef = useRef(""); 
   const handleNameChange = (e) => {
     signupNameRef.current = e.target.value;
   };
@@ -55,7 +55,7 @@ function Signup() {
       console.log(error);
       Swal.fire({
         title: "Error!",
-        text: error,
+        text: error.response.data.message,
         icon: "error",
         confirmButtonText: "confirm",
       });
