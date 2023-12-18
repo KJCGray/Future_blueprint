@@ -133,7 +133,13 @@ const workController = {
 
       var arr = {"job_L_class": tmpJobClass, "job_type": tmpJobType, "area": tmpArea};
       skillDataModel.certificateData(arr, (err, results) =>{
-        if (err) console.log(err);
+        if (err){
+          console.log(err);
+          req.status(500).json({message:"sever error"});
+        }
+        // else if(results < 1){
+        //   req.status(404).json({message:"資料過少無法統計"});
+        // }
         else{
           var cntMap = {};
           for (var i = 0; i < results.length; i++) {
@@ -181,8 +187,14 @@ const workController = {
       var arr = {"job_L_class": tmpJobClass};
       
       MsgDataModel.postMsg(arr, (err, results) =>{
-        if (err) console.log(err);
-        if(results && results.length > 0){
+        if (err){
+          console.log(err);
+          res.status(500).json({message:"server error"});
+        }
+        else if (results.length  < 1){
+          res.status(404).json({message:"目前沒有留言"});
+        }
+        else if(results && results.length > 0){
           console.log(results);
           res.status(200).json(results);
         }
@@ -201,6 +213,9 @@ const workController = {
         if(err) {
             console.log(err)
             res.status(403).json({message:"請登入"});
+        }
+        else if(user < 1){
+          res.status(403).json({message:"請登入"}); 
         }
         else if(user[0].username != username){
             console.log(user[0]);
