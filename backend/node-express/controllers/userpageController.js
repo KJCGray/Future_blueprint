@@ -95,7 +95,7 @@ const PageController = {
                     }
                     else{
                        res.status(200).json({
-                        message:"更新成功"
+                            message:"更新成功"
                        });
                     }
                 } )
@@ -118,13 +118,15 @@ const PageController = {
           var tmpedu = processProperty('edu').split(',');
           var tmpskill = processProperty('job_skill').split(',');
           var tmptool = tmpskill;
+          var tmpcontent = tmpskill;
 
           var searchValues = {
             certificates:tmpcertificates,
             language_req:tmplanguage,
             edu:tmpedu,
             job_skill:tmpskill,
-            tool_expect:tmpskill
+            tool_expect:tmpskill,
+            job_content:tmpskill
           }
           console.log(searchValues);
 
@@ -133,7 +135,7 @@ const PageController = {
 
           console.log(tmpstr);
 
-          var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool};
+          var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool, "job_content":tmpconten};
 
           console.log(arr);
 
