@@ -128,6 +128,7 @@ const PageController = {
             tool_expect:tmpskill,
             job_content:tmpskill
           }
+
           console.log(searchValues);
 
           var tmpstr = req.body.certificates+ req.body.language_req+req.body.edu+req.body.job_skill;
@@ -152,7 +153,8 @@ const PageController = {
                 for (let i = 0; i < result.length; i++) {
                     for (const [key, value] of Object.entries(searchValues)) {
                         for(var j = 0; j < value.length; j++){
-                            if(result[i][key].indexOf(value[j]) >=0){
+                            // console.log("tmp",result[i][key],key);
+                            if(result[i][key]!='' &&result[i][key]!= undefined&&result[i][key].indexOf(value[j]) >=0){
                                 cntMap.set(result[i]['job_url'], (cntMap.get(result[i]['job_url']) || 0) + 1);   
                             }
                         }
