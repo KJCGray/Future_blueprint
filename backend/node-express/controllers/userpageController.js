@@ -3,20 +3,11 @@ const bcrypt = require('bcrypt');
 const WorkModel = require('../models/joblist');
 const { minify } = require('next/dist/build/swc');
 const saltRounds = 10;
-const lunr = require('lunr');
 
-function initializeLunrIndex() {
-    const idx = lunr(function () {
-      this.field('tool_expect');
-      this.field('job_skill');
-      this.field('edu');
-      this.field('language_req');
-      this.field('certificates');
-      this.ref('job_url');
-    });
-  
-    return idx;
-}
+
+
+
+
 
 const PageController = {
     postALL:(req, res) =>{
@@ -26,7 +17,7 @@ const PageController = {
         // username = req.session.username;
         // token = req.session.token;
         console.log(username,token);
-        if(username == null || token == null){
+        if(username == null || token == null || token == undefined || username == undefined){
             res.status(403).json({message:"請登入"});   
         }
         else {
@@ -68,6 +59,7 @@ const PageController = {
         // username = req.session.username;
         // token = req.session.token;
         console.log(username,token);
+
         userModel.getpage(token, (err, user) =>{
             if(err) {
                 console.log(err)
@@ -134,45 +126,12 @@ const PageController = {
 
           console.log(arr);
 
-          const idx = initializeLunrIndex();
-          console.log(idx);
 
-          function performAsyncOperations(result) {
-            return new Promise((resolve, reject) => {
-              if (result.length > 0) {
-                const promises = result.map((doc) => {
-                  return new Promise((innerResolve, innerReject) => {
-                    // 可能的異步操作
-                    someAsyncOperation(() => {
-                      idx.add(doc);
-                      innerResolve();  // 異步操作完成後 resolve 內部的 Promise
-                    });
-                  });
-                });
-          
-                // 等待所有內部 Promise 都完成後再 resolve 外部的 Promise
-                Promise.all(promises).then(() => {
-                  resolve();
-                });
-              } else {
-                resolve();
-              }
-            });
-          }
+
 
           WorkModel.post(arr, (err, result) =>{
             if(err) console.log(err);
             else if(result.length > 0){
-                
-                // performAsyncOperations(result).then(() => {
-                //     // 所有異步操作完成後，這裡執行 add 方法後的後續邏輯
-                //   });
-                // result.forEach(function (doc) {
-                //     console.log(doc);
-                //     idx.add(doc);
-                // });
-
-                // var results = idx.search(tmpstr);
 
                 console.log(result);
                 const cntMap = new Map();
