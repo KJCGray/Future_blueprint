@@ -135,7 +135,7 @@ const PageController = {
 
           console.log(tmpstr);
 
-          var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool, "job_content":tmpconten};
+          var arr = {"certificates":tmpcertificates, "language_req": tmplanguage, "edu": tmpedu, "job_skill": tmpskill , "tool_expect":tmptool, "job_content":tmpcontent};
 
           console.log(arr);
 
