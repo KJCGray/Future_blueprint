@@ -51,14 +51,14 @@ const Personaltotal = () => {
           onClick={() => changePage("accountsetting")}>
           帳戶設定
         </Button>
-        <Button
+        {/* <Button
             disabled
           className={`p-2 font-semibold text-yellow-900 bg-orange-200  ${
             currentPage === "commenthistory" ? "border-b-2" : ""
           }`}
           onClick={() => changePage("commenthistory")}>
           留言紀錄
-        </Button>
+        </Button> */}
 
         <Button 
             disabled
@@ -77,7 +77,7 @@ const Personaltotal = () => {
     <div className="space-x-20 flex items-center justify-center rounded-xl w-[260px] h-[400px]">
       <div className="flex flex-col w-4/5 p-8 m-4 space-y-8 bg-orange-100 h-4/5 rounded-xl">
         <Button
-          className={`w-28 flex p-2 font-semibold text-yellow-900 bg-orange-200 ${
+          className={`w-28 mt-2 flex p-4 font-semibold text-yellow-900 bg-orange-200 ${
             currentPage === "userdata" ? "border-b-2" : ""
           }`}
           onClick={() => changePage("userdata")}
@@ -85,23 +85,23 @@ const Personaltotal = () => {
           個人資料
         </Button>
         <Button
-          className={`p-2 font-semibold text-yellow-900 bg-orange-200  ${
+          className={`p-4 font-semibold text-yellow-900 bg-orange-200  ${
             currentPage === "accountsetting" ? "border-b-2" : ""
           }`}
           onClick={() => changePage("accountsetting")}
         >
           帳戶設定
         </Button>
-        <Button
+        {/* <Button
           className={`p-2 font-semibold text-yellow-900 bg-orange-200  ${
             currentPage === "commenthistory" ? "border-b-2" : ""
           }`}
           onClick={() => changePage("commenthistory")}
         >
           留言紀錄
-        </Button>
+        </Button> */}
 
-        <Button className="font-semibold text-yellow-900 bg-orange-200" onClick={handleLogout}>
+        <Button className="p-4 font-semibold text-yellow-900 bg-orange-200" onClick={handleLogout}>
           登出
         </Button>
       </div>
