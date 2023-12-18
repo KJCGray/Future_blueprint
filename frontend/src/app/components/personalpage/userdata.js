@@ -169,12 +169,12 @@ const Userdata = () => {
             className='flex items-center justify-center w-20 h-8 my-5 font-semibold text-yellow-900 bg-orange-200 rounded'>
               證   照
             </div>           
-          <div className='ml-8'>
+          <div className='ml-8 '>
             {isUD ?  
             (<TextField id="standard-basic" label="Certificate" variant="standard" value={certificate} 
             onChange={handleCertificateChange}/>)
             :
-            <div className="w-2/5 overflow-x-auto whitespace-nowrap no-scrollbar">
+            <div className="overflow-x-auto w-60 whitespace-nowrap no-scrollbar">
               {certificate}
             </div>}
           </div>
@@ -189,7 +189,10 @@ const Userdata = () => {
             {isUD ? 
             (<TextField id="standard-basic" label="Language" variant="standard" value={language}
               onChange={handleLanguageChange}/>)
-            :language}
+            :
+            <div className="overflow-x-auto w-60 whitespace-nowrap no-scrollbar">
+              {language}
+            </div>}
           </div>
         </div>   
 
@@ -202,7 +205,10 @@ const Userdata = () => {
             {isUD ? 
             (<TextField id="standard-basic" label="Education" variant="standard" value={edu}
               onChange={handleEduChange}/>)
-            : edu}
+            : 
+            <div className="overflow-x-auto w-60 whitespace-nowrap no-scrollbar">
+              {edu}
+            </div>}
           </div>
         </div>   
       
@@ -216,7 +222,10 @@ const Userdata = () => {
             (<TextField id="standard-basic" label="Major" variant="standard" value={major}
             onChange={handleMajorChange}
             />)
-            : major}
+            : 
+            <div className="overflow-x-auto w-60 whitespace-nowrap no-scrollbar">
+              {major}
+            </div>}
           </div>
         </div>     
       </div>  
