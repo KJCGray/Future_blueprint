@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import {parseCookies} from "nookies";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Recommand from "../recommandpage/recommand";
 
 const Userdata = () => {
   const [isUD, setIsUD] = useState(false);
@@ -16,7 +17,9 @@ const Userdata = () => {
   const [edu,setedu]=useState("");
   const [major,setmajor]=useState("");
   const [certificateArray,setcertificateArray] = useState([]);
-  
+  const [recopen, setRecopen] = useState(false);
+  const [recvalue, setRecvalue] = useState([]);
+
   async function userpage() {
     //e.preventDefault();
     console.log(username,token);
@@ -26,11 +29,12 @@ const Userdata = () => {
         token: token,
       });
       console.log(response);
+      setRecvalue(response)
       setcertificate(response.data.certificate);
       setlanguage(response.data.language);
       setedu(response.data.edu);
       setmajor(response.data.other);
-      console.log("顯示:",certificate,language,major);
+      console.log("顯示:",recvalue);
     } catch (error) {
       console.log(error);
     }
@@ -47,6 +51,12 @@ const Userdata = () => {
         edu:edu,
         skill:major,
       });
+      // router.push("/personalwork", {
+      //   certificate: certificate,
+      //   language: language,
+      //   edu: edu,
+      //   major: major,
+      // });
       console.log(response);
       console.log("更新:",certificate,language,major);
     } catch (error) {
@@ -69,6 +79,10 @@ const Userdata = () => {
     updatepage();
     setIsUD(false);
   }
+  const recClick =  () => {
+    setRecopen(!recopen);
+  }
+  
   const handleCertificateChange = (e) => {
     setcertificate(e.target.value);
     setcertificateArray(certificate.split(','));
@@ -161,7 +175,13 @@ const Userdata = () => {
   }
 
   return (
-    <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'>      
+    <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'> 
+    {recopen?(<div className="flex flex-col items-center">
+      <Recommand recvalue={recvalue} />
+      <Button className={`w-60 p-2 font-semibold text-yellow-900 bg-orange-200 `} onClick={recClick}>
+        回到個人資料
+      </Button>
+      </div>):(<>    
       <div className='flex flex-col w-3/5 pt-4 ml-16'>
       
         <div className='flex items-center'>
@@ -235,16 +255,15 @@ const Userdata = () => {
           <Button onClick={handleUpdateClick} className={`w-11/12 mr-2 p-2 font-semibold text-yellow-900 bg-orange-200 ml-2` }>
             更新資料
           </Button>):(<div>
-          <Button className={`w-60 p-2 font-semibold text-yellow-900 bg-orange-200 mr-2`}
-          component="a" href="\personalwork">
+          <Button className={`w-60 p-2 font-semibold text-yellow-900 bg-orange-200 mr-2`} onClick={recClick}>
             個人化工作推薦
           </Button>
-            
           <Button onClick={handleUDClick} className={`w-60 mr-2 p-2 font-semibold text-yellow-900 bg-orange-200 ml-2` }>
             編輯資料
           </Button>
         </div>)}  
-      </div>      
+      </div>  
+      </>)}     
     </div>
   );
 }

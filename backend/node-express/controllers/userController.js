@@ -112,15 +112,12 @@ const userController = {
                       });
                     }
                     else{
-                      req.session.username =  username;
-                      req.session.userId = userId;
-                      req.session.token = usertoken;
                       
                       res.status(200).json({
                         message:"註冊成功",
-                        username: req.session.username,
-                        userId:req.session.userId,
-                        token:req.session.token
+                        username: username,
+                        userId:userId,
+                        token:usertoken
                       });
                       return next();
                       //console.log("User ID in session:", req.session.userId);
@@ -185,7 +182,7 @@ const userController = {
     
     // 輸入正確就從 userModel 找出 user 資料
     userModel.get(username, (err, user) => {
-      //console.log(user);
+      console.log(user);
       if (err) {
         res.status(404).json({
           message:'請求錯誤，請在試一次'
@@ -223,16 +220,12 @@ const userController = {
             userModel.updateToken(user.id, usertoken, (err, r) => {
               if(err) {console.log(err)}
               else{
-                req.session.username = user.username;
-                req.session.userId = user.id;
-                req.session.token = usertoken;
-
                 
                 res.status(200).json({
                   message:"登入成功",
-                  username: req.session.username,
-                  userId:req.session.userId,
-                  token:req.session.token
+                  username: user.username,
+                  userId:user.id,
+                  token:usertoken
                 });
                 // res.render('index', { username: req.session.username , userId: req.session.userId});
               }
