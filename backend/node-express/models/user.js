@@ -46,10 +46,13 @@ const userModel = {
       });
   },
   getpage:(token, cb) => {
+    if(token);
     db.query(
       'SELECT * FROM user WHERE token = ?', [token], (err, results) => {
         if (err) return cb(err);
+        console.log("SELECT * FROM user WHERE token = "+token);
         console.log("getpage",results);
+        
         cb(null, results);
       });
   },

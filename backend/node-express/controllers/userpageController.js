@@ -24,10 +24,13 @@ const PageController = {
             userModel.getpage(token, (err, user) =>{
                 if(err || !user) {
                     console.log(err);
+                    console.log(username,token);
                     res.status(403).json({message:"請登入"});   
                 }
-                
-                if(user[0].username != username){
+                else if(user.length < 1){
+                    res.status(403).json({message:"請登入"});
+                }
+                else if(user[0].username != username){
                     // console.log(user[0].token, token);
                     console.log(user.username, username, user.token, token);
                     res.status(403).json({message:"登入驗證錯誤，請再次登入"});
@@ -66,10 +69,13 @@ const PageController = {
 
         userModel.getpage(token, (err, user) =>{
             if(err) {
-                console.log(err)
+                console.log(err);
                 res.status(403).json({message:"請登入"});
             }
-            if(user[0].username != username){
+            else if(user.length < 1){
+                res.status(403).json({message:"請登入"});
+            }
+            else if(user[0].username != username){
                 console.log(user[0].username, username, user[0].token, token);
                 res.status(403).json({message:"登入驗證錯誤，請再次登入"});
             }
@@ -183,6 +189,9 @@ const PageController = {
         userModel.getpage(token, (err, user) =>{
             if(err) {
                 console.log(err)
+                res.status(403).json({message:"請登入"});
+            }
+            else if(user.length < 1){
                 res.status(403).json({message:"請登入"});
             }
             if(user[0].id != id){
