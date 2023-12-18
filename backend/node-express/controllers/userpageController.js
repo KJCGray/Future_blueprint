@@ -141,8 +141,6 @@ const PageController = {
           console.log(arr);
 
 
-
-
           WorkModel.post(arr, (err, result) =>{
             if(err) console.log(err);
             else if(result.length > 0){
