@@ -103,7 +103,7 @@ const PageController = {
            })
     },
     joblist: (req, res) => {
-        console.log(req.body);
+        console.log("body", req.body);
         function processProperty(property) {
             if (Array.isArray(req.body[property]) && req.body[property].length > 0) {
               return req.body[property].join(',');
