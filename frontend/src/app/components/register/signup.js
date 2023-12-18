@@ -3,15 +3,21 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
-import { setCookie } from "nookies";
+import { useRef, useEffect } from "react";
+import { setCookie, destroyCookie, parseCookies } from "nookies";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 function Signup() {
+  // useEffect(() => {
+  //   destroyCookie({}, "token");
+  //   destroyCookie({}, "userid");
+  //   destroyCookie({}, "username");
+  //   destroyCookie({}, "email");
+  // }, []);
   const signupNameRef = useRef("");
   const signupEmailRef = useRef("");
-  const signupPswdRef = useRef(""); 
+  const signupPswdRef = useRef("");
   const handleNameChange = (e) => {
     signupNameRef.current = e.target.value;
   };
@@ -35,6 +41,18 @@ function Signup() {
   });
   async function signup(e) {
     e.preventDefault();
+    const passwordRule = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    const password = signupPswdRef.current;
+    if (password && !passwordRule.test(password)) {
+      Swal.fire("密碼格式不符", "須含1個大寫和1個小寫字母及數字，且長度必須超過8", "error");
+      return;
+    }
+    const emailRule = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const email = signupEmailRef.current;
+    if (email && !emailRule.test(email)) {
+      Swal.fire("電子郵件格式不符", "請輸入有效的電子郵件地址", "error");
+      return;
+    }
     try {
       const response = await axios.post(`http://localhost:5000/api/register`, {
         username: signupNameRef,
@@ -44,9 +62,11 @@ function Signup() {
       const token = response.data.token;
       const userid = response.data.userId;
       const email = response.data.email;
+      console.log(response);
       setCookie(null, "email", email);
       setCookie(null, "token", String(token));
       setCookie(null, "userid", userid);
+      setCookie(null, "username", response.data.username);
       console.log(token, userid);
       Swal.fire("註冊成功", "歡迎使用Future Blueprint", "success").then(() => {
         router.push("/searchpage");
