@@ -33,11 +33,11 @@ function Forumskill({ jobname }) {
             </div>
           ))}
         </div>
-      ) : (
-        <div className="flex items-center justify-center">
-          <div>此類別沒有推薦技能</div>
-        </div>
-      )}
+          ) : (
+            <div className="flex items-center justify-center">
+              <div>此類別沒有推薦技能</div>
+            </div>
+          )}
     </div>
   );
 }

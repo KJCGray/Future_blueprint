@@ -1,22 +1,22 @@
 'use client';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Link from "next/link";
 
-const Recommand = () => {
-  const [certificate,setcertificate]=useState("丙級");
-  const [language,setlanguage]=useState("英文");
-  const [edu,setedu]=useState("輔仁大學");
-  const [major,setmajor]=useState("程式設計");
-  
+function Recommand({recvalue}) {
+  const [work,setwork]=useState([]);
+  //const { certificate, language, edu, major } = router.query;
   async function Joblist() {
+    console.log(recvalue);
     try {
       const response = await axios.post(`http://localhost:5000/api/joblist`, {
-        certificate:certificate,
-        language_req:language,
-        edu:edu,
-        job_skill:major,
+        certificate:recvalue.certificate,
+        language_req:recvalue.language,
+        edu:recvalue.edu,
+        job_skill:recvalue.other,
       });
-      console.log("工作推薦:",response);
+      setwork(response.data);
+      console.log(work);
     } catch (error) {
       console.log(error);
     }
@@ -27,12 +27,24 @@ const Recommand = () => {
   }, []);
 
   return (
-    <div className='flex flex-col items-center justify-center w-auto h-auto mb-16'>
+    <div className='flex flex-col items-center justify-center h-auto pt-6 w-96'>
         <div className='text-xl font-semibold text-yellow-900'>
           個人化工作推薦
         </div>
-        <div className='flex items-center justify-center w-3/5 bg-orange-100 h-96 rounded-xl'>
-        
+        <div className='flex items-center justify-center w-auto bg-orange-100 h-72 rounded-xl'>
+          {work.length > 0 ? (
+          <div className="w-auto overflow-auto text-yellow-950 h-60 no-scrollbar">
+            {work.map((Work) => (
+              <div key={Work} className="w-auto p-2 m-2 border-b border-zinc-300">
+                <Link href={Work.company_url} className="font-semibold">{Work.job_name}</Link>
+              </div>
+            ))}
+          </div>
+          ) : (
+          <div className="flex items-center justify-center">
+            <div className="font-semibold text-yellow-950">沒有推薦工作</div>
+          </div>
+          )}
         </div>
     </div>
   )
