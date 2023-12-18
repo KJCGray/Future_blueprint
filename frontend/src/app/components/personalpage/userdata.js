@@ -29,8 +29,8 @@ const Userdata = () => {
       setcertificate(response.data.certificate);
       setlanguage(response.data.language);
       setedu(response.data.edu);
-      setmajor(response.data.exp);
-      console.log("顯示:",certificate,language,exp,major);
+      setmajor(response.data.other);
+      console.log("顯示:",certificate,language,major);
     } catch (error) {
       console.log(error);
     }
@@ -45,10 +45,10 @@ const Userdata = () => {
         certificate:certificate,
         language:language,
         edu:edu,
-        exp:major,
+        skill:major,
       });
       console.log(response);
-      console.log("更新:",certificate,language,exp,major);
+      console.log("更新:",certificate,language,major);
     } catch (error) {
       console.log(error);
     }
