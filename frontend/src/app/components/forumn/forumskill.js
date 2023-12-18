@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+  
 function Forumskill({ jobname }) {
     const [skills, setSkill] = useState([]);
     useEffect(() => {

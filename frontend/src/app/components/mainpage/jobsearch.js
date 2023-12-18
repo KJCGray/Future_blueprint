@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -67,10 +67,6 @@ const jobs = [
   "操作／技術／維修類",
   "文字／傳媒工作類",
 ];
-const forumId = jobs.map((job, index) => ({
-  id: index + 1,
-  name: job,
-}));
 const styles = ["工讀", "全職", "兼職", "長期工讀", "假日工讀", "外場", "高階"];
 const itemsPerPage = 20;
 const Jobsearch = () => {
@@ -86,6 +82,14 @@ const Jobsearch = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    // 資料更新後重新計算分頁資料
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedData = totaljob.slice(startIndex, endIndex);
+    setjobdata(paginatedData);
+  }, [currentPage, totaljob]);
+
   async function fetchjobs() {
     setLoading(true);
     try {
@@ -94,12 +98,9 @@ const Jobsearch = () => {
         job_type: styleName,
         area: areaName,
       });
-      const startIndex = (currentPage - 1) * itemsPerPage;
-      const endIndex = startIndex + itemsPerPage;
-      const paginatedData = response.data.slice(startIndex, endIndex);
       console.log(response);
       settotaljob(response.data);
-      setjobdata(paginatedData);
+      setCurrentPage(1);
     } catch (error) {
       console.log(error);
     }
@@ -184,7 +185,6 @@ const Jobsearch = () => {
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
-    fetchjobs();
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

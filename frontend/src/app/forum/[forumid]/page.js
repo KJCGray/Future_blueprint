@@ -31,20 +31,20 @@ function Page() {
           </div>
           <Forumcer jobname={decodedTxt} className="" />
         </div>
-        <div className="w-1/6 mr-4">
-          <div className="flex mb-2">
-            <LanguageIcon />
-            <span className="ml-2 font-semibold">語言推薦</span>
+          <div className="w-1/6 mr-4">
+            <div className="flex mb-2">
+              <LanguageIcon />
+              <span className="ml-2 font-semibold">語言推薦</span>
+            </div>
+            <Forumlan jobname={decodedTxt} className="" />
           </div>
-          <Forumlan jobname={decodedTxt} className="" />
-        </div>
-        <div className="w-1/6 mr-4">
-          <div className="flex mb-2">
-            <Engineering />
-            <span className="ml-2 font-semibold">技能推薦</span>
+          <div className="w-1/6 mr-4">
+            <div className="flex mb-2">
+              <Engineering />
+              <span className="ml-2 font-semibold">技能推薦</span>
+            </div>
+            <Forumskill jobname={decodedTxt} className="" />
           </div>
-          <Forumskill jobname={decodedTxt} className="" />
-        </div>
       </div>
     </div>
   );
