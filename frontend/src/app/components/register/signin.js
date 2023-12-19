@@ -49,7 +49,7 @@ const Signin = () => {
       setCookie(null, "userid", userid);
       setCookie(null, "username", username);
       console.log(token, userid);
-      router.push("/searchpage");
+      await router.push("/searchpage");
     } catch (error) {
       console.log(error);
       Swal.fire({

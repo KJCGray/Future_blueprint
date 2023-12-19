@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { parseCookies } from "nookies";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -24,6 +25,7 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import Image from "next/image";
+import { parse } from "postcss";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

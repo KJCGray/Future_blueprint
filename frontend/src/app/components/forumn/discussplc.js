@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import Comments from "../forumn/comments";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
+import Link from "next/link";
 function Discussplc({ jobname }) {
   const [content, setContent] = useState("");
   const [commentplc, setCommentplc] = useState([]);
@@ -51,6 +52,7 @@ function Discussplc({ jobname }) {
     e.preventDefault(); // 防止預設表單提交行為
     await fetchMsgUpdate();
     await fetchMsgDisplay();
+    window.scrollTo({ bottom: 0, behavior: "smooth" });
   }
   return (
     <div className="my-2 mr-auto">
@@ -59,20 +61,31 @@ function Discussplc({ jobname }) {
           <Comments key={comment} com={comment} />
         ))}
       </div>
-      <form method="post" onSubmit={updDis} className="flex p-4 ">
-        <label htmlFor="user" className="flex">
-          <Avatar sx={{ bgcolor: deepOrange[500] }}>{avatarLetter}</Avatar>
-          <input
-            className="p-2 mx-2 border border-solid 1/12 border-slate-500 rounded-2xl focus:outline-none"
-            placeholder="輸入留言..."
-            value={content} // 使用 controlled component，將值綁定到 state
-            onChange={handleCommentChange}
-          />
-        </label>
-        <Button variant="outlined" type="submit">
-          送出訊息
-        </Button>
-      </form>
+      {userid ? (
+        <form method="post" onSubmit={updDis} className="flex p-4 ">
+          <label htmlFor="user" className="flex">
+            <Avatar sx={{ bgcolor: deepOrange[500] }}>{avatarLetter}</Avatar>
+            <input
+              className="p-2 mx-2 border border-solid 1/12 border-slate-500 rounded-2xl focus:outline-none"
+              placeholder="輸入留言..."
+              value={content} // 使用 controlled component，將值綁定到 state
+              onChange={handleCommentChange}
+            />
+          </label>
+          <Button variant="outlined" type="submit">
+            送出訊息
+          </Button>
+        </form>
+      ) : (
+        <div className="flex justify-center w-auto">
+          <Link
+            className="border-b border-black hover:text-gray-600 hover:border-gray-500"
+            href={"/"}
+          >
+            前往登入以留言
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
