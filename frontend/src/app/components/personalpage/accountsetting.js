@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import { parseCookies } from "nookies";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Alert } from '@mui/material';
 
 const Accountsetting = () => {
     const {username,token,userid}=parseCookies();
@@ -46,7 +47,7 @@ const Accountsetting = () => {
     async function updatepass() {
       const passwordRule = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
       if (password && !passwordRule.test(password)) {
-        Swal.fire("密碼格式不符", "須含1個大寫和1個小寫字母及數字，且長度必須超過8", "error");
+        Swal.fire("密碼格式不符", "須含1個大寫和1個小寫字母及數字且長度必須超過8", "error");
         return;
       }
       try {
@@ -55,7 +56,7 @@ const Accountsetting = () => {
           token: token,
           password:password,
       });
-        Swal.fire('密碼已成功更新！');
+        Swal.fire("密碼更新成功", "", "success");
         console.log(response);
       } catch (error) {
         console.log(error);
