@@ -145,7 +145,7 @@ const PageController = {
             if(err) console.log(err);
             else if(result.length > 0){
 
-                console.log(result);
+                // console.log(result);
                 const cntMap = new Map();
 
                 for (let i = 0; i < result.length; i++) {
@@ -169,23 +169,24 @@ const PageController = {
                 // console.log(cntMap);
 
                 console.log(cntArray.length);
-                console.log(resultarr);
+                // console.log(resultarr);
                 WorkModel.searchjob(resultarr,(err, r)=>{
                     if(err){console.log(err)}
                     else{
                         r.forEach(r => {
                             if (r.job_name) {
                               // 將 &amp; 替換為 &
-                              result.job_name = result.job_name.replace(/&amp;/g, '&');
+                              r.job_name = r.job_name.replace(/&amp;/g, '&');
                             //   r.job_content = r.job_content.replace(/&amp;/g, '');
                             }
                             if(r.job_content){
+                                r.job_content = r.job_content.replace(/_x000D_/g, '\n');
                                 // r.job_content = decodeHtmlEntities(r.job_content);
-                                r.job_content = r.job_content.replace(/\\u([a-fA-F0-9]{4})/g, (_, codePoint) => String.fromCodePoint(parseInt(codePoint, 16)));
-                                r.job_content = r.job_content.replace(/^\n|\n$/g, ' ');
+                                // r.job_content = r.job_content.replace(/\\u([a-fA-F0-9]{4})/g, (_, codePoint) => String.fromCodePoint(parseInt(codePoint, 16)));
+                                // r.job_content = r.job_content.replace(/^\n|\n$/g, ' ');
                             }
                         });
-                        console.log(r[3].job_content);
+                        // console.log(r[3].job_content);
                         res.status(200).json(r);
                     }
                 })
