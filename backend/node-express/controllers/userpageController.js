@@ -176,7 +176,12 @@ const PageController = {
                         r.forEach(r => {
                             if (r.job_name) {
                               // 將 &amp; 替換為 &
-                              r.job_name = r.job_name.replace(/&amp;/g, '&');
+                              r.job_name = decodeHtmlEntities(r.job_name);
+                            //   r.job_content = r.job_content.replace(/&amp;/g, '');
+                            }
+                            if(r.job_content){
+                                r.job_content = decodeHtmlEntities(r.job_content);
+                                r.job_content = r.job_content.replace(/\r/g, ' ');
                             }
                         });
                         res.status(200).json(r);
