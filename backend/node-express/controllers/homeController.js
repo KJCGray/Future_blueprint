@@ -33,6 +33,11 @@ const homeController = {
                 // 將 &amp; 替換為 &
                 result.job_name = result.job_name.replace(/&amp;/g, '&');
               }
+              if(result.job_content){
+                
+                // result.job_content = result.job_content.replace(/\\u([a-fA-F0-9]{4})/g, (_, codePoint) => String.fromCodePoint(parseInt(codePoint, 16)));
+                result.job_content = result.job_content.replace(/_x000D_/g, '\n');
+              }
             });
             // var decodedObject = JSON.parse("'"+results+"'");
             res.status(200).json(results); //回傳資料
