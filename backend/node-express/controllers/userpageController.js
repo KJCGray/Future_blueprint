@@ -181,7 +181,8 @@ const PageController = {
                             }
                             if(r.job_content){
                                 r.job_content = decodeHtmlEntities(r.job_content);
-                                r.job_content = r.job_content.replace(/\r/g, ' ');
+                                r.job_content = r.job_content.replace(/\\u([a-fA-F0-9]{4})/g, (_, codePoint) => String.fromCodePoint(parseInt(codePoint, 16)));
+                                r.job_content = r.job_content.replace(/_x000D_/g, '\n');
                             }
                         });
                         res.status(200).json(r);
