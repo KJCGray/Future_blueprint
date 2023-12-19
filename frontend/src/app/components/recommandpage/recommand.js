@@ -10,10 +10,11 @@ function Recommand({recvalue}) {
     console.log(recvalue);
     try {
       const response = await axios.post(`http://localhost:5000/api/joblist`, {
-        certificate:recvalue.certificate,
+        certificates:recvalue.certificate,
         language_req:recvalue.language,
         edu:recvalue.edu,
         job_skill:recvalue.other,
+        tool_expect:"",
       });
       setwork(response.data);
       console.log(work);
