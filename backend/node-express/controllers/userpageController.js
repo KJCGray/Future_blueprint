@@ -173,7 +173,12 @@ const PageController = {
                 WorkModel.searchjob(resultarr,(err, r)=>{
                     if(err){console.log(err)}
                     else{
-                        
+                        r.forEach(r => {
+                            if (r.job_name) {
+                              // 將 &amp; 替換為 &
+                              r.job_name = r.job_name.replace(/&amp;/g, '&');
+                            }
+                        });
                         res.status(200).json(r);
                     }
                 })
