@@ -5,19 +5,19 @@ import Link from "next/link";
 
 function Recommand({recvalue}) {
   const [work,setwork]=useState([]);
-  //const { certificate, language, edu, major } = router.query;
   async function Joblist() {
     console.log(recvalue);
+    //console.log(recvalue.data.certificate);
     try {
       const response = await axios.post(`http://localhost:5000/api/joblist`, {
-        certificates:recvalue.certificate,
-        language_req:recvalue.language,
-        edu:recvalue.edu,
-        job_skill:recvalue.other,
-        tool_expect:"",
+        certificates:recvalue.data.certificate,
+        language_req:recvalue.data.language,
+        edu:recvalue.data.edu,
+        job_skill:recvalue.data.other,
       });
       setwork(response.data);
       console.log(work);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
