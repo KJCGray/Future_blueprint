@@ -103,7 +103,7 @@ const PageController = {
            })
     },
     joblist: (req, res) => {
-        console.log(req.body);
+        console.log("body", req.body);
         function processProperty(property) {
             if (Array.isArray(req.body[property]) && req.body[property].length > 0) {
               return req.body[property].join(',');
@@ -173,7 +173,12 @@ const PageController = {
                 WorkModel.searchjob(resultarr,(err, r)=>{
                     if(err){console.log(err)}
                     else{
-                        
+                        r.forEach(r => {
+                            if (r.job_name) {
+                              // 將 &amp; 替換為 &
+                              r.job_name = r.job_name.replace(/&amp;/g, '&');
+                            }
+                        });
                         res.status(200).json(r);
                     }
                 })
