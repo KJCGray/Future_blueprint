@@ -22,14 +22,13 @@ const Userdata = () => {
 
   async function userpage() {
     //e.preventDefault();
-    console.log(username,token);
     try {
       const response = await axios.post(`http://localhost:5000/api/userpage`, {
         username: username,
         token: token,
       });
       console.log(response);
-      setRecvalue(response)
+      setRecvalue(response.data);
       setcertificate(response.data.certificate);
       setlanguage(response.data.language);
       setedu(response.data.edu);
@@ -177,7 +176,7 @@ const Userdata = () => {
   return (
     <div className=' bg-orange-100 rounded-xl w-[600px] h-[400px]'> 
     {recopen?(<div className="flex flex-col items-center">
-      <Recommand recvalue={recvalue} />
+      <Recommand certificate = {certificate} language={language} edu={edu} major={major}/>
       <Button className={`w-60 p-2 font-semibold text-yellow-900 bg-orange-200 `} onClick={recClick}>
         回到個人資料
       </Button>

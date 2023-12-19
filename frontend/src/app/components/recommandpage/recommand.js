@@ -3,17 +3,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 
-function Recommand({recvalue}) {
+function Recommand({certificate, language, edu, major}) {
   const [work,setwork]=useState([]);
   async function Joblist() {
-    console.log(recvalue);
     //console.log(recvalue.data.certificate);
     try {
       const response = await axios.post(`http://localhost:5000/api/joblist`, {
-        certificates:recvalue.data.certificate,
-        language_req:recvalue.data.language,
-        edu:recvalue.data.edu,
-        job_skill:recvalue.data.other,
+        certificates:certificate,
+        language_req:language,
+        edu:edu,
+        job_skill:major,
       });
       setwork(response.data);
       console.log(work);

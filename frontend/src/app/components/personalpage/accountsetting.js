@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import { parseCookies } from "nookies";
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Alert } from '@mui/material';
 
 const Accountsetting = () => {
     const {username,token,userid}=parseCookies();
@@ -62,8 +61,6 @@ const Accountsetting = () => {
         console.log(error);
       }
     }
-
-    
     useEffect(() => {
       userpage();
     }, []);    

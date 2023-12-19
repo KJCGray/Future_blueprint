@@ -58,14 +58,6 @@ const Personaltotal = () => {
           >
             帳戶設定
           </Button>
-          {/* <Button
-            disabled
-          className={`p-2 font-semibold text-yellow-900 bg-orange-200  ${
-            currentPage === "commenthistory" ? "border-b-2" : ""
-          }`}
-          onClick={() => changePage("commenthistory")}>
-          留言紀錄
-        </Button> */}
 
           <Button
             disabled
@@ -99,14 +91,6 @@ const Personaltotal = () => {
         >
           帳戶設定
         </Button>
-        {/* <Button
-          className={`p-2 font-semibold text-yellow-900 bg-orange-200  ${
-            currentPage === "commenthistory" ? "border-b-2" : ""
-          }`}
-          onClick={() => changePage("commenthistory")}
-        >
-          留言紀錄
-        </Button> */}
 
         <Button className="p-4 font-semibold text-yellow-900 bg-orange-200" onClick={handleLogout}>
           登出
